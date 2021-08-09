@@ -1,0 +1,13 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: BattleObjectiveRecord
+  m_Controller: {fileID: 9100000, guid: cd3144285a06f294fb08d1c1803a5ea9, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 2d8c83d9ee260a44b9e65959d9084e5b, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 9e7b9d1b0f89a134e8210a075dbe45ca, type: 2}

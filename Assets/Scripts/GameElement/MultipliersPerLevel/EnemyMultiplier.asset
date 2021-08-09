@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 136cd32d73c2d614399c9b20e066e20b, type: 3}
+  m_Name: EnemyMultiplier
+  m_EditorClassIdentifier: 
+  levelAndMultipliers:
+  - level: 150
+    multiplier: 1
+  - level: 300
+    multiplier: 1.4
+  - level: 750
+    multiplier: 1.8
+  - level: 1350
+    multiplier: 2.2
+  - level: 1650
+    multiplier: 2.7
+  - level: 3000
+    multiplier: 3.2
+  - level: 4500
+    multiplier: 3.7
+  - level: 4950
+    multiplier: 4.3
+  - level: 6250
+    multiplier: 4.9
+  - level: 6500
+    multiplier: 5.5

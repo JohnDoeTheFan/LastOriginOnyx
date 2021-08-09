@@ -1,0 +1,214 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d0af79e70f02a74c9a5a6015ed32840, type: 3}
+  m_Name: SaveDataForTemporaryNote
+  m_EditorClassIdentifier: 
+  doNotSaveForTest: 0
+  networkDelay: {x: 0.1, y: 0.1}
+  stageClearedList:
+  - chapterNum: 1
+    stageNum: 1
+    stageType: 0
+    isCleared: 0
+  - chapterNum: 1
+    stageNum: 2
+    stageType: 0
+    isCleared: 0
+  - chapterNum: 1
+    stageNum: 3
+    stageType: 0
+    isCleared: 0
+  - chapterNum: 1
+    stageNum: 4
+    stageType: 0
+    isCleared: 0
+  - chapterNum: 1
+    stageNum: 5
+    stageType: 0
+    isCleared: 0
+  - chapterNum: 1
+    stageNum: 6
+    stageType: 0
+    isCleared: 0
+  - chapterNum: 1
+    stageNum: 7
+    stageType: 0
+    isCleared: 0
+  - chapterNum: 1
+    stageNum: 8
+    stageType: 0
+    isCleared: 0
+  - chapterNum: 1
+    stageNum: 3
+    stageType: 1
+    isCleared: 0
+  - chapterNum: 1
+    stageNum: 4
+    stageType: 1
+    isCleared: 0
+  - chapterNum: 1
+    stageNum: 5
+    stageType: 1
+    isCleared: 0
+  - chapterNum: 1
+    stageNum: 6
+    stageType: 1
+    isCleared: 0
+  - chapterNum: 1
+    stageNum: 1
+    stageType: 2
+    isCleared: 0
+  - chapterNum: 1
+    stageNum: 2
+    stageType: 2
+    isCleared: 0
+  - chapterNum: 1
+    stageNum: 3
+    stageType: 2
+    isCleared: 0
+  - chapterNum: 1
+    stageNum: 4
+    stageType: 2
+    isCleared: 0
+  - chapterNum: 2
+    stageNum: 1
+    stageType: 0
+    isCleared: 0
+  - chapterNum: 2
+    stageNum: 2
+    stageType: 0
+    isCleared: 0
+  - chapterNum: 2
+    stageNum: 3
+    stageType: 0
+    isCleared: 0
+  - chapterNum: 2
+    stageNum: 4
+    stageType: 0
+    isCleared: 0
+  - chapterNum: 2
+    stageNum: 5
+    stageType: 0
+    isCleared: 0
+  - chapterNum: 2
+    stageNum: 6
+    stageType: 0
+    isCleared: 0
+  - chapterNum: 2
+    stageNum: 7
+    stageType: 0
+    isCleared: 0
+  - chapterNum: 2
+    stageNum: 8
+    stageType: 0
+    isCleared: 0
+  - chapterNum: 2
+    stageNum: 1
+    stageType: 1
+    isCleared: 0
+  - chapterNum: 2
+    stageNum: 3
+    stageType: 1
+    isCleared: 0
+  - chapterNum: 2
+    stageNum: 4
+    stageType: 1
+    isCleared: 0
+  - chapterNum: 2
+    stageNum: 7
+    stageType: 1
+    isCleared: 0
+  - chapterNum: 2
+    stageNum: 1
+    stageType: 2
+    isCleared: 0
+  - chapterNum: 2
+    stageNum: 2
+    stageType: 2
+    isCleared: 0
+  - chapterNum: 2
+    stageNum: 3
+    stageType: 2
+    isCleared: 0
+  - chapterNum: 2
+    stageNum: 4
+    stageType: 2
+    isCleared: 0
+  - chapterNum: 3
+    stageNum: 1
+    stageType: 0
+    isCleared: 0
+  - chapterNum: 3
+    stageNum: 2
+    stageType: 0
+    isCleared: 0
+  - chapterNum: 3
+    stageNum: 3
+    stageType: 0
+    isCleared: 0
+  - chapterNum: 3
+    stageNum: 4
+    stageType: 0
+    isCleared: 0
+  - chapterNum: 3
+    stageNum: 5
+    stageType: 0
+    isCleared: 0
+  - chapterNum: 3
+    stageNum: 6
+    stageType: 0
+    isCleared: 0
+  - chapterNum: 3
+    stageNum: 7
+    stageType: 0
+    isCleared: 0
+  - chapterNum: 3
+    stageNum: 8
+    stageType: 0
+    isCleared: 0
+  - chapterNum: 3
+    stageNum: 2
+    stageType: 1
+    isCleared: 0
+  - chapterNum: 3
+    stageNum: 3
+    stageType: 1
+    isCleared: 0
+  - chapterNum: 3
+    stageNum: 6
+    stageType: 1
+    isCleared: 0
+  - chapterNum: 3
+    stageNum: 7
+    stageType: 1
+    isCleared: 0
+  - chapterNum: 3
+    stageNum: 1
+    stageType: 2
+    isCleared: 0
+  - chapterNum: 3
+    stageNum: 2
+    stageType: 2
+    isCleared: 0
+  - chapterNum: 3
+    stageNum: 3
+    stageType: 2
+    isCleared: 0
+  - chapterNum: 3
+    stageNum: 4
+    stageType: 2
+    isCleared: 0
+  greetingPosition: {x: 0, y: 0}
+  greetingSize: 0
+  onyxValue: 0
+  playerLevel: 1
+  levelUpCost: e8030000d0070000b80b0000a00f00008813000070170000581b0000401f000028230000

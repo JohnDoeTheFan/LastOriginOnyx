@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97c9fb205e9fd6b4fb9db0479281933f, type: 3}
+  m_Name: Chapter3_Stage 5
+  m_EditorClassIdentifier: 
+  chapterNumber: 3
+  stageNumber: 5
+  stageType: 0
+  previousStage: {fileID: 11400000, guid: 6c8b618c852b69e4c99e48fab4f8cb84, type: 2}
+  nextStages:
+    nextNormalStage: {fileID: 11400000, guid: 879d01377669dc444a62aa16d705ad8a, type: 2}
+    nextSideStage: {fileID: 0}
+    nextExStage: {fileID: 0}
+  isCleared: 0
+  stageScene: 3
+  title: "\uC870\uB825\uC790"
+  description: "\uD3EC\uCE08\uC774 \uC900 \uB2E8\uC11C\uB97C \uD655\uC778\uD558\uAE30
+    \uC704\uD574 \uBC14\uC774\uC624\uB85C\uC774\uB4DC\uB4E4\uC740 \uC6C0\uC9C1\uC778\uB2E4."
+  neededPower: 6250
+  battleRoomPrefabs:
+  - {fileID: 73584581036925254, guid: 147928a022a918f4c9154c212741a13e, type: 3}
+  - {fileID: 73584581036925254, guid: c67048f50026bf0408a34a84f7e7122c, type: 3}
+  - {fileID: 73584581036925254, guid: da1fc59a64e77354299989138e222f33, type: 3}
+  - {fileID: 73584581036925254, guid: e2ed7f5eb95517049bf22fd1d17a2938, type: 3}
+  - {fileID: 73584581036925254, guid: abf6c3199591c934182a7c4f5f2822e0, type: 3}
+  - {fileID: 73584581036925254, guid: 385c8adf14ba25542872ac31425ed43f, type: 3}
+  - {fileID: 73584581036925254, guid: bcb9713100da65045b9f7e9af31efb6d, type: 3}

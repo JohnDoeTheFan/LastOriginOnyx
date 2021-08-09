@@ -1,0 +1,15 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: ChapterToggle
+  m_Controller: {fileID: 9100000, guid: 0632d42db7044ba4b820327466b8e177, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: e1a6aab4f3749094197206126d093ba7, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 08cfbc9bc3efff047a2b3f9adc690049, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 5a0b5db96c54dda4db75f41d64ab2dc9, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 40861afaf793462438076d48a8d76bdc, type: 2}
