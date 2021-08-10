@@ -21,6 +21,8 @@ public partial class Bullet : TangibleComponent, IHitReactor
     private float distanceLimit = 100;
     [SerializeField]
     private float timeLimit = 5f;
+    [SerializeField]
+    private float knockBackForce = 0f;
 
     [HideInInspector]
     public int shootSourceId;
@@ -29,6 +31,7 @@ public partial class Bullet : TangibleComponent, IHitReactor
     protected Vector3 startPosition;
     protected float startTime;
     protected Rigidbody2D rigidBody;
+    protected Vector2 velocityBeforePhysicsUpdate;
 
     public float multipliedHitDamage => hitDamage * hitDamageMultiplier;
 
@@ -39,6 +42,11 @@ public partial class Bullet : TangibleComponent, IHitReactor
     protected void Awake()
     {
         rigidBody = GetComponent<Rigidbody2D>();
+    }
+
+    protected void FixedUpdate()
+    {
+        velocityBeforePhysicsUpdate = rigidBody.velocity;
     }
 
     protected void Update()
@@ -90,7 +98,13 @@ public partial class Bullet : TangibleComponent, IHitReactor
         }
         else
         {
-            IHitReactor.HitResult hitResult = reactor.Hit(IHitReactor.HitType.Bullet, multipliedHitDamage);
+            Vector3 knockBack = Vector2.zero;
+            if (velocityBeforePhysicsUpdate.x > 0)
+                knockBack.x += knockBackForce;
+            else if (velocityBeforePhysicsUpdate.x < 0)
+                knockBack.x -= knockBackForce;
+
+            IHitReactor.HitResult hitResult = reactor.Hit(IHitReactor.HitType.Bullet, multipliedHitDamage, knockBack);
             SubscribeManager.ForEach(item => item.OnHit(this, reactor, hitResult));
             Ricochet(collision);
         }
@@ -108,13 +122,7 @@ public partial class Bullet : TangibleComponent, IHitReactor
 
         rigidBody.gravityScale = 0;
 
-        StartCoroutine(AccelerateInNextFrame(transform.rotation * new Vector3(0, power, 0)));
-
-        IEnumerator AccelerateInNextFrame(Vector3 power)
-        {
-            yield return new WaitForEndOfFrame();
-            rigidBody.AddForce(power);
-        }
+        rigidBody.AddForce(transform.rotation * new Vector3(0, power, 0) * rigidBody.mass, ForceMode2D.Impulse);
     }
 
     public virtual void Ricochet(Collider2D collision)

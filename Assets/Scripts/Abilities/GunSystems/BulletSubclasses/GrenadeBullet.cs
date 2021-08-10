@@ -103,13 +103,7 @@ public class GrenadeBullet : Bullet, Explosion.ISubscriber
         startPosition = transform.position;
         startTime = Time.time;
 
-        StartCoroutine(AccelerateInNextFrame(transform.rotation * new Vector3(0, power, 0)));
-
-        IEnumerator AccelerateInNextFrame(Vector3 power)
-        {
-            yield return new WaitForEndOfFrame();
-            rigidBody.AddForce(power);
-        }
+        rigidBody.AddForce(transform.rotation * new Vector3(0, power, 0) * rigidBody.mass, ForceMode2D.Impulse);
     }
 
     public override void Ricochet(Collider2D collision)

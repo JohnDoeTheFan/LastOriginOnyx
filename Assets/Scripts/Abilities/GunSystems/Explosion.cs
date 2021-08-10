@@ -12,7 +12,7 @@ public class Explosion : TangibleComponent
     [SerializeField]
     private float minDamage = 0f;
     [SerializeField]
-    private float knockBackPower = 500f;
+    private float knockBackPower = 10f;
 
     private CircleCollider2D circleCollider;
     protected List<GameObject> collisionException = new List<GameObject>();

@@ -47,9 +47,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _image: {fileID: 0}
   shouldLerpDamage: 1
-  maxDamage: 0.3
+  maxDamage: 0.28
   minDamage: 0
-  knockBackPower: 500
+  knockBackPower: 10
 --- !u!58 &7326513173588650546
 CircleCollider2D:
   m_ObjectHideFlags: 0

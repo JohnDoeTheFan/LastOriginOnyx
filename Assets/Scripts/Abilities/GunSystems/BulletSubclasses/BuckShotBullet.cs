@@ -33,14 +33,10 @@ public class BuckShotBullet : Bullet
         this.power = power;
         rigidBody.gravityScale = 0;
 
-        StartCoroutine(AccelerateInNextFrame(transform.rotation * new Vector3(0, power * speedMultiplier, 0)));
+        rigidBody.AddForce(transform.rotation * new Vector3(0, power * speedMultiplier, 0) * rigidBody.mass, ForceMode2D.Impulse);
 
-        IEnumerator AccelerateInNextFrame(Vector3 power)
-        {
-            yield return new WaitForEndOfFrame();
-            rigidBody.AddForce(power);
-            StartCoroutine(Job(() => WaitForSecondsRoutine(0.05f), () => Divide()));
-        }
+        StartCoroutine(Job(() => WaitForSecondsRoutine(0.05f), () => Divide()));
+
     }
 
     public void Divide()

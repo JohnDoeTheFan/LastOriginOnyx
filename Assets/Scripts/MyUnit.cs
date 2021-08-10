@@ -23,6 +23,8 @@ namespace Onyx
         private float overSpeedRecoverVelocity = 5f;
         [SerializeField, Range(0.001f, 5)]
         private float overSpeedRecoverVelocityReachTime = 0.1f;
+        [SerializeField, Range(0, 5f)]
+        private float hitRecoverTime = 0.2f;
         [SerializeField]
         private float dustMakingVelocity = 3f;
         [SerializeField]
@@ -84,6 +86,8 @@ namespace Onyx
         int IAbilityHolder.LevelOfDifficulty => levelOfDifficulty;
         bool IAbilityHolder.ShouldUseLevelOfDifficulty => !CompareTag("Player");
 
+        private float remainHitRecoverTime = 0;
+        private Vector2 forceByDamage;
         // Start is called before the first frame update
         void Start()
         {
@@ -139,11 +143,15 @@ namespace Onyx
 
             float currentVelocityX = Mathf.Abs(rigidBody.velocity.x);
             bool isStopped = rigidBody.velocity.x == 0;
-            bool isOverSpeed = !Mathf.Approximately(currentVelocityX, maxVelocity) && currentVelocityX > maxVelocity + 1;
+            bool isOverSpeed = !Mathf.Approximately(currentVelocityX, maxVelocity) && currentVelocityX > maxVelocity + 1;   // +1 for safty.
             bool isInput = inputDirection != Vector2.zero;
             bool isDecelerating = rigidBody.velocity.x * inputDirection.x < 0;
 
-            AddControlImpulse(inputDirection, isStopped, isInput, isOverSpeed, isDecelerating);
+            AddDamageForce();
+            if (remainHitRecoverTime == 0)
+                AddControlImpulse(inputDirection, isStopped, isInput, isOverSpeed, isDecelerating);
+
+            remainHitRecoverTime = Mathf.Max(0, remainHitRecoverTime - Time.deltaTime);
 
             if (isOverSpeed)
                 AddOverSpeedRecoverImpulse(isOverSpeed);
@@ -207,6 +215,7 @@ namespace Onyx
                 rigidBody.AddForce(naturalImpulseDirection * impulse, ForceMode2D.Impulse);
         }
 
+
         private void LimitNewControlVelocity(bool isOverSpeed)
         {
             float newVelocity = Mathf.Abs(rigidBody.velocity.x);
@@ -227,6 +236,15 @@ namespace Onyx
         float CalcImpulseForVelocity(float velocity)
         {
             return rigidBody.mass * velocity;
+        }
+
+        private void AddDamageForce()
+        {
+            if(forceByDamage != Vector2.zero)
+            {
+                rigidBody.AddForce(forceByDamage * rigidBody.mass, ForceMode2D.Impulse);
+                forceByDamage = Vector2.zero;
+            }
         }
 
         public void Die()
@@ -488,7 +506,9 @@ namespace Onyx
             hitAudio.Play();
 
             float acceptedDamage = TakeDamage(damage);
-            rigidBody.AddForce(force);
+
+            forceByDamage += new Vector2(force.x, force.y);
+            remainHitRecoverTime = hitRecoverTime;
 
             return new IHitReactor.HitResult(damage, acceptedDamage != 0 && isDead);
         }

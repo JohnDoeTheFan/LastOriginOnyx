@@ -207,7 +207,7 @@ MonoBehaviour:
     modelName: 0
     burstNum: 3
     bulletPerMinute: 50
-    bulletSpeed: 500
+    bulletSpeed: 8
     shootTypes: 
     availableBullets: []
   currentShootType: 0
@@ -755,6 +755,7 @@ MonoBehaviour:
   velocityInAirRate: 0.2
   overSpeedRecoverVelocity: 5
   overSpeedRecoverVelocityReachTime: 0.1
+  hitRecoverTime: 0.2
   dustMakingVelocity: 3
   healthPoint: 1
   maxHealth: 1

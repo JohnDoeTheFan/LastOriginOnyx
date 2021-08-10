@@ -148,8 +148,10 @@ MonoBehaviour:
   _image: {fileID: 3964425502311352764, guid: f0905feb9ff06e34db88479e6e8b7a6e, type: 3}
   type: 0
   hitDamage: 0.1
+  hitDamageMultiplier: 1
   shouldKilledByDistance: 1
   shouldKilledByTime: 1
   distanceLimit: 2
   timeLimit: 1
+  knockBackForce: 10
   shootSourceId: 0

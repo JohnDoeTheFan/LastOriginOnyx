@@ -50,7 +50,7 @@ MonoBehaviour:
     modelName: 2
     burstNum: 3
     bulletPerMinute: 600
-    bulletSpeed: 500
+    bulletSpeed: 8
     shootTypes: 02000000
     availableBullets:
     - {fileID: 3894657029293936791, guid: f26c2969e6e335847bd5d23221503759, type: 3}
@@ -393,6 +393,7 @@ MonoBehaviour:
   velocityInAirRate: 0.2
   overSpeedRecoverVelocity: 5
   overSpeedRecoverVelocityReachTime: 0.1
+  hitRecoverTime: 0.2
   dustMakingVelocity: 3
   healthPoint: 1
   maxHealth: 1
@@ -5846,7 +5847,7 @@ AudioSource:
   m_GameObject: {fileID: 7621982504039542220}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 8198640917252970806, guid: 50d12c5a9d13f23409f37ec4491285aa, type: 2}
+  OutputAudioMixerGroup: {fileID: -7842033762608575127, guid: 50d12c5a9d13f23409f37ec4491285aa, type: 2}
   m_audioClip: {fileID: 8300000, guid: 07508969920d62f489c467acfaf650e6, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
