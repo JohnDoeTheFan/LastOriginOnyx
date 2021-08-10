@@ -276,6 +276,8 @@ namespace Onyx
                 if (healthPoint == 0)
                     Die();
 
+                animator.SetTrigger("Hit");
+
                 return healthPoint - healthPointBackup;
             }
         }
