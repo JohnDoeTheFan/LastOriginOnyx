@@ -78,6 +78,7 @@ namespace Onyx.Ability
         int Level { get; }
         int LevelOfDifficulty { get; }
         bool ShouldUseLevelOfDifficulty { get; }
+        bool isFacingLeft { get; }
     }
 
     public abstract class AbilitySkill

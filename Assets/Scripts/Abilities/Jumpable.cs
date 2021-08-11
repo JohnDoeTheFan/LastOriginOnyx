@@ -9,14 +9,24 @@ public class Jumpable : AbilityBase
 
     [SerializeField, Range(1, 20)]
     private float jumpVelocity = 3;
+    [SerializeField, Range(1, 20)]
+    private float dashVelocity = 10;
     [SerializeField]
     private GroundChecker groundChecker;
     [SerializeField]
-    private Sprite skillImage;
+    private Sprite jumpSkillImage;
+    [SerializeField]
+    private Sprite dashSkillImage;
     [SerializeField]
     private AudioSource jumpAudioSource;
     [SerializeField]
     private AudioSource landAudioSource;
+    [SerializeField]
+    private GameObject afterImagePrefab;
+    [SerializeField]
+    private float afterImageTime = 0.2f;
+    [SerializeField]
+    private float afterImageTickTime = 0.05f;
 
     private Rigidbody2D rigidBody;
 
@@ -28,19 +38,39 @@ public class Jumpable : AbilityBase
     protected override void Start()
     {
         base.Start();
-        skills.Add(new ButtonActiveAbilitySKill("Jump", skillImage, 0.5f, new SkillDescription(), StartCoroutine, Jump));
+        skills.Add(new ButtonActiveAbilitySKill("Jump", jumpSkillImage, 0.5f, new SkillDescription(), StartCoroutine, Jump));
+        skills.Add(new ButtonActiveAbilitySKill("Dash", dashSkillImage, 1f, new SkillDescription(), StartCoroutine, Dash));
     }
 
-    public void Jump()
+    private void Jump()
     {
         if (groundChecker.IsGrounded)
         {
-            rigidBody.AddForce(Vector2.up * CalcImpulseForVelocity(jumpVelocity), ForceMode2D.Impulse);
+            rigidBody.AddForce(Vector2.up * jumpVelocity * rigidBody.mass, ForceMode2D.Impulse);
             if(jumpAudioSource != null)
                 jumpAudioSource.Play();
         }
+    }
+    private void Dash()
+    {
+        Vector2 direction = abilityHolder.isFacingLeft ? Vector2.left : Vector2.right;
+        rigidBody.AddForce(direction * dashVelocity * rigidBody.mass, ForceMode2D.Impulse);
+        Instantiate<GameObject>(afterImagePrefab, transform.position, transform.rotation);
 
-        float CalcImpulseForVelocity(float velocity) => rigidBody.mass * velocity;
+        StartCoroutine(AfterEffectCoroutine());
+    }
+
+    private IEnumerator AfterEffectCoroutine()
+    {
+        float finishTime = Time.time + afterImageTime;
+        Debug.Log(Time.time);
+
+        Debug.Log(finishTime);
+        while (Time.time < finishTime)
+        {
+            yield return new WaitForSeconds(afterImageTickTime);
+            Instantiate<GameObject>(afterImagePrefab, transform.position, transform.rotation);
+        }
     }
 
     public void PlayLandAudio()

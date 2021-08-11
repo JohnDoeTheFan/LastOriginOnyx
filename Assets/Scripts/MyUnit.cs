@@ -86,6 +86,8 @@ namespace Onyx
         int IAbilityHolder.LevelOfDifficulty => levelOfDifficulty;
         bool IAbilityHolder.ShouldUseLevelOfDifficulty => !CompareTag("Player");
 
+        bool IAbilityHolder.isFacingLeft => rigidBody.transform.rotation.y != 0;
+
         private float remainHitRecoverTime = 0;
         private Vector2 forceByDamage;
         // Start is called before the first frame update
@@ -161,7 +163,7 @@ namespace Onyx
 
         public void AddControlImpulse(Vector2 inputDirection, bool isStopped, bool isInput, bool isOverSpeed, bool isDecelerating)
         {
-            float velocityToAdd = maxVelocity * Time.deltaTime / velocityReachTime;
+            float velocityToAdd = (velocityReachTime > Time.deltaTime)? maxVelocity * Time.deltaTime / velocityReachTime : maxVelocity;
             float impulse = CalcImpulseForVelocity(velocityToAdd);
             float airImpulse = impulse * velocityInAirRate;
 
