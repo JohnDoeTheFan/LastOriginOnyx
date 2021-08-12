@@ -157,7 +157,7 @@ public class RunAndGunGameMode : JumpAndReachGameMode, DebugGui.IDebugGuiTarget
 
     public void PauseGame()
     {
-        if( ! isGameOvered)
+        if( ! isGameOvered && !pauseMenuGui.gameObject.activeInHierarchy)
         { 
             pauseMenuGui.gameObject.SetActive(true);
             timeScaleBackupOnPause = Time.timeScale;
