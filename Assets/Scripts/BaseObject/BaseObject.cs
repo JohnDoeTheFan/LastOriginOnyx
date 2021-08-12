@@ -70,6 +70,7 @@ public interface IHitReactor
     enum HitType
     {
         Bullet,
+        Trap
     }
 
     struct HitResult

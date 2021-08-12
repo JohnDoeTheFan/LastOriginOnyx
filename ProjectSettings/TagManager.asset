@@ -25,7 +25,7 @@ TagManager:
   - Object/BulletOfEnemy
   - Object/ShieldOfPlayer
   - Object/ShieldOfEnemy
-  - 
+  - Object/Trap
   - 
   - Utility/Sight
   - Utility/GroundChecker
@@ -47,17 +47,23 @@ TagManager:
   - name: Background/CloseRangeView
     uniqueID: 3896325003
     locked: 0
-  - name: AfterImage
-    uniqueID: 2002078801
-    locked: 0
   - name: Structures
     uniqueID: 1288234859
     locked: 0
   - name: TileMap
     uniqueID: 2299109505
     locked: 0
-  - name: Unit
+  - name: Trap
+    uniqueID: 1169506577
+    locked: 0
+  - name: AfterImage
+    uniqueID: 2002078801
+    locked: 0
+  - name: EnemyUnit
     uniqueID: 674209533
+    locked: 0
+  - name: PlayerUnit
+    uniqueID: 998456535
     locked: 0
   - name: Weapon
     uniqueID: 2317322349

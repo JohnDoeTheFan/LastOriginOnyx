@@ -503,6 +503,7 @@ namespace Onyx
             AudioSource hitAudio = type switch
             {
                 IHitReactor.HitType.Bullet => bulletHitAudio,
+                IHitReactor.HitType.Trap => bulletHitAudio,
                 _ => bulletHitAudio
             };
             hitAudio.Play();
