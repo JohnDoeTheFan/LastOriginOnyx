@@ -20,15 +20,11 @@ MonoBehaviour:
     nextNormalStage: {fileID: 0}
     nextSideStage: {fileID: 0}
     nextExStage: {fileID: 11400000, guid: 1ca6ebf6bde806e44b70e09e35c8d72b, type: 2}
-  isCleared: 1
+  isCleared: 0
   stageScene: 3
   title: "\uC7A5\uAD70\uC758 \uC740\uC2E0\uCC98"
   description: "\uBD88\uAD74\uC758 \uB9C8\uB9AC\uB97C \uCC3E\uAE30 \uC704\uD574 \uBC14\uC774\uC624\uB85C\uC774\uB4DC\uB294
     \uC804\uC7A5\uC73C\uB85C \uD5A5\uD55C\uB2E4."
   neededPower: 4500
   battleRoomPrefabs:
-  - {fileID: 1124728532761162951, guid: 710d603702fafc04aade138239bb53e4, type: 3}
-  - {fileID: 1124728532761162951, guid: 825e82b453e267f44a47992b2d2027c8, type: 3}
-  - {fileID: 1124728532761162951, guid: beece731146cf944facbf1c8d55ba026, type: 3}
-  - {fileID: 577618420917310970, guid: ce4dab31339867840bd4da9a971af147, type: 3}
-  - {fileID: 1124728532761162951, guid: 13f0d1a679a52f441a486b9f3f4465a0, type: 3}
+  - {fileID: 73584581036925254, guid: bd7fa7d98bdaf814da7ea156efc03824, type: 3}

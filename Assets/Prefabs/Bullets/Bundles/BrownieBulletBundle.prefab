@@ -11,10 +11,6 @@ PrefabInstance:
       propertyPath: m_SortingLayer
       value: -1
       objectReference: {fileID: 0}
-    - target: {fileID: 273755327119466373, guid: e22191b874ea19649b40673ba99d6b3d, type: 3}
-      propertyPath: m_SortingLayerID
-      value: 1041559431
-      objectReference: {fileID: 0}
     - target: {fileID: 1833181475338399820, guid: e22191b874ea19649b40673ba99d6b3d, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -85,7 +81,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1833181475338399825, guid: e22191b874ea19649b40673ba99d6b3d, type: 3}
       propertyPath: m_Name
-      value: BasicBulletBundle
+      value: BrownieBulletBundle
       objectReference: {fileID: 0}
     - target: {fileID: 1833181475338399918, guid: e22191b874ea19649b40673ba99d6b3d, type: 3}
       propertyPath: bullet
@@ -110,10 +106,6 @@ PrefabInstance:
     - target: {fileID: 6017203643009321299, guid: e22191b874ea19649b40673ba99d6b3d, type: 3}
       propertyPath: m_SortingLayer
       value: -1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6017203643009321299, guid: e22191b874ea19649b40673ba99d6b3d, type: 3}
-      propertyPath: m_SortingLayerID
-      value: 1041559431
       objectReference: {fileID: 0}
     - target: {fileID: 6017203643009321299, guid: e22191b874ea19649b40673ba99d6b3d, type: 3}
       propertyPath: m_WasSpriteAssigned

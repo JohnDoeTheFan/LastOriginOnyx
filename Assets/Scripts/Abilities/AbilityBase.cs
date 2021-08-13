@@ -43,8 +43,10 @@ namespace Onyx.Ability
         }
 
         public virtual void OnChangeDirection(Quaternion rotation) { }
+        public virtual void OnKillEnemy(Transform enemyTransform) { }
 
         public abstract void InstantiateAbilitySpecificGui(RectTransform abilitySpecificGuiArea);
+
     }
 
     public interface IAbility
@@ -58,6 +60,7 @@ namespace Onyx.Ability
         void SetLevel(LevelDescription level);
         void SetAbilityHolder(IAbilityHolder abilityHolder);
         void OnChangeDirection(Quaternion rotation);
+        void OnKillEnemy(Transform enemyTransform);
         void InstantiateAbilitySpecificGui(RectTransform abilitySpecificGuiArea);
 
         public struct LevelDescription
@@ -79,6 +82,8 @@ namespace Onyx.Ability
         int LevelOfDifficulty { get; }
         bool ShouldUseLevelOfDifficulty { get; }
         bool isFacingLeft { get; }
+
+        void NotifyKillEnemy(GameObject enemy);
     }
 
     public abstract class AbilitySkill

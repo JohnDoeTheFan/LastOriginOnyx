@@ -39,6 +39,8 @@ public partial class Bullet : TangibleComponent, IHitReactor
 
     Vector3 IHitReactor.GetWorldPosition => transform.position;
 
+    GameObject IHitReactor.GameObject => gameObject;
+
     protected void Awake()
     {
         rigidBody = GetComponent<Rigidbody2D>();
@@ -70,7 +72,6 @@ public partial class Bullet : TangibleComponent, IHitReactor
         IHitReactor reactor = collision.gameObject.GetComponent<IHitReactor>();
         if (reactor == null)
         {
-            SubscribeManager.ForEach(item => item.OnHit(this, collision));
             Ricochet(collision);
         }
         else
@@ -93,7 +94,6 @@ public partial class Bullet : TangibleComponent, IHitReactor
         IHitReactor reactor = collision.gameObject.GetComponent<IHitReactor>();
         if (reactor == null)
         {
-            SubscribeManager.ForEach(item => item.OnHit(this, collision));
             Ricochet(collision);
         }
         else
@@ -171,10 +171,6 @@ public partial class Bullet : TangibleComponent, IHitReactor
 
     public interface ISubscriber
     {
-        void OnHit(Bullet bullet, Collider2D collider);
-
-        void OnHit(Bullet bullet, Collision2D collision);
-
         void OnHit(Bullet bullet, IHitReactor hitReactor, IHitReactor.HitResult hitResult);
 
         void BeforeDestroy(Bullet bullet);

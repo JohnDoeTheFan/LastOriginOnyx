@@ -88,6 +88,8 @@ namespace Onyx
 
         bool IAbilityHolder.isFacingLeft => rigidBody.transform.rotation.y != 0;
 
+        GameObject IHitReactor.GameObject => gameObject;
+
         private float remainHitRecoverTime = 0;
         private Vector2 forceByDamage;
         // Start is called before the first frame update
@@ -515,6 +517,13 @@ namespace Onyx
 
             return new IHitReactor.HitResult(damage, acceptedDamage != 0 && isDead);
         }
+
+        void IAbilityHolder.NotifyKillEnemy(GameObject enemy)
+        {
+            foreach (IAbility ability in abilities)
+                ability.OnKillEnemy(enemy.transform);
+        }
+
         public interface ISubscriber
         {
             void OnDeath(MyUnit myUnit);

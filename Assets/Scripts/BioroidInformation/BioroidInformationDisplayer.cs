@@ -42,6 +42,12 @@ public class BioroidInformationDisplayer : MonoBehaviour
                         abilityDisplays[i].skillDisplays[j].skillName.text = abilities[i].skills[j].skillName;
                         abilityDisplays[i].skillDisplays[j].skillDescription.text = abilities[i].skills[j].description;
                     }
+                    else
+                    {
+                        abilityDisplays[i].skillDisplays[j].icon.gameObject.SetActive(false);
+                        abilityDisplays[i].skillDisplays[j].skillName.text = "";
+                        abilityDisplays[i].skillDisplays[j].skillDescription.text = "";
+                    }
                 }
             }
         }

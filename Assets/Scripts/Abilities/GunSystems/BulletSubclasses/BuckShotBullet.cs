@@ -71,16 +71,6 @@ public class BuckShotBullet : Bullet
             this.buckShotBullet = buckShotBullet;
         }
 
-        void ISubscriber.OnHit(Bullet bullet, Collider2D collider)
-        {
-            buckShotBullet.SubscribeManager.ForEach(item => item.OnHit(buckShotBullet, collider));
-        }
-
-        void ISubscriber.OnHit(Bullet bullet, Collision2D collision)
-        {
-            buckShotBullet.SubscribeManager.ForEach(item => item.OnHit(buckShotBullet, collision));
-        }
-
         void ISubscriber.OnHit(Bullet bullet, IHitReactor hitReactor, IHitReactor.HitResult hitResult)
         {
             buckShotBullet.SubscribeManager.ForEach(item => item.OnHit(buckShotBullet, hitReactor, hitResult));

@@ -88,6 +88,8 @@ public interface IHitReactor
     HitResult Hit(HitType type, float damage, Vector3 force = new Vector3());
 
     Vector3 GetWorldPosition { get; }
+
+    GameObject GameObject { get; }
 }
 
 public class MonoBehaviourBase : MonoBehaviour

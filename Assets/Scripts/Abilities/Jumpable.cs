@@ -63,9 +63,6 @@ public class Jumpable : AbilityBase
     private IEnumerator AfterEffectCoroutine()
     {
         float finishTime = Time.time + afterImageTime;
-        Debug.Log(Time.time);
-
-        Debug.Log(finishTime);
         while (Time.time < finishTime)
         {
             yield return new WaitForSeconds(afterImageTickTime);

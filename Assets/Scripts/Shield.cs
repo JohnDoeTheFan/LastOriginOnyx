@@ -8,6 +8,8 @@ public class Shield : MonoBehaviour, IHitReactor
      
     Vector3 IHitReactor.GetWorldPosition => transform.position;
 
+    GameObject IHitReactor.GameObject => gameObject;
+
     IHitReactor.HitResult IHitReactor.Hit(IHitReactor.HitType type, float damage, Vector3 force)
     {
         SubscribeManager.ForEach(item => item.OnBlock(damage));

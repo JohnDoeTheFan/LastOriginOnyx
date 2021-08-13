@@ -327,6 +327,23 @@ public abstract class GunSlinger : AbilityBase, Gun2D.ISubscriber, BulletBundle.
         */
     }
 
+    public override void OnKillEnemy(Transform enemyTransform)
+    {
+        if (killRewards.Count != 0)
+        {
+            int randomIndex = Mathf.FloorToInt(UnityEngine.Random.Range(0, killRewards.Count));
+            GameObject reward = Instantiate<GameObject>(killRewards[randomIndex], enemyTransform.position, Quaternion.identity);
+            Rigidbody2D rigidBody = reward.GetComponent<Rigidbody2D>();
+            if (rigidBody != null)
+            {
+                float velocityY = 3f;
+                float velocityX = UnityEngine.Random.Range(-velocityY / 2, velocityY / 2);
+                Vector2 impulse = new Vector2(velocityX, rigidBody.mass * velocityY);
+                rigidBody.AddForce(impulse, ForceMode2D.Impulse);
+            }
+        }
+    }
+
     void Gun2D.ISubscriber.BeforeDestroy(Gun2D gun)
     {
     }
@@ -431,32 +448,11 @@ public abstract class GunSlinger : AbilityBase, Gun2D.ISubscriber, BulletBundle.
             gunUnsubscriber?.Dispose();
         }
 
-        void Bullet.ISubscriber.OnHit(Bullet bullet, Collider2D collider)
-        {
-            //Debug.Log(gunSlinger + " shot" + bullet + " with " + gun);
-        }
-        void Bullet.ISubscriber.OnHit(Bullet bullet, Collision2D collision)
-        {
-            //Debug.Log(gunSlinger + " shot" + bullet + " with " + gun);
-        }
-
         void Bullet.ISubscriber.OnHit(Bullet bullet, IHitReactor hitReactor, IHitReactor.HitResult hitResult)
         {
             if(gunSlinger.CompareTag("Player") && hitResult.isKilledByHit)
             {
-                if (gunSlinger.killRewards.Count != 0)
-                {
-                    int randomIndex = Mathf.FloorToInt(UnityEngine.Random.Range(0, gunSlinger.killRewards.Count));
-                    GameObject reward = Instantiate<GameObject>( gunSlinger.killRewards[randomIndex], hitReactor.GetWorldPosition, Quaternion.identity );
-                    Rigidbody2D rigidBody = reward.GetComponent<Rigidbody2D>();
-                    if (rigidBody != null)
-                    {
-                        float velocityY = 3f;
-                        float velocityX = UnityEngine.Random.Range(-velocityY / 2, velocityY / 2);
-                        Vector2 impulse = new Vector2(velocityX, rigidBody.mass * velocityY);
-                        rigidBody.AddForce(impulse, ForceMode2D.Impulse);
-                    }
-                }
+                gunSlinger.abilityHolder.NotifyKillEnemy(hitReactor.GameObject);
             }
         }
 
@@ -481,6 +477,5 @@ public abstract class GunSlinger : AbilityBase, Gun2D.ISubscriber, BulletBundle.
         {
             this.onUnsubscribe = onUnsubscribe;
         }
-
     }
 }

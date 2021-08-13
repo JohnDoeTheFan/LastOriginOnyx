@@ -69,7 +69,7 @@ public class Gun2D : TangibleComponent
 
         IEnumerator Burst()
         {
-            for (int i = 0; i < spec.BurstNum && !Loader.IsEmpty; i++)
+            for (int i = 0; i < spec.BurstNum && (!Loader.IsEmpty || defaultBullet != null); i++)
             {
                 Fire();
                 yield return new WaitUntil(() => IsCool);

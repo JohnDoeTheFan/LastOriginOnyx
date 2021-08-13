@@ -48,7 +48,6 @@ public class GrenadeBullet : Bullet, Explosion.ISubscriber
             else
             {
                 Ricochet(collision);
-                SubscribeManager.ForEach(item => item.OnHit(this, collision));
             }
         }
         
@@ -87,7 +86,6 @@ public class GrenadeBullet : Bullet, Explosion.ISubscriber
             else
             {
                 Ricochet(collision);
-                SubscribeManager.ForEach(item => item.OnHit(this, collision));
             }
         }
     }
