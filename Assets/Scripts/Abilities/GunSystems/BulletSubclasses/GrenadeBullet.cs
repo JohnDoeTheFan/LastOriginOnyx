@@ -126,9 +126,9 @@ public class GrenadeBullet : Bullet, Explosion.ISubscriber
 
     }
 
-    void Explosion.ISubscriber.OnHitExplosion(Explosion explosion, IHitReactor.HitResult hitResult)
+    void Explosion.ISubscriber.OnHitExplosion(Explosion explosion, IHitReactor hitReactor, IHitReactor.HitResult hitResult)
     {
-
+        SubscribeManager.ForEach(item => item.OnHit(this, hitReactor, hitResult));
     }
 
     void Explosion.ISubscriber.BeforeDistroy(Explosion explosion)

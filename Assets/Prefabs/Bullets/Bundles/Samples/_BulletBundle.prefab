@@ -95,6 +95,7 @@ GameObject:
   - component: {fileID: 1833181475338399822}
   - component: {fileID: 1833181475338399821}
   - component: {fileID: 1833181475338399918}
+  - component: {fileID: 996471417889427109}
   m_Layer: 14
   m_Name: _BulletBundle
   m_TagString: Untagged
@@ -182,6 +183,17 @@ MonoBehaviour:
   quantity: 100
   sight: {fileID: 3629210871961049601}
   gettingEffectPrefab: {fileID: 2958885147418069655, guid: e9133cd8a915ea847818d41be93cc4e4, type: 3}
+--- !u!210 &996471417889427109
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1833181475338399825}
+  m_Enabled: 1
+  m_SortingLayerID: 1041559431
+  m_SortingLayer: -1
+  m_SortingOrder: 0
 --- !u!1 &8531387541050496114
 GameObject:
   m_ObjectHideFlags: 0

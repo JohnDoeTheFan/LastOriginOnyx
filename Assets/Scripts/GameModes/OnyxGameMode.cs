@@ -389,6 +389,8 @@ public class OnyxGameMode : RunAndGunGameMode
         playerControlEnable = false;
         systemControl = false;
 
+        ResumeGame();
+
         SaveOnyxValue(BackToStageMapScene, 1f);
     }
 

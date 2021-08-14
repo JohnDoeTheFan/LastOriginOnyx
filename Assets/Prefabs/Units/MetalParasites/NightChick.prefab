@@ -902,6 +902,17 @@ MonoBehaviour:
     showGizmo: 1
   - color: {r: 0, g: 1, b: 0, a: 1}
     showGizmo: 1
+--- !u!210 &1876615978556157723
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4492965859332314936}
+  m_Enabled: 1
+  m_SortingLayerID: 674209533
+  m_SortingLayer: -5
+  m_SortingOrder: 0
 --- !u!1 &7469839326339843545
 GameObject:
   m_ObjectHideFlags: 0

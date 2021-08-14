@@ -81,6 +81,25 @@ public class LobbyGameMode : MonoBehaviourBase
         }
     }
 
+    private void Update()
+    {
+        if (Input.GetButtonDown("Cancel"))
+        {
+            if (quitCanvas.gameObject.activeInHierarchy)
+                quitCanvas.gameObject.SetActive(false);
+            else if (noticeCanvas.gameObject.activeInHierarchy)
+                noticeCanvas.gameObject.SetActive(false);
+            else if (selectWorldCanvas.gameObject.activeInHierarchy)
+                HideSelectWorldGui();
+            else if (researchCanvas.gameObject.activeInHierarchy)
+                HideResearchGui();
+            else if (greetingDecorationGui.gameObject.activeInHierarchy)
+                OnGreetingCameraEditCloseButton();
+            else
+                quitCanvas.gameObject.SetActive(true);
+        }
+    }
+
     private void SetupGreeting()
     {
         foreach (Canvas canvas in canvasesToHideBeforeFirstTouch)
@@ -367,25 +386,6 @@ public class LobbyGameMode : MonoBehaviourBase
         {
             OnyxGameInstance.instance.isFromBatteScene = false;
             SceneManager.LoadScene((int)ScenesToBeBuild.StageMapScene);
-        }
-    }
-
-    private void Update()
-    {
-        if(Input.GetButtonDown("Cancel"))
-        {
-            if (quitCanvas.gameObject.activeInHierarchy)
-                quitCanvas.gameObject.SetActive(false);
-            else if (noticeCanvas.gameObject.activeInHierarchy)
-                noticeCanvas.gameObject.SetActive(false);
-            else if (selectWorldCanvas.gameObject.activeInHierarchy)
-                HideSelectWorldGui();
-            else if (researchCanvas.gameObject.activeInHierarchy)
-                HideResearchGui();
-            else if (greetingDecorationGui.gameObject.activeInHierarchy)
-                OnGreetingCameraEditCloseButton();
-            else
-                quitCanvas.gameObject.SetActive(true);
         }
     }
 

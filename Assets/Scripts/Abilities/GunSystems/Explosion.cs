@@ -50,7 +50,7 @@ public class Explosion : TangibleComponent
             Vector2 knockBack = normalizedDiff * knockBackPower;
 
             hitResult = reactor.Hit(IHitReactor.HitType.Bullet, damage, knockBack);
-            SubscribeManager.ForEach(item => item.OnHitExplosion(this, hitResult));
+            SubscribeManager.ForEach(item => item.OnHitExplosion(this, reactor, hitResult));
         }
         else
             SubscribeManager.ForEach(item => item.OnHitExplosion(this, collision));
@@ -85,7 +85,7 @@ public class Explosion : TangibleComponent
     public interface ISubscriber
     {
         void OnHitExplosion(Explosion explosion, Collider2D collision);
-        void OnHitExplosion(Explosion explosion, IHitReactor.HitResult hitResult);
+        void OnHitExplosion(Explosion explosion, IHitReactor hitReactor, IHitReactor.HitResult hitResult);
         void BeforeDistroy(Explosion explosion);
     }
 }

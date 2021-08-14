@@ -178,6 +178,7 @@ GameObject:
   - component: {fileID: 1210596201476666164}
   - component: {fileID: 1210596201476666166}
   - component: {fileID: 1125817146187106341}
+  - component: {fileID: 6156597864184215123}
   m_Layer: 14
   m_Name: HealingItem
   m_TagString: Untagged
@@ -264,6 +265,17 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.75, y: 0.75}
   m_EdgeRadius: 0
+--- !u!210 &6156597864184215123
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1210596201476666169}
+  m_Enabled: 1
+  m_SortingLayerID: 1041559431
+  m_SortingLayer: -1
+  m_SortingOrder: 0
 --- !u!1001 &1210596200369290029
 PrefabInstance:
   m_ObjectHideFlags: 0

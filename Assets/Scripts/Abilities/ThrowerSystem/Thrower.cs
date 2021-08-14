@@ -131,6 +131,7 @@ public class Thrower : AbilityBase, ThrowBulletBundle.IThrowBulletBundleReactor
                 thrower.abilityHolder.NotifyKillEnemy(hitReactor.GameObject);
             }
         }
+
         public void SetOnUnsubscribe(Action onUnsubscribe)
         {
             this.onUnsubscribe = onUnsubscribe;

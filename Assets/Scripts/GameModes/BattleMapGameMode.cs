@@ -78,6 +78,14 @@ public class BattleMapGameMode : MonoBehaviourBase
 
     }
 
+    private void Update()
+    {
+        if(Input.GetButtonDown("Cancel"))
+        {
+            BackToLobby();
+        }
+    }
+
     public void BackToLobby()
     {
         fadeGui.StartFadeOut(AfterFadeOut);
