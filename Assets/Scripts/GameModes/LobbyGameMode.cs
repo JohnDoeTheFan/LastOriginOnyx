@@ -374,8 +374,16 @@ public class LobbyGameMode : MonoBehaviourBase
     {
         if(Input.GetButtonDown("Cancel"))
         {
-            if (selectWorldCanvas.gameObject.activeInHierarchy)
+            if (quitCanvas.gameObject.activeInHierarchy)
+                quitCanvas.gameObject.SetActive(false);
+            else if (noticeCanvas.gameObject.activeInHierarchy)
+                noticeCanvas.gameObject.SetActive(false);
+            else if (selectWorldCanvas.gameObject.activeInHierarchy)
                 HideSelectWorldGui();
+            else if (researchCanvas.gameObject.activeInHierarchy)
+                HideResearchGui();
+            else if (greetingDecorationGui.gameObject.activeInHierarchy)
+                OnGreetingCameraEditCloseButton();
             else
                 quitCanvas.gameObject.SetActive(true);
         }

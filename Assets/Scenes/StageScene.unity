@@ -742,7 +742,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 5463554735079526344, guid: 50d12c5a9d13f23409f37ec4491285aa, type: 2}
   m_audioClip: {fileID: 8300000, guid: a9d7e5551156762499f374f7d98e976e, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.6
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -4783,7 +4783,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bgmAudioSource: {fileID: 471756404}
-  stageInfoForStageScene: {fileID: 11400000, guid: 8defffc3561137240b75fdebf6133e3d, type: 2}
+  stageInfoForStageScene: {fileID: 11400000, guid: 257267df56799e54184f013d8be87659, type: 2}
   chapterInfoForStageScene: {fileID: 0}
   chapterInfoForSignIn: {fileID: 11400000, guid: f4984bb4fdf2e3949b4bb83de5ed8b85, type: 2}
   doNotSaveOrLoadForTest: 1
@@ -9899,7 +9899,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1639707115}
-  - component: {fileID: 1639707116}
   - component: {fileID: 1639707117}
   m_Layer: 0
   m_Name: GameMode
@@ -9922,35 +9921,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1639707116
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1639707114}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 27bf4864be990dc45abcf82ec4117826, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameStartPosition: {fileID: 0}
-  playerControlEnable: 1
-  startingDialogue: {fileID: 0}
-  mainCamera: {fileID: 1654023881}
-  debugGui: {fileID: 0}
-  fadeGui: {fileID: 1926117881}
-  pauseMenuGui: {fileID: 0}
-  scoreGui: {fileID: 0}
-  playerDurabilityGui: {fileID: 8529743626617888586, guid: 4d69ea50b9537b44693962904c9eafa4, type: 3}
-  gunGui: {fileID: 0}
-  owningAvailableBulletsGui: {fileID: 0}
-  owningNotAvailableBulletsGui: {fileID: 0}
-  screenCanvas: {fileID: 1435442312}
-  damageGuiPrefab: {fileID: 5142318475830554831, guid: 51dd4f335b03e3b439c3bf50c6f5e9af, type: 3}
-  healGuiPrefab: {fileID: 4118553790427783795, guid: 42a74c9297feb354fbc9a54670bda03c, type: 3}
-  GameOverGuiPrefab: {fileID: 7443392048635449456, guid: 7c4838759513e0e4ba4643f9610ba38d, type: 3}
-  youWinGuiPrefab: {fileID: 3575843285041281424, guid: 1d15ea0702b2b4a479f1ea7fa6954b0f, type: 3}
 --- !u!114 &1639707117
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12433,9 +12403,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1639707117}
-        m_TargetAssemblyTypeName: OnyxGameMode, Assembly-CSharp
-        m_MethodName: BackToStageMapScene
-        m_Mode: 6
+        m_TargetAssemblyTypeName: OnyxGameMode, Scripts
+        m_MethodName: SaveAndBackToStageMapScene
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

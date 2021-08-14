@@ -71,17 +71,10 @@ public class OnyxGameInstance : MonoBehaviour
         }
     }
 
-    public void SaveGreetingCameraInfo(Vector2 position, float size, Action afterSave)
-    {
-        greetingCameraPosition = position;
-        greetingCameraSize = size;
 
-        OnyxClient.SaveGreeting(new SaveGreetingRequest(position, size), OnSuccess);
-        void OnSuccess(bool isSuccess)
-        {
-            afterSave();
-            return;
-        }
+    public void ResetSaveData()
+    {
+        defaultSaveDataAsset.SaveAsFile();
     }
 
     public void SignIn(string key, Action afterSignIn)
@@ -162,6 +155,19 @@ public class OnyxGameInstance : MonoBehaviour
     public void SetChapterInfoForStageScene(ChapterInformation chapterInfo)
     {
         chapterInfoForStageScene = chapterInfo;
+    }
+
+    public void SaveGreetingCameraInfo(Vector2 position, float size, Action afterSave)
+    {
+        greetingCameraPosition = position;
+        greetingCameraSize = size;
+
+        OnyxClient.SaveGreeting(new SaveGreetingRequest(position, size), OnSuccess);
+        void OnSuccess(bool isSuccess)
+        {
+            afterSave();
+            return;
+        }
     }
 
     public void SetStageClearedCommunication(StageInformation stageInformation, Action callback)

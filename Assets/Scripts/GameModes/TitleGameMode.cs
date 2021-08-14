@@ -10,6 +10,7 @@ public class TitleGameMode : MonoBehaviour
     [SerializeField] private Canvas loadingCanvas;
     [SerializeField] private RectTransform creditPanel;
     [SerializeField] private RectTransform freeResourcesPanel;
+    [SerializeField] private RectTransform resetSaveDataConfirmPanel;
 
     public void LoadLobbyScene()
     {
@@ -36,5 +37,16 @@ public class TitleGameMode : MonoBehaviour
     public void DisplayFreeResourcesPanel(bool display)
     {
         freeResourcesPanel.gameObject.SetActive(display);
+    }
+
+    public void DisplayResetSaveDataConfirmPanel(bool display)
+    {
+        resetSaveDataConfirmPanel.gameObject.SetActive(display);
+    }
+
+    public void ResetSaveData()
+    {
+        OnyxGameInstance.instance.ResetSaveData();
+        DisplayResetSaveDataConfirmPanel(false);
     }
 }

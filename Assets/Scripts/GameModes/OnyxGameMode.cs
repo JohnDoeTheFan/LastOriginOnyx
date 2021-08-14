@@ -134,7 +134,7 @@ public class OnyxGameMode : RunAndGunGameMode
         {
             if (Input.anyKeyDown)
             {
-                BackToStageMapScene(false);
+                BackToStageMapScene();
             }
         }
         if(systemControl)
@@ -291,15 +291,13 @@ public class OnyxGameMode : RunAndGunGameMode
 
     private void OnStageCleared(MyUnit playerUnit)
     {
-        missionCompleteGui.gameObject.SetActive(true);
-        commandPanel.Lock();
-        mainGuiCanvas.gameObject.SetActive(false);
-
         playerUnit.Ceremony();
-
         voiceAudioSource.clip = playerUnit.StageClearVoice;
         voiceAudioSource.Play();
 
+        missionCompleteGui.gameObject.SetActive(true);
+        mainGuiCanvas.gameObject.SetActive(false);
+        commandPanel.Lock();
         playerControlEnable = false;
         systemControl = false;
 
@@ -307,7 +305,7 @@ public class OnyxGameMode : RunAndGunGameMode
         if (testRoom == null && OnyxGameInstance.instance.StageInfoForStageScene != null)
             SaveStageFirstCleared(safefyTime);
         else
-            SaveStageCleared(safefyTime);
+            SaveOnyxValue(ReadyForSceneTransition, safefyTime);
     }
 
     void SaveStageFirstCleared(float safetyTime)
@@ -324,7 +322,7 @@ public class OnyxGameMode : RunAndGunGameMode
         }
     }
 
-    void SaveStageCleared(float safetyTime)
+    void SaveOnyxValue(Action afterSave, float safetyTime = 0f)
     {
         bool isSaveFinished = false;
         OnyxGameInstance.instance.AddOnyx(Score, () => isSaveFinished = true);
@@ -332,7 +330,7 @@ public class OnyxGameMode : RunAndGunGameMode
         StartCoroutine(Job(() => WaitForSecondsRoutine(safetyTime), AfterSafetyTime));
         void AfterSafetyTime()
         {
-            StartCoroutine(Job(() => WaitUntilRoutine(() => isSaveFinished), ReadyForSceneTransition));
+            StartCoroutine(Job(() => WaitUntilRoutine(() => isSaveFinished), afterSave));
         }
     }
 
@@ -355,24 +353,15 @@ public class OnyxGameMode : RunAndGunGameMode
 
     protected override void OnDeathPlayerUnit(MyUnit myUnit)
     {
-        RectTransform gameOverGui = Instantiate<RectTransform>(GameOverGuiPrefab, screenCanvas.transform);
-
-        playerControlEnable = false;
-        systemControl = false;
-
         voiceAudioSource.clip = myUnit.RetireVoice;
         voiceAudioSource.Play();
 
+        RectTransform gameOverGui = Instantiate<RectTransform>(GameOverGuiPrefab, screenCanvas.transform);
         commandPanel.Lock();
+        playerControlEnable = false;
+        systemControl = false;
 
-        float safefyTime = 2f;
-        StartCoroutine(Job(() => WaitForSecondsRoutine(safefyTime), ReadyForSceneTransition));
-
-        void ReadyForSceneTransition()
-        {
-            systemControl = true;
-            isGameOvered = true;
-        }
+        SaveOnyxValue(ReadyForSceneTransition, 2f);
     }
     protected override void OnDeathEnemyUnit(MyUnit myUnit)
     {
@@ -391,14 +380,20 @@ public class OnyxGameMode : RunAndGunGameMode
 
     }
 
-    public void BackToStageMapScene(bool shouldPlayRetreatVoice)
+    public void SaveAndBackToStageMapScene()
     {
-        if(shouldPlayRetreatVoice)
-        {
-            voiceAudioSource.clip = playerUnitCache.RetreatVoice;
-            voiceAudioSource.Play();
-        }
+        voiceAudioSource.clip = playerUnitCache.RetreatVoice;
+        voiceAudioSource.Play();
 
+        commandPanel.Lock();
+        playerControlEnable = false;
+        systemControl = false;
+
+        SaveOnyxValue(BackToStageMapScene, 1f);
+    }
+
+    public void BackToStageMapScene()
+    {
         stageSceneTransitionGui.StartDissolveOut(false, AfterSceneTransition);
 
         static void AfterSceneTransition()
