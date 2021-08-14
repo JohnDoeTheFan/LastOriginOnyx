@@ -18,19 +18,19 @@ MonoBehaviour:
   - chapterNum: 1
     stageNum: 1
     stageType: 0
-    isCleared: 0
+    isCleared: 1
   - chapterNum: 1
     stageNum: 2
     stageType: 0
-    isCleared: 0
+    isCleared: 1
   - chapterNum: 1
     stageNum: 3
     stageType: 0
-    isCleared: 0
+    isCleared: 1
   - chapterNum: 1
     stageNum: 4
     stageType: 0
-    isCleared: 0
+    isCleared: 1
   - chapterNum: 1
     stageNum: 5
     stageType: 0
@@ -207,8 +207,8 @@ MonoBehaviour:
     stageNum: 4
     stageType: 2
     isCleared: 0
-  greetingPosition: {x: -1.7000003, y: 2.0000002}
-  greetingSize: 2.1
-  onyxValue: 320
-  playerLevel: 1
-  levelUpCost: ee020000dc050000ca080000b80b0000a60e00009411000082140000701700005e1a0000
+  greetingPosition: {x: -0.99999905, y: 0.5999994}
+  greetingSize: 4.000001
+  onyxValue: 1100
+  playerLevel: 2
+  levelUpCost: f4010000e8030000dc050000d0070000c4090000b80b0000ac0d0000a00f000094110000

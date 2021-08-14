@@ -33,6 +33,7 @@ public class LobbyGameMode : MonoBehaviourBase
     [SerializeField] private Text playerNextAttackGuiOnResearch;
     [SerializeField] private Button levelUpButtonOnResearch;
     [SerializeField] private Text levelUpButtonTextOnResearch;
+    [SerializeField] private Text neededOnyxGuiOnResearch;
     [SerializeField] private Text currentOnyxGuiOnResearch;
     [SerializeField] private Text remainingOnyxGuiOnResearch;
 
@@ -349,6 +350,7 @@ public class LobbyGameMode : MonoBehaviourBase
             playerCurrentAttackGuiOnResearch.text = Mathf.Floor(playerAttackDefaultValue * multiplier).ToString();
             playerNextAttackGuiOnResearch.text = Mathf.Floor(playerAttackDefaultValue * nextLevelMultiplier).ToString();
 
+            neededOnyxGuiOnResearch.text = levelUpCosts[index].ToString();
             currentOnyxGuiOnResearch.text = OnyxGameInstance.instance.OnyxValue.ToString();
             int remainingOnyx = OnyxGameInstance.instance.OnyxValue - levelUpCosts[index];
             remainingOnyxGuiOnResearch.text = remainingOnyx.ToString();
@@ -371,6 +373,7 @@ public class LobbyGameMode : MonoBehaviourBase
             playerCurrentAttackGuiOnResearch.text = Mathf.Floor(playerAttackDefaultValue * multiplier).ToString();
             playerNextAttackGuiOnResearch.text = "-";
 
+            neededOnyxGuiOnResearch.text = "-";
             currentOnyxGuiOnResearch.text = "-";
             remainingOnyxGuiOnResearch.text = "-";
             levelUpButtonOnResearch.interactable = false;

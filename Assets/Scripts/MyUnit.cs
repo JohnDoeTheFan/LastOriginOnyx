@@ -512,8 +512,11 @@ namespace Onyx
 
             float acceptedDamage = TakeDamage(damage);
 
-            forceByDamage += new Vector2(force.x, force.y);
-            remainHitRecoverTime = hitRecoverTime;
+            if(force.sqrMagnitude > 0)
+            {
+                forceByDamage += new Vector2(force.x, force.y);
+                remainHitRecoverTime = hitRecoverTime;
+            }
 
             return new IHitReactor.HitResult(damage, acceptedDamage != 0 && isDead);
         }
