@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 874343242196921964, guid: ab42008a72756f0499f7d45b85725568, type: 3}
+  m_Sprite: {fileID: -7779215486825634471, guid: ab42008a72756f0499f7d45b85725568, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -124,14 +124,14 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.09375, y: 0.296875}
+    oldSize: {x: 0.140625, y: 0.25}
     newSize: {x: 0.171875, y: 0.421875}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.1, y: 0.3}
+  m_Size: {x: 0.13, y: 0.24}
   m_EdgeRadius: 0
 --- !u!114 &7231453585974164461
 MonoBehaviour:
@@ -145,9 +145,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0add583749ae39c49bfaee5761322e82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _image: {fileID: 874343242196921964, guid: ab42008a72756f0499f7d45b85725568, type: 3}
+  _image: {fileID: -7779215486825634471, guid: ab42008a72756f0499f7d45b85725568, type: 3}
   type: 1
-  hitDamage: 0.1
+  hitDamage: 0.27
   hitDamageMultiplier: 0.5
   shouldKilledByDistance: 1
   shouldKilledByTime: 1
