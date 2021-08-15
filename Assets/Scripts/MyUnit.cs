@@ -13,53 +13,44 @@ namespace Onyx
     {
         public static Action<MyUnit> OnEndOfStart;
 
-        [SerializeField, Range(1, 10)]
-        private float maxVelocity = 3f;
-        [SerializeField, Range(0.001f, 5)]
-        private float velocityReachTime = 0.1f;
-        [SerializeField, Range(0.001f, 1f)]
-        private float velocityInAirRate = 0.2f;
-        [SerializeField, Range(1, 10)]
-        private float overSpeedRecoverVelocity = 5f;
-        [SerializeField, Range(0.001f, 5)]
-        private float overSpeedRecoverVelocityReachTime = 0.1f;
-        [SerializeField, Range(0, 5f)]
-        private float hitRecoverTime = 0.2f;
-        [SerializeField]
-        private float dustMakingVelocity = 3f;
-        [SerializeField]
-        private float healthPoint = 1;
-        [SerializeField]
-        private float maxHealth = 1;
-        [SerializeField]
-        private GroundChecker groundChecker;
-        [SerializeField]
-        private Sight sight;
-        [SerializeField]
-        private ParticleSystem dustParticleSystem;
+        [Header("Physics")]
+        [SerializeField, Range(1, 10)]      private float maxVelocity = 3f;
+        [SerializeField, Range(0.001f, 5)]  private float velocityReachTime = 0.1f;
+        [SerializeField, Range(0.001f, 1f)] private float velocityInAirRate = 0.2f;
+        [SerializeField, Range(1, 10)]      private float overSpeedRecoverVelocity = 5f;
+        [SerializeField, Range(0.001f, 5)]  private float overSpeedRecoverVelocityReachTime = 0.1f;
+        [SerializeField, Range(0, 5f)]      private float hitRecoverTime = 0.2f;
+
+        [Header("Status")]
+        [SerializeField] private float healthPoint = 1;
+        [SerializeField] private float maxHealth = 1;
+
+        [Header("GameElements")]
+        [SerializeField] private GroundChecker groundChecker;
+        [SerializeField] private Sight sight;
+
+        [Header("Dust")]
+        [SerializeField] private ParticleSystem dustParticleSystem;
+        [SerializeField] private float dustMakingVelocity = 3f;
+
         [Header("Audios")]
-        [SerializeField]
-        private AudioSource runAudioSource;
-        [SerializeField]
-        private AudioSource bulletHitAudio;
+        [SerializeField] private AudioSource runAudioSource;
+        [SerializeField] private AudioSource bulletHitAudio;
+
         [Header("Voices")]
-        [SerializeField]
-        private AudioClip stageStartVoice;
-        [SerializeField]
-        private AudioClip retireVoice;
-        [SerializeField]
-        private AudioClip retreatVoice;
-        [SerializeField]
-        private AudioClip stageClearVoice;
+        [SerializeField] private AudioClip stageStartVoice;
+        [SerializeField] private AudioClip retireVoice;
+        [SerializeField] private AudioClip retreatVoice;
+        [SerializeField] private AudioClip stageClearVoice;
+
         [Header("Levels")]
-        [SerializeField]
-        private int level;
-        [SerializeField]
-        private int levelOfDifficulty;
-        [SerializeField]
-        private MultiplierPerLevel healthMultipliers;
-        [SerializeField]
-        private int scoreMultiplier;
+        [SerializeField] private int level;
+        [SerializeField] private int levelOfDifficulty;
+        [SerializeField] private MultiplierPerLevel healthMultipliers;
+        [SerializeField] private int scoreMultiplier;
+
+        [Header("Gui")]
+        [SerializeField] Canvas unitGuiCanvas;
 
         private Rigidbody2D rigidBody;
         private InputHandler inputHandler;
@@ -138,11 +129,15 @@ namespace Onyx
             {
                 inputDirection = Vector2.right;
                 transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
+                if (unitGuiCanvas != null)
+                    unitGuiCanvas.transform.localRotation = Quaternion.Euler(new Vector3(0, 0, 0));
             }
             else if (leftStick.x < 0)
             {
                 inputDirection = Vector2.left;
                 transform.rotation = Quaternion.Euler(new Vector3(0, 180, 0));
+                if(unitGuiCanvas != null)
+                    unitGuiCanvas.transform.localRotation = Quaternion.Euler(new Vector3(0, 180, 0));
             }
 
             float currentVelocityX = Mathf.Abs(rigidBody.velocity.x);

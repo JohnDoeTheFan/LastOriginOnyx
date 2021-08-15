@@ -206,7 +206,7 @@ MonoBehaviour:
   spec:
     modelName: 0
     burstNum: 3
-    bulletPerMinute: 35
+    bulletPerMinute: 40
     bulletSpeed: 8
     shootTypes: 
     availableBullets: []
@@ -315,6 +315,17 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!210 &3952942495220863175
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2891507954542709387}
+  m_Enabled: 1
+  m_SortingLayerID: 674209533
+  m_SortingLayer: -5
+  m_SortingOrder: 0
 --- !u!114 &4302539712908325897
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -338,17 +349,6 @@ MonoBehaviour:
     showGizmo: 1
   - color: {r: 0, g: 1, b: 0, a: 1}
     showGizmo: 1
---- !u!210 &3952942495220863175
-SortingGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2891507954542709387}
-  m_Enabled: 1
-  m_SortingLayerID: 674209533
-  m_SortingLayer: -5
-  m_SortingOrder: 0
 --- !u!1 &3744208097622805363
 GameObject:
   m_ObjectHideFlags: 0

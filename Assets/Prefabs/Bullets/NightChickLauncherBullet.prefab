@@ -153,7 +153,8 @@ MonoBehaviour:
   shouldKilledByTime: 1
   distanceLimit: 100
   timeLimit: 5
+  knockBackForce: 0
   shootSourceId: 0
-  ExplosionDelayAfterTouch: 1.5
+  ExplosionDelayAfterTouch: 1
   explosion: {fileID: 7326513173588650547, guid: 76cf23ea5f10c654da4e4fbd6b6a2390, type: 3}
   explosionDamageMultiplier: 2

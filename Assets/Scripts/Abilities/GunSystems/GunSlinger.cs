@@ -9,22 +9,15 @@ public abstract class GunSlinger : AbilityBase, Gun2D.ISubscriber, BulletBundle.
 {
     public static Action<GunSlinger> OnStart;
 
-    [SerializeField]
-    protected Gun2D equippedGun;
-    [SerializeField]
-    protected Transform hand;
-    [SerializeField]
-    protected Sprite shootSkillImage;
-    [SerializeField]
-    protected Sprite reloadSkillImage;
-    [SerializeField]
-    private AbilitySpecificGui<GunSlinger> abilitySpecificGui;
-    [SerializeField]
-    private AudioSource reloadAudioSource;
-    [SerializeField]
-    private List<GameObject> killRewards;
-    [SerializeField]
-    private MultiplierPerLevel damageMultipliers;
+    [SerializeField] protected Gun2D equippedGun;
+    [SerializeField] protected Transform hand;
+    [SerializeField] protected Sprite shootSkillImage;
+    [SerializeField] protected Sprite reloadSkillImage;
+    [SerializeField] private AbilitySpecificGui<GunSlinger> abilitySpecificGui;
+    [SerializeField] private AudioSource reloadAudioSource;
+    [SerializeField] private List<GameObject> killRewards;
+    [SerializeField] private MultiplierPerLevel damageMultipliers;
+    [SerializeField] private RectTransform bulletEmptyNotifier;
 
     private bool isFiring = false;
     private LoadingStatus loadingStatus = LoadingStatus.ShouldStopLoad;
@@ -166,6 +159,12 @@ public abstract class GunSlinger : AbilityBase, Gun2D.ISubscriber, BulletBundle.
     }
     public void StartFire()
     {
+        if (equippedGun.Loader.IsEmpty && bulletEmptyNotifier != null)
+        {
+            bulletEmptyNotifier.gameObject.SetActive(false);
+            bulletEmptyNotifier.gameObject.SetActive(true);
+        }
+
         if (equippedGun != null && !equippedGun.Loader.IsEmpty)
             StopLoad();
 
