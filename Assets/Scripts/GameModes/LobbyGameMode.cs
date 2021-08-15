@@ -23,6 +23,7 @@ public class LobbyGameMode : MonoBehaviourBase
     [SerializeField] private Canvas greetingDecorationGui;
     [SerializeField] private TextMeshProUGUI onyxResourceGui;
     [SerializeField] private TextMeshProUGUI playerLevelGuiOnMain;
+    [SerializeField] private Canvas tipsCanvas;
 
     [Header("ResearchGui")]
     [SerializeField] private Text playerCurrentLevelGuiOnResearch;
@@ -96,6 +97,8 @@ public class LobbyGameMode : MonoBehaviourBase
                 HideResearchGui();
             else if (greetingDecorationGui.gameObject.activeInHierarchy)
                 OnGreetingCameraEditCloseButton();
+            else if (tipsCanvas.gameObject.activeInHierarchy)
+                tipsCanvas.gameObject.SetActive(false);
             else
                 quitCanvas.gameObject.SetActive(true);
         }
@@ -379,6 +382,11 @@ public class LobbyGameMode : MonoBehaviourBase
             levelUpButtonOnResearch.interactable = false;
             levelUpButtonTextOnResearch.text = "Max Level";
         }
+    }
+
+    public void DisplayTipPanel(bool display)
+    {
+        tipsCanvas.gameObject.SetActive(display);
     }
 
     public void LoadBattleMap()
