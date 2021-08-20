@@ -1,2 +1,5 @@
 # LastOriginOnyx
-The last origin onyx is fan game of the last origin.
+The last origin onyx is a fan game of the last origin.
+
+Visit our Milanote:
+[Milanote]: https://app.milanote.com/1M5Zmv16BB7I6k?p=Ymgj0ppXoRr
