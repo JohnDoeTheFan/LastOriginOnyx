@@ -9,17 +9,9 @@ public class BioroidInformationDisplayer : MonoBehaviour
     [SerializeField] private Image portrait;
     [SerializeField] private Text bioroidNameText;
     [SerializeField] private Text bioroidDescriptionText;
-
     [SerializeField] private List<AbilityDisplay> abilityDisplays;
 
-    [SerializeField] private BioroidInformation bioroidInformation;
-
-    private void Start()
-    {
-        ParseBioroidInformation(bioroidInformation);
-    }
-
-    private void ParseBioroidInformation(BioroidInformation bioroid)
+    public void ParseBioroidInformation(BioroidInformation bioroid)
     {
         portrait.sprite = bioroid.Portrait;
         bioroidNameText.text = bioroid.BioroidName;

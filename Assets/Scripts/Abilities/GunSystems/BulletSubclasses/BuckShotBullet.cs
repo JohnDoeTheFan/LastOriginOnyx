@@ -5,18 +5,12 @@ using UnityEngine;
 
 public class BuckShotBullet : Bullet
 {
-    [SerializeField]
-    private Bullet ball;
-    [SerializeField]
-    private int numBall = 5;
-    [SerializeField]
-    private float ballSpread = 20;
-    [SerializeField]
-    private float ballSpeedAddictionRandomRange = 20;
-    [SerializeField]
-    private float speedMultiplier = 0.8f;
-    [SerializeField]
-    private float power;
+    [SerializeField] private Bullet ball;
+    [SerializeField] private int numBall = 5;
+    [SerializeField] private float ballSpread = 20;
+    [SerializeField] private float ballSpeedAddictionRandomRange = 5;
+    [SerializeField] private float speedMultiplier = 0.8f;
+    [SerializeField] private float power;
 
     private readonly UnsubscriberPack ballUnsubscriberPack = new UnsubscriberPack();
 

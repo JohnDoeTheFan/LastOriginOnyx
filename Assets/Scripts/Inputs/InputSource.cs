@@ -8,6 +8,7 @@ namespace Onyx.Input
     public class InputSource : MonoBehaviour
     {
         static public Func<float> GetLeftStickHorizontal;
+        static public Func<Camera> GetMainCamera;
 
         [SerializeField]
         private Camera cameraForProjection;
@@ -31,16 +32,17 @@ namespace Onyx.Input
         private void Awake()
         {
             buttonStrings = new Dictionary<Button, string>()
-        {
-            {Button.Triangle, "Preserved" },
-            {Button.Square, "Interact" },
-            {Button.Circle, "A2_S1" },
-            {Button.Cross, "A2_S0" },
-            {Button.L1, "A1_S1" },
-            {Button.L2, "A1_S0" },
-            {Button.R1, "A0_S1" },
-            {Button.R2, "A0_S0" }
-        };
+            {
+                {Button.Triangle, "Preserved" },
+                {Button.Square, "Interact" },
+                {Button.Circle, "A2_S1" },
+                {Button.Cross, "A2_S0" },
+                {Button.L1, "A1_S1" },
+                {Button.L2, "A1_S0" },
+                {Button.R1, "A0_S1" },
+                {Button.R2, "A0_S0" }
+            };
+            cameraForProjection = GetMainCamera();
         }
 
         public virtual bool GetButtonDown(Button button)

@@ -10,40 +10,38 @@ using Onyx.Core;
 
 public class BattleMapGameMode : MonoBehaviourBase
 {
-    [SerializeField]
-    private Text chapterNum;
-    [SerializeField]
-    private Text chapterTitle;
-    [SerializeField]
-    private Text stageNum;
-    [SerializeField]
-    private Text stageTitle;
-    [SerializeField]
-    private Text stageDescription;
-    [SerializeField]
-    private Text stageNeededPower;
-    [SerializeField]
-    private TextMeshProUGUI onyxResourceGui;
-    [SerializeField]
-    private StageSceneTransitionGui stageSceneTransitionGui;
-    [SerializeField]
-    private FadeGui fadeGui;
-    [SerializeField]
-    private ThreeStateToggleGroup<ChapterInformation> chapterGroup;
-    [SerializeField]
-    private ThreeStateToggleGroup<StageInformation> stageGroup;
-    [SerializeField]
-    private ChapterInformation firstChapter;
-    [SerializeField]
-    private AudioClip bgm;
+    [SerializeField] private StageSceneTransitionGui stageSceneTransitionGui;
+    [SerializeField] private FadeGui fadeGui;
+    [SerializeField] private AudioClip bgm;
+    [SerializeField] private TextMeshProUGUI onyxResourceGui;
+    [Header("Chapter Information Gui")]
+    [SerializeField] private Text chapterNum;
+    [SerializeField] private Text chapterTitle;
+    [Header("Stage Information Gui")]
+    [SerializeField] private Text stageNum;
+    [SerializeField] private Text stageTitle;
+    [SerializeField] private Text stageDescription;
+    [SerializeField] private Text stageNeededPower;
+    [Header("Chapter And Stage Parsing")]
+    [SerializeField] private ThreeStateToggleGroup<ChapterInformation> chapterGroup;
+    [SerializeField] private ThreeStateToggleGroup<StageInformation> stageGroup;
+    [SerializeField] private ChapterInformation firstChapter;
+    [Header("Combatant Selection")]
+    [SerializeField] private Canvas combatantSelectionCanvas;
+    [SerializeField] private ToggleGroup combatantToggleGroup;
+    [SerializeField] private CombatantToggle combatantTogglePrefab;
+    [SerializeField] private List<BioroidInformation> combatantList;
 
     private StageInformation stageInfo;
     private ChapterInformation chapterInfo;
+    private BioroidInformation bioroidInfo;
 
     private void Awake()
     {
         chapterGroup.SubscribeManager.Subscribe(new ChapterGroupSubscriber(OnChangeChapterSelection));
         stageGroup.SubscribeManager.Subscribe(new StageGroupSubscriber(OnChangeStageSelection));
+
+        CombatantToggle.OnSelected = (bioroid) => bioroidInfo = bioroid;
     }
 
     // Login -> ReadStageCleared    -Success->  FadeIn
@@ -65,7 +63,7 @@ public class BattleMapGameMode : MonoBehaviourBase
                 OnyxGameInstance.instance.BgmAudioSource.clip = bgm;
                 OnyxGameInstance.instance.BgmAudioSource.Play();
                 fadeGui.ForceFadeIn();
-                stageSceneTransitionGui.StartDissolveIn(false, null);
+                stageSceneTransitionGui.StartDissolveIn(false, ()=> InitCombatantList());
             }
             else
                 fadeGui.StartFadeIn(AfterFadeIn);
@@ -73,7 +71,7 @@ public class BattleMapGameMode : MonoBehaviourBase
 
         void AfterFadeIn(FadeGui.FinishStatus finishStatus)
         {
-            return;
+            InitCombatantList();
         }
 
     }
@@ -96,6 +94,22 @@ public class BattleMapGameMode : MonoBehaviourBase
         }
     }
 
+    public void DisplayCombatantSelection(bool display)
+    {
+        combatantSelectionCanvas.gameObject.SetActive(display);
+    }
+
+    public void InitCombatantList()
+    {
+        foreach (BioroidInformation combatant in combatantList)
+        {
+            CombatantToggle newToggle = Instantiate<CombatantToggle>(combatantTogglePrefab, combatantToggleGroup.transform);
+            newToggle.SetBioroidInformation(combatant);
+            //combatantToggleGroup.RegisterToggle(newToggle.Toggle);
+            newToggle.Toggle.group = combatantToggleGroup;
+        }
+    }
+
     public void EnterSelectedStage()
     {
         stageSceneTransitionGui.StartDissolveOut(true, AfterSceneTransition);
@@ -104,6 +118,7 @@ public class BattleMapGameMode : MonoBehaviourBase
         {
             OnyxGameInstance.instance.SetStageInfoForStageScene(stageInfo);
             OnyxGameInstance.instance.SetChapterInfoForStageScene(chapterInfo);
+            OnyxGameInstance.instance.SetBioroidInfoForStageScene(bioroidInfo);
             SceneManager.LoadScene((int)stageInfo.StageScene);
         }
     }

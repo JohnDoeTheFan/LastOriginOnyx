@@ -15,52 +15,31 @@ using Onyx.Core;
 public class OnyxGameMode : RunAndGunGameMode
 {
     [Header("Onyx/Gui")]
-    [SerializeField]
-    private Text chapterNameText;
-    [SerializeField]
-    private Text stageNameText;
-    [SerializeField]
-    private SequentialActivator missionStartSequence;
-    [SerializeField]
-    private SequentialActivator battleStartSequence;
-    [SerializeField]
-    private RectTransform missionCompleteGui;
-    [SerializeField]
-    private BattleProgressGui battleProgressGui;
-    [SerializeField]
-    private Canvas mainGuiCanvas;
-    [SerializeField]
-    private RectTransform commandPanelCanvas;
-    [SerializeField]
-    private CommandPanel commandPanel;
-    [SerializeField]
-    private VirtualJoyStick virtualJoyStick;
-    [SerializeField]
-    private RectTransform abilitySpecificGuiArea;
-    [SerializeField]
-    private StageSceneTransitionGui stageSceneTransitionGui;
-    [SerializeField]
-    private RectTransform damageEffectGui;
-    [SerializeField]
-    private RectTransform onyxOrbCanvas;
-    [SerializeField]
-    private OnyxOrbGui onyxOrbGuiPrefab;
+    [SerializeField] private Text chapterNameText;
+    [SerializeField] private Text stageNameText;
+    [SerializeField] private SequentialActivator missionStartSequence;
+    [SerializeField] private SequentialActivator battleStartSequence;
+    [SerializeField] private RectTransform missionCompleteGui;
+    [SerializeField] private BattleProgressGui battleProgressGui;
+    [SerializeField] private Canvas mainGuiCanvas;
+    [SerializeField] private RectTransform commandPanelCanvas;
+    [SerializeField] private CommandPanel commandPanel;
+    [SerializeField] private VirtualJoyStick virtualJoyStick;
+    [SerializeField] private RectTransform abilitySpecificGuiArea;
+    [SerializeField] private StageSceneTransitionGui stageSceneTransitionGui;
+    [SerializeField] private RectTransform damageEffectGui;
+    [SerializeField] private RectTransform onyxOrbCanvas;
+    [SerializeField] private OnyxOrbGui onyxOrbGuiPrefab;
+    [SerializeField] private BioroidInformationDisplayer bioroidInformationDisplayer;
 
     [Header("Onyx/Main")]
-    [SerializeField]
-    private GameObject backgroundHolder;
-    [SerializeField]
-    private Follower followerWithCamera;
-    [SerializeField]
-    private BattleRoom startRoom;
-    [SerializeField]
-    private BattleRoom endRoomPrefab;
-    [SerializeField]
-    private BattleRoom testRoom;
-    [SerializeField]
-    private AudioClip bgm;
-    [SerializeField]
-    private AudioSource voiceAudioSource;
+    [SerializeField] private GameObject backgroundHolder;
+    [SerializeField] private Follower followerWithCamera;
+    [SerializeField] private BattleRoom startRoom;
+    [SerializeField] private BattleRoom endRoomPrefab;
+    [SerializeField] private BattleRoom testRoom;
+    [SerializeField] private AudioClip bgm;
+    [SerializeField] private AudioSource voiceAudioSource;
 
     private bool isLeftButtonDown;
     private bool isRightButtonDown;
@@ -91,6 +70,10 @@ public class OnyxGameMode : RunAndGunGameMode
 
     protected override void Start()
     {
+        Onyx.MyUnit playerUnit = Instantiate<Onyx.MyUnit>(OnyxGameInstance.instance.BioroidInfoForStageScene.Unit, gameStartPosition.position, gameStartPosition.rotation);
+        followerWithCamera.SetTarget(playerUnit.transform);
+        bioroidInformationDisplayer.ParseBioroidInformation(OnyxGameInstance.instance.BioroidInfoForStageScene);
+
         InstantiateBattleRooms();
 
         orthographicSizeBackup = mainCamera.orthographicSize;
@@ -283,6 +266,8 @@ public class OnyxGameMode : RunAndGunGameMode
         {
             InputSource.GetLeftStickHorizontal = ()=>virtualJoyStick.Value.x;
         }
+
+        InputSource.GetMainCamera = () => mainCamera;
     }
     private void InitWorldCanvas()
     {

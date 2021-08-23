@@ -7,31 +7,19 @@ namespace Onyx.GameElement
     public class Follower : MonoBehaviour
     {
 
-        [SerializeField]
-        private Transform target;
-        [SerializeField]
-        private float followSpeed = 0.05f;
+        [SerializeField] private Transform target;
+        [SerializeField] private float followSpeed = 0.05f;
 
+        public Mode mode;
         public MinMax2 limit;
-        [SerializeField]
-        private bool shouldLimitMinX;
-        [SerializeField]
-        private bool shouldLimitMinY;
-        [SerializeField]
-        private bool shouldLimitMaxX;
-        [SerializeField]
-        private bool shouldLimitMaxY;
-        [SerializeField]
-        private Vector2 margin;
+
+        [SerializeField] private bool shouldLimitMinX;
+        [SerializeField] private bool shouldLimitMinY;
+        [SerializeField] private bool shouldLimitMaxX;
+        [SerializeField] private bool shouldLimitMaxY;
+        [SerializeField] private Vector2 margin;
 
         public Vector2 Margin => margin;
-
-        public enum Mode
-        {
-            Teleport,
-            Follow
-        }
-        public Mode mode;
 
         // Update is called once per frame
         void Update()
@@ -50,6 +38,11 @@ namespace Onyx.GameElement
                         break;
                 }
             }
+        }
+
+        public void SetTarget(Transform target)
+        {
+            this.target = target;
         }
 
         void Teleport()
@@ -127,6 +120,11 @@ namespace Onyx.GameElement
         public void SetShouldLimit(bool all)
         {
             SetShouldLimit(all, all, all, all);
+        }
+        public enum Mode
+        {
+            Teleport,
+            Follow
         }
     }
 }

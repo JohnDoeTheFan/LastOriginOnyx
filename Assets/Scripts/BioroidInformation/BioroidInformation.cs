@@ -13,6 +13,7 @@ public class BioroidInformation : ScriptableObject
 
     [SerializeField] private List<AbilityDescription> abilities;
 
+    public Onyx.MyUnit Unit => unit;
     public Sprite Portrait => portrait;
     public string BioroidName => bioroidName;
     public string Description => description;

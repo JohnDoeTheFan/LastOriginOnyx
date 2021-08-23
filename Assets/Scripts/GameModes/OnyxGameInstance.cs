@@ -16,6 +16,8 @@ public class OnyxGameInstance : MonoBehaviour
     [SerializeField]
     private ChapterInformation chapterInfoForStageScene;
     [SerializeField]
+    private BioroidInformation bioroidInfoForStageScene;
+    [SerializeField]
     private ChapterInformation chapterInfoForSignIn;
     [Header("SaveData")]
     [SerializeField]
@@ -45,6 +47,7 @@ public class OnyxGameInstance : MonoBehaviour
     public AudioSource BgmAudioSource => bgmAudioSource;
     public StageInformation StageInfoForStageScene => stageInfoForStageScene;
     public ChapterInformation ChapterInfoForStageScene => chapterInfoForStageScene;
+    public BioroidInformation BioroidInfoForStageScene => bioroidInfoForStageScene;
     public Vector2 GreetingCameraPosition => greetingCameraPosition;
     public float GreetingCameraSize => greetingCameraSize;
     public OnyxClient OnyxClient => onyxClient;
@@ -155,6 +158,10 @@ public class OnyxGameInstance : MonoBehaviour
     public void SetChapterInfoForStageScene(ChapterInformation chapterInfo)
     {
         chapterInfoForStageScene = chapterInfo;
+    }
+    public void SetBioroidInfoForStageScene(BioroidInformation bioroidInfo)
+    {
+        bioroidInfoForStageScene = bioroidInfo;
     }
 
     public void SaveGreetingCameraInfo(Vector2 position, float size, Action afterSave)
