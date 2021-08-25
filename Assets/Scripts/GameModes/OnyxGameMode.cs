@@ -220,7 +220,7 @@ public class OnyxGameMode : RunAndGunGameMode
 
     protected override void InitUnit()
     {
-        MyUnit.OnEndOfStart = myUnit =>
+        MyUnit.OnEndOfStartEvent += myUnit =>
         {
             if (myUnit.CompareTag("Player"))
             {
