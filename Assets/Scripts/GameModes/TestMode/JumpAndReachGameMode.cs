@@ -40,7 +40,7 @@ public class JumpAndReachGameMode : MonoBehaviourBase
                 StartCoroutine(GameOverAndRespawnCoroutine(myUnit));
         }
 
-        MyUnit.OnEndOfStart = newUnit => newUnit.SubscribeManager.Subscribe(new MyUnitGameRule(OnDeath));
+        MyUnit.OnEndOfStartEvent += newUnit => newUnit.SubscribeManager.Subscribe(new MyUnitGameRule(OnDeath));
     }
 
     protected virtual void InitTriggerVolume()

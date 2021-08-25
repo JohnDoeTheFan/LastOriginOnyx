@@ -88,7 +88,7 @@ public class RunAndGunGameMode : JumpAndReachGameMode, DebugGui.IDebugGuiTarget
 
     protected override void InitUnit()
     {
-        MyUnit.OnEndOfStart = myUnit =>
+        MyUnit.OnEndOfStartEvent += myUnit =>
         {
             if (myUnit.CompareTag("Player"))
             {

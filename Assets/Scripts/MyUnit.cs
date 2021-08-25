@@ -11,7 +11,8 @@ namespace Onyx
 {
     public class MyUnit : MonoBehaviourBase, InputHandler.IInputReceiver, IHitReactor, IAbilityHolder, HealingItem.IHealingItemReactor
     {
-        public static Action<MyUnit> OnEndOfStart;
+        public delegate void OnEndOfStartHandler(MyUnit myUnit);
+        public static event OnEndOfStartHandler OnEndOfStartEvent;
 
         [Header("Physics")]
         [SerializeField, Range(1, 10)]      private float maxVelocity = 3f;
@@ -61,6 +62,8 @@ namespace Onyx
         private bool isDead = false;
         private bool preventControl = false;
         private Vector2 leftStick = new Vector2(0, 0);
+        private float remainHitRecoverTime = 0;
+        private Vector2 forceByDamage;
 
         public float HealthPoint => healthPoint;
         public bool IsDead => isDead;
@@ -76,14 +79,11 @@ namespace Onyx
         int IAbilityHolder.Level => level;
         int IAbilityHolder.LevelOfDifficulty => levelOfDifficulty;
         bool IAbilityHolder.ShouldUseLevelOfDifficulty => !CompareTag("Player");
-
         bool IAbilityHolder.isFacingLeft => rigidBody.transform.rotation.y != 0;
 
         GameObject IHitReactor.GameObject => gameObject;
 
-        private float remainHitRecoverTime = 0;
-        private Vector2 forceByDamage;
-        // Start is called before the first frame update
+
         void Start()
         {
             animator = GetComponent<Animator>();
@@ -92,20 +92,19 @@ namespace Onyx
             inputHandler.AddInputReceiverRegisterAwaiter(this);
             abilities.AddRange(GetComponents<IAbility>());
             foreach (IAbility ability in abilities)
-            {
                 ability.SetAbilityHolder(this);
-            }
 
             if (CompareTag("Player"))
             {
+                // 가장 가까운 상호작용 가능한 물체에 대한 탐색 코루틴을 실행
                 closestInteractable = new ClosestObjectInSightManager<InteractableComponent>(sight, transform, OnChangeInteractable);
                 StartCoroutine(closestInteractable.UpdateCoroutine(0.1f));
             }
 
-            OnEndOfStart(this);
+            // 시작 단계 초기화를 끝낸 후, 이를 알림.
+            OnEndOfStartEvent?.Invoke(this);
         }
 
-        // Update is called once per frame
         void Update()
         {
             UpdateMovement();
@@ -114,93 +113,119 @@ namespace Onyx
             animator.SetFloat("Speed", Mathf.Abs(rigidBody.velocity.x));
 
             bool shouldMakeDust = groundChecker.IsGrounded && Mathf.Abs(rigidBody.velocity.x) > dustMakingVelocity;
-
             if (shouldMakeDust && !dustParticleSystem.isEmitting)
                 dustParticleSystem.Play();
             else if (!shouldMakeDust && dustParticleSystem.isEmitting)
                 dustParticleSystem.Stop();
-
         }
 
+        /// <summary>
+        /// 캐릭터의 운동을 수행한다. 매 업데이트 마다 호출.
+        /// </summary>
         void UpdateMovement()
         {
             Vector2 inputDirection = Vector2.zero;
             if (leftStick.x > 0)
-            {
                 inputDirection = Vector2.right;
-                transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
-                if (unitGuiCanvas != null)
-                    unitGuiCanvas.transform.localRotation = Quaternion.Euler(new Vector3(0, 0, 0));
-            }
             else if (leftStick.x < 0)
-            {
                 inputDirection = Vector2.left;
-                transform.rotation = Quaternion.Euler(new Vector3(0, 180, 0));
-                if(unitGuiCanvas != null)
-                    unitGuiCanvas.transform.localRotation = Quaternion.Euler(new Vector3(0, 180, 0));
-            }
 
-            float currentVelocityX = Mathf.Abs(rigidBody.velocity.x);
-            bool isStopped = rigidBody.velocity.x == 0;
-            bool isOverSpeed = !Mathf.Approximately(currentVelocityX, maxVelocity) && currentVelocityX > maxVelocity + 1;   // +1 for safty.
-            bool isInput = inputDirection != Vector2.zero;
-            bool isDecelerating = rigidBody.velocity.x * inputDirection.x < 0;
+            RotateUnit(inputDirection);
+
+            float currentAbsVelocityX = Mathf.Abs(rigidBody.velocity.x);
+            bool isStopped = currentAbsVelocityX == 0;
+            bool isOverSpeed = !Mathf.Approximately(currentAbsVelocityX, maxVelocity) && currentAbsVelocityX > maxVelocity;
 
             AddDamageForce();
             if (remainHitRecoverTime == 0)
-                AddControlImpulse(inputDirection, isStopped, isInput, isOverSpeed, isDecelerating);
+                AddControlImpulse(inputDirection, isStopped, isOverSpeed);
 
             remainHitRecoverTime = Mathf.Max(0, remainHitRecoverTime - Time.deltaTime);
 
             if (isOverSpeed)
-                AddOverSpeedRecoverImpulse(isOverSpeed);
+                AddOverSpeedRecoverImpulse();
             else
-                LimitNewControlVelocity(isOverSpeed);
+                LimitNewControlVelocity();
         }
 
-        public void AddControlImpulse(Vector2 inputDirection, bool isStopped, bool isInput, bool isOverSpeed, bool isDecelerating)
+        /// <summary>
+        /// Unit 을 회전한다.
+        /// </summary>
+        /// <param name="inputDirection">입력 방향</param>
+        private void RotateUnit(Vector2 inputDirection)
         {
-            float velocityToAdd = (velocityReachTime > Time.deltaTime)? maxVelocity * Time.deltaTime / velocityReachTime : maxVelocity;
-            float impulse = CalcImpulseForVelocity(velocityToAdd);
-            float airImpulse = impulse * velocityInAirRate;
+            Quaternion rotation = transform.rotation;
+            if (inputDirection == Vector2.right)
+                rotation = Quaternion.identity;
+            else if (inputDirection == Vector2.left)
+                rotation = Quaternion.Euler(new Vector3(0, 180, 0));
 
+            transform.rotation = rotation;
+            if (unitGuiCanvas != null)
+                unitGuiCanvas.transform.localRotation = rotation;
+        }
+
+        /// <summary>
+        /// 입력에 따른 운동량을 가한다.
+        /// </summary>
+        /// <param name="inputDirection">현재 입력</param>
+        /// <param name="isStopped">현재 정지 여부</param>
+        /// <param name="isOverSpeed">현재 과속 여부</param>
+        public void AddControlImpulse(Vector2 inputDirection, bool isStopped, bool isOverSpeed)
+        {
+            float velocityToAdd = maxVelocity;
+            if (velocityReachTime > Time.deltaTime)
+                velocityToAdd *= Time.deltaTime / velocityReachTime;
+
+            float impulse = CalcMomentumForVelocity(velocityToAdd);
+            if (!groundChecker.IsGrounded)
+                impulse *= velocityInAirRate;
+
+            bool isInput = inputDirection != Vector2.zero;
             if (isInput)
             {
+                bool isDecelerating = rigidBody.velocity.x * inputDirection.x < 0;
                 bool isOverspeedRegisting = isOverSpeed && isDecelerating;
                 bool shouldAddImpulse = !isOverSpeed || isOverspeedRegisting;
 
                 if (shouldAddImpulse)
-                {
-                    if (groundChecker.IsGrounded)
-                        rigidBody.AddForce(inputDirection * impulse, ForceMode2D.Impulse);
-                    else
-                        rigidBody.AddForce(inputDirection * airImpulse, ForceMode2D.Impulse);
-                }
+                    rigidBody.AddForce(inputDirection * impulse, ForceMode2D.Impulse);
             }
             else if (!isStopped)
             {
-                Vector2 stoppingImpulseDirection = Vector2.zero;
-                if (rigidBody.velocity.x > 0)
-                    stoppingImpulseDirection = Vector2.left;
-                else if (rigidBody.velocity.x < 0)
-                    stoppingImpulseDirection = Vector2.right;
-
-                float maximumStoppingImpulse = impulse;
-                if (!groundChecker.IsGrounded)
-                    maximumStoppingImpulse = airImpulse;
-
-                float impluseToStop = CalcImpulseForVelocity(Mathf.Abs(rigidBody.velocity.x));
-
-                float stoppingImpulse = Mathf.Min(impluseToStop, maximumStoppingImpulse);
-
-                rigidBody.AddForce(stoppingImpulseDirection * stoppingImpulse, ForceMode2D.Impulse);
+                StopUnit(impulse);
             }
         }
 
-        private void AddOverSpeedRecoverImpulse(bool isOverSpeed)
+        /// <summary>
+        /// Unit 을 멈추기 위해 운동량을 가한다.
+        /// </summary>
+        /// <param name="maximumStoppingImpulse">멈출 때 사용될 수 있는 최대 힘</param>
+        private void StopUnit(float maximumStoppingImpulse)
         {
-            float velocityToAdd = overSpeedRecoverVelocity * Time.deltaTime / overSpeedRecoverVelocityReachTime;
-            float impulse = CalcImpulseForVelocity(velocityToAdd);
+            Vector2 stoppingImpulseDirection = Vector2.zero;
+            if (rigidBody.velocity.x > 0)
+                stoppingImpulseDirection = Vector2.left;
+            else if (rigidBody.velocity.x < 0)
+                stoppingImpulseDirection = Vector2.right;
+
+            float impluseToStop = CalcMomentumForVelocity(Mathf.Abs(rigidBody.velocity.x));
+
+            float stoppingImpulse = Mathf.Min(impluseToStop, maximumStoppingImpulse);
+
+            rigidBody.AddForce(stoppingImpulseDirection * stoppingImpulse, ForceMode2D.Impulse);
+        }
+
+        /// <summary>
+        /// 과속 상태에서 벗어나기 위한 운동량을 가한다. 입력에 무관하게 가해진다.
+        /// </summary>
+        private void AddOverSpeedRecoverImpulse()
+        {
+            float velocityToAdd = overSpeedRecoverVelocity;
+            if (overSpeedRecoverVelocityReachTime > Time.deltaTime)
+                velocityToAdd *= Time.deltaTime / overSpeedRecoverVelocityReachTime;
+
+            float impulse = CalcMomentumForVelocity(velocityToAdd);
 
             Vector2 naturalImpulseDirection = Vector2.zero;
             if (rigidBody.velocity.x > 0)
@@ -208,19 +233,18 @@ namespace Onyx
             else if (rigidBody.velocity.x < 0)
                 naturalImpulseDirection = Vector2.right;
 
-            if (groundChecker.IsGrounded)
-                rigidBody.AddForce(naturalImpulseDirection * impulse, ForceMode2D.Impulse);
-            else
-                rigidBody.AddForce(naturalImpulseDirection * impulse, ForceMode2D.Impulse);
+            rigidBody.AddForce(naturalImpulseDirection * impulse, ForceMode2D.Impulse);
         }
 
-
-        private void LimitNewControlVelocity(bool isOverSpeed)
+        /// <summary>
+        /// 입력으로 인한 운동량으로 인해 과속이 되지 않게 제한한다.
+        /// </summary>
+        private void LimitNewControlVelocity()
         {
             float newVelocity = Mathf.Abs(rigidBody.velocity.x);
             if (newVelocity > maxVelocity)
             {
-                float limitingImpulse = CalcImpulseForVelocity(newVelocity - maxVelocity);
+                float limitingImpulse = CalcMomentumForVelocity(newVelocity - maxVelocity);
 
                 Vector2 limitDirection = Vector2.zero;
                 if (rigidBody.velocity.x > 0)
@@ -232,11 +256,19 @@ namespace Onyx
             }
         }
 
-        float CalcImpulseForVelocity(float velocity)
+        /// <summary>
+        /// 도달하고자 하는 속도로 가속하기 위한 운동량(Momentum)을 계산한다.
+        /// </summary>
+        /// <param name="velocity">도달하고자 하는 속도</param>
+        /// <returns>운동량</returns>
+        float CalcMomentumForVelocity(float velocity)
         {
             return rigidBody.mass * velocity;
         }
 
+        /// <summary>
+        /// 피해로 인한 운동량(넉백)을 가한다.
+        /// </summary>
         private void AddDamageForce()
         {
             if(forceByDamage != Vector2.zero)
