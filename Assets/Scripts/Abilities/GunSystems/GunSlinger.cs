@@ -70,10 +70,10 @@ public abstract class GunSlinger : AbilityBase, Gun2D.ISubscriber, BulletBundle.
         attackSkill = new ToggleActiveAbilitySKill("Shoot", shootSkillImage, 0, new SkillDescription(), StartCoroutine, StartFire, StopFire);
 
         skills.Add(attackSkill);
-        skills.Add(new ButtonActiveAbilitySKill("Reload", reloadSkillImage, 0.1f, new SkillDescription(), StartCoroutine, StartLoad));
-        skills.Add(new ButtonActiveAbilitySKill("Equip", null, RemainEquipCoolTime, new SkillDescription(), StartCoroutine, EquipClosestGun));
-        skills.Add(new ButtonActiveAbilitySKill("Unequip", null, 0.1f, new SkillDescription(), StartCoroutine, Unequip));
-        skills.Add(new ButtonActiveAbilitySKill("SelectBullet", null, 0f, new SkillDescription(), StartCoroutine, CircularSelectBullet));
+        skills.Add(new ButtonActiveAbilitySKill("Reload", reloadSkillImage, 0.1f, new SkillDescription(), StartCoroutine, StartLoad, () => true));
+        skills.Add(new ButtonActiveAbilitySKill("Equip", null, RemainEquipCoolTime, new SkillDescription(), StartCoroutine, EquipClosestGun, () => true));
+        skills.Add(new ButtonActiveAbilitySKill("Unequip", null, 0.1f, new SkillDescription(), StartCoroutine, Unequip, () => true));
+        skills.Add(new ButtonActiveAbilitySKill("SelectBullet", null, 0f, new SkillDescription(), StartCoroutine, CircularSelectBullet, () => true));
     }
 
     protected virtual void OnDestroy()

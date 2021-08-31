@@ -82,8 +82,12 @@ namespace Onyx.Ability
         int LevelOfDifficulty { get; }
         bool ShouldUseLevelOfDifficulty { get; }
         bool isFacingLeft { get; }
+        bool isMovementOccupied { get; }
+        bool IsGrounded { get; }
 
+        void AddVelocity(Vector2 velocity);
         void NotifyKillEnemy(GameObject enemy);
+        void OccupyMovement(bool occupy);
     }
 
     public abstract class AbilitySkill
@@ -114,6 +118,7 @@ namespace Onyx.Ability
             this.startCoroutine = startCoroutine;
 
             startCoroutine(ReduceCoolTime());
+            startCoroutine(CheckAvailable());
         }
 
         // MultiLevel
@@ -144,6 +149,7 @@ namespace Onyx.Ability
         public float RemainCoolTime => remainCoolTime;
         public float CoolTime => coolTimePerLevel[Mathf.Clamp(level, 0, coolTimePerLevel.Count - 1)];
 
+        public virtual bool IsAvailable { get { return true; } }
         public virtual void OnSkillTouchDown() { }
         public virtual void OnSkillTouchHolding(float deltaTime) { }
         public virtual void OnSkillTouchUp() { }
@@ -169,6 +175,23 @@ namespace Onyx.Ability
             }
         }
 
+        IEnumerator CheckAvailable()
+        {
+            float interval = 0.1f;
+            bool lastAvailable = true;
+
+            while (true)
+            {
+                yield return new WaitForSeconds(interval);
+                if(lastAvailable != IsAvailable)
+                {
+                    lastAvailable = IsAvailable;
+                    SubscribeManager.ForEach(item => item.OnAvailableChanged(this));
+                }
+
+            }
+        }
+
         public void SetLevel(int level)
         {
             this.level = level;
@@ -177,6 +200,7 @@ namespace Onyx.Ability
         public interface ISubscriber
         {
             void OnRemainCoolTimeChanged(AbilitySkill abilitySkill);
+            void OnAvailableChanged(AbilitySkill abilitySkill);
         }
 
         public interface IAbilityInformation
@@ -247,8 +271,9 @@ namespace Onyx.Ability
     public class ButtonActiveAbilitySKill : ActiveAbilitySKill
     {
         readonly private Action onSkillTouchDown;
+        readonly private Func<bool> isAvailable;
 
-        public ButtonActiveAbilitySKill(string skillName, Sprite skillImage, float coolTime, SkillDescription skillDescription, Func<IEnumerator, Coroutine> startCoroutine, Action onSkillTouchDown)
+        public ButtonActiveAbilitySKill(string skillName, Sprite skillImage, float coolTime, SkillDescription skillDescription, Func<IEnumerator, Coroutine> startCoroutine, Action onSkillTouchDown, Func<bool> isAvailable)
             : base(
                 skillName: skillName,
                 skillImage: skillImage,
@@ -258,9 +283,10 @@ namespace Onyx.Ability
                 )
         {
             this.onSkillTouchDown = onSkillTouchDown;
+            this.isAvailable = isAvailable;
         }
 
-        public ButtonActiveAbilitySKill(string skillName, Sprite skillImage, int level, List<float> coolTimePerLevel, SkillDescription skillDescription, Func<IEnumerator, Coroutine> startCoroutine, Action onSkillTouchDown)
+        public ButtonActiveAbilitySKill(string skillName, Sprite skillImage, int level, List<float> coolTimePerLevel, SkillDescription skillDescription, Func<IEnumerator, Coroutine> startCoroutine, Action onSkillTouchDown, Func<bool> isAvailable)
               : base(
                 skillName: skillName,
                 skillImage: skillImage,
@@ -271,11 +297,14 @@ namespace Onyx.Ability
                 )
         {
             this.onSkillTouchDown = onSkillTouchDown;
+            this.isAvailable = isAvailable;
         }
+
+        public override bool IsAvailable => isAvailable();
 
         public override void OnSkillTouchDown()
         {
-            if (RemainCoolTime == 0)
+            if (IsAvailable && RemainCoolTime == 0)
             {
                 onSkillTouchDown?.Invoke();
                 SetCoolTime();

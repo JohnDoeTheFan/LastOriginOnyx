@@ -30,7 +30,7 @@ public class Thrower : AbilityBase, ThrowBulletBundle.IThrowBulletBundleReactor
     {
         base.Start();
 
-        skills.Add(new ButtonActiveAbilitySKill("Throw", skillImage, 0.1f, new SkillDescription(), StartCoroutine, Throw));
+        skills.Add(new ButtonActiveAbilitySKill("Throw", skillImage, 0.1f, new SkillDescription(), StartCoroutine, Throw, () => true));
     }
 
     public override void InstantiateAbilitySpecificGui(RectTransform abilitySpecificGuiArea)

@@ -7,10 +7,9 @@ using Onyx.Ability;
 
 public class AbilitySkillGui : MonoBehaviour, AbilitySkill.ISubscriber
 {
-    [SerializeField]
-    private Image skillImage;
-    [SerializeField]
-    private Image coolTimeIndicator;
+    [SerializeField] private Image skillImage;
+    [SerializeField] private Image coolTimeIndicator;
+    [SerializeField] private Graphic availableIndicator;
 
     private AbilitySkill abilitySkill;
     private IDisposable unsubscriber;
@@ -34,10 +33,16 @@ public class AbilitySkillGui : MonoBehaviour, AbilitySkill.ISubscriber
 
     void AbilitySkill.ISubscriber.OnRemainCoolTimeChanged(AbilitySkill abilitySkill)
     {
-        if (abilitySkill.CoolTime != 0)
-            coolTimeIndicator.fillAmount = Mathf.Clamp(abilitySkill.RemainCoolTime / abilitySkill.CoolTime, 0, 1);
-        else
-            coolTimeIndicator.fillAmount = 0;
+        float fillAmount = (abilitySkill.CoolTime != 0) ? Mathf.Clamp(abilitySkill.RemainCoolTime / abilitySkill.CoolTime, 0, 1) : 0;
+
+        coolTimeIndicator.fillAmount = fillAmount;
+    }
+
+    void AbilitySkill.ISubscriber.OnAvailableChanged(AbilitySkill abilitySkill)
+    {
+        bool active = !abilitySkill.IsAvailable;
+
+        availableIndicator.gameObject.SetActive(active);
     }
 
     public void OnPointerDown()
@@ -49,4 +54,5 @@ public class AbilitySkillGui : MonoBehaviour, AbilitySkill.ISubscriber
     {
         abilitySkill.OnSkillTouchUp();
     }
+
 }
