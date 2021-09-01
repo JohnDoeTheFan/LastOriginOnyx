@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Onyx.Communication;
 using Onyx.Communication.Protocol;
+using System.Collections.ObjectModel;
 
 public class OnyxGameInstance : MonoBehaviour
 {
@@ -36,6 +37,8 @@ public class OnyxGameInstance : MonoBehaviour
     private int onyxValue;
     [SerializeField]
     private int playerLevel;
+    [SerializeField]
+    private List<int> owningBioroidsIds;
 
     private OnyxClient onyxClient;
     private bool isSignInSuccess;
@@ -54,6 +57,7 @@ public class OnyxGameInstance : MonoBehaviour
     public Vector2 GreetingCameraSizeMinMax => greetingCameraSizeMinMax;
     public int OnyxValue => onyxValue;
     public int PlayerLevel => playerLevel;
+    public ReadOnlyCollection<int> OwningBioroidsIds => owningBioroidsIds.AsReadOnly();
 
     public bool IsSignInSuccess => isSignInSuccess;
 

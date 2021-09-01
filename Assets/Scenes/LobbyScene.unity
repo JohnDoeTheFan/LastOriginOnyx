@@ -1780,17 +1780,6 @@ MonoBehaviour:
   onyxResourceGui: {fileID: 153743692}
   playerLevelGuiOnMain: {fileID: 880685881}
   tipsCanvas: {fileID: 521515205}
-  playerCurrentLevelGuiOnResearch: {fileID: 1513405022}
-  playerNextLevelGuiOnResearch: {fileID: 658727603}
-  playerCurrentHealthGuiOnResearch: {fileID: 955777488}
-  playerNextHealthGuiOnResearch: {fileID: 1545067699}
-  playerCurrentAttackGuiOnResearch: {fileID: 771322453}
-  playerNextAttackGuiOnResearch: {fileID: 691129576}
-  levelUpButtonOnResearch: {fileID: 1036488342}
-  levelUpButtonTextOnResearch: {fileID: 1885528018}
-  neededOnyxGuiOnResearch: {fileID: 979841263}
-  currentOnyxGuiOnResearch: {fileID: 2034991592}
-  remainingOnyxGuiOnResearch: {fileID: 1517514004}
   voiceAudioSource: {fileID: 1572798546}
   bgm: {fileID: 8300000, guid: 0da4b83470c561b48adbc66b67dd3563, type: 3}
   cameraIdlePosition: {x: 0, y: 0}
@@ -1802,6 +1791,8 @@ MonoBehaviour:
   playerStatusMultiplier: {fileID: 11400000, guid: 350ed219e736b1a49955c09116327240, type: 2}
   playerHealthDefaultValue: 100
   playerAttackDefaultValue: 10
+  bioroidList: []
+  researchGuiController: {fileID: 0}
 --- !u!4 &220229979
 Transform:
   m_ObjectHideFlags: 0
@@ -14011,6 +14002,7 @@ MonoBehaviour:
   greetingCameraSizeMinMax: {x: 1, y: 5}
   onyxValue: 0
   playerLevel: 0
+  owningBioroidsIds: 
   isFromTitleScene: 0
   isFromBatteMapScene: 0
   isFromBatteScene: 0

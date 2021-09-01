@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.ObjectModel;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -25,19 +26,6 @@ public class LobbyGameMode : MonoBehaviourBase
     [SerializeField] private TextMeshProUGUI playerLevelGuiOnMain;
     [SerializeField] private Canvas tipsCanvas;
 
-    [Header("ResearchGui")]
-    [SerializeField] private Text playerCurrentLevelGuiOnResearch;
-    [SerializeField] private Text playerNextLevelGuiOnResearch;
-    [SerializeField] private Text playerCurrentHealthGuiOnResearch;
-    [SerializeField] private Text playerNextHealthGuiOnResearch;
-    [SerializeField] private Text playerCurrentAttackGuiOnResearch;
-    [SerializeField] private Text playerNextAttackGuiOnResearch;
-    [SerializeField] private Button levelUpButtonOnResearch;
-    [SerializeField] private Text levelUpButtonTextOnResearch;
-    [SerializeField] private Text neededOnyxGuiOnResearch;
-    [SerializeField] private Text currentOnyxGuiOnResearch;
-    [SerializeField] private Text remainingOnyxGuiOnResearch;
-
     [Header("Audios")]
     [SerializeField] private AudioSource voiceAudioSource;
     [SerializeField] private AudioClip bgm;
@@ -54,10 +42,24 @@ public class LobbyGameMode : MonoBehaviourBase
     [SerializeField] private MultiplierPerLevel playerStatusMultiplier;
     [SerializeField] private int playerHealthDefaultValue = 100;
     [SerializeField] private int playerAttackDefaultValue = 10;
+    [SerializeField] private List<BioroidInformation> bioroidList;
+
+    [SerializeField] ResearchGuiController researchGuiController;
+
+    private BioroidInformation embargoSelectedBioroid;
+
+    private void Awake()
+    {
+        CombatantEmbargoToggle.OnSelected = (bioroid) =>
+        {
+            embargoSelectedBioroid = bioroid;
+            researchGuiController.InitializeEmbargoInformation(embargoSelectedBioroid, OnyxGameInstance.instance.OnyxValue);
+        };
+    }
 
     private void Start()
     {
-        if(! OnyxGameInstance.instance.IsSignInSuccess)
+        if (!OnyxGameInstance.instance.IsSignInSuccess)
             OnyxGameInstance.instance.SignIn("RandomCommander", AfterSignIn);
         else
             AfterSignIn();
@@ -66,7 +68,7 @@ public class LobbyGameMode : MonoBehaviourBase
         {
             onyxResourceGui.text = OnyxGameInstance.instance.OnyxValue.ToString();
             playerLevelGuiOnMain.text = OnyxGameInstance.instance.PlayerLevel.ToString();
-            UpdateResearchGui();
+            UpdateResearchSubPanels();
 
             fadeGui.StartFadeIn(null);
             selectWorldCanvas.alpha = 0;
@@ -76,7 +78,7 @@ public class LobbyGameMode : MonoBehaviourBase
                 OnyxGameInstance.instance.isFromTitleScene = false;
                 SetupGreeting();
             }
-            else if(OnyxGameInstance.instance.isFromBatteMapScene)
+            else if (OnyxGameInstance.instance.isFromBatteMapScene)
                 OnyxGameInstance.instance.isFromBatteMapScene = false;
             else
                 SetupGreeting();
@@ -209,7 +211,7 @@ public class LobbyGameMode : MonoBehaviourBase
     public void OnGreetingCameraSizeButton(bool isCloseUp)
     {
         float oldSize = mainCamera.orthographicSize;
-        float newSize = oldSize + (isCloseUp? -greetingSizeUnit : greetingSizeUnit);
+        float newSize = oldSize + (isCloseUp ? -greetingSizeUnit : greetingSizeUnit);
 
         Vector2 greetingCameraSizeMinMax = OnyxGameInstance.instance.GreetingCameraSizeMinMax;
         newSize = Mathf.Clamp(newSize, greetingCameraSizeMinMax.x, greetingCameraSizeMinMax.y);
@@ -320,7 +322,7 @@ public class LobbyGameMode : MonoBehaviourBase
     public void OnLevelButton()
     {
         int index = OnyxGameInstance.instance.PlayerLevel - 1;
-        if(levelUpCosts.Count > index && OnyxGameInstance.instance.OnyxValue >= levelUpCosts[index])
+        if (levelUpCosts.Count > index && OnyxGameInstance.instance.OnyxValue >= levelUpCosts[index])
         {
             touchPreventingCanvas.gameObject.SetActive(true);
             OnyxGameInstance.instance.LevelUpPlayer(AfterLevelUp);
@@ -332,56 +334,71 @@ public class LobbyGameMode : MonoBehaviourBase
             playerLevelGuiOnMain.text = OnyxGameInstance.instance.PlayerLevel.ToString();
             onyxResourceGui.text = OnyxGameInstance.instance.OnyxValue.ToString();
 
-            UpdateResearchGui();
+            UpdateResearchSubPanels();
         }
     }
 
-    public void UpdateResearchGui()
+    public void OnUnlockButton()
     {
-        float multiplier = playerStatusMultiplier.GetMultiplier(OnyxGameInstance.instance.PlayerLevel);
-        int index = OnyxGameInstance.instance.PlayerLevel - 1;
-        if (levelUpCosts.Count > index)
+        if (OnyxGameInstance.instance.OnyxValue > embargoSelectedBioroid.UnlockCost)
         {
-            playerCurrentLevelGuiOnResearch.text = OnyxGameInstance.instance.PlayerLevel.ToString();
-            playerNextLevelGuiOnResearch.text = (OnyxGameInstance.instance.PlayerLevel + 1).ToString();
+            touchPreventingCanvas.gameObject.SetActive(true);
+            // Replace below to unlock request
+            StartCoroutine(Job(() => WaitForSecondsRoutine(0.5f), () => AfterUnlock()));
+        }
 
+        void AfterUnlock()
+        {
+            touchPreventingCanvas.gameObject.SetActive(false);
+            playerLevelGuiOnMain.text = OnyxGameInstance.instance.PlayerLevel.ToString();
+            onyxResourceGui.text = OnyxGameInstance.instance.OnyxValue.ToString();
+
+            UpdateResearchSubPanels();
+        }
+    }
+
+    public void UpdateResearchSubPanels()
+    {
+        UpdateUpgradeGui();
+        UpdateEmbargoPanel();
+    }
+
+    public void UpdateUpgradeGui()
+    {
+        int playerLevel = OnyxGameInstance.instance.PlayerLevel;
+        int index = OnyxGameInstance.instance.PlayerLevel - 1;
+
+        float currentLevelMultiplier = playerStatusMultiplier.GetMultiplier(OnyxGameInstance.instance.PlayerLevel);
+
+        bool canLevelUp = levelUpCosts.Count > index;
+        if (canLevelUp)
+        {
             float nextLevelMultiplier = playerStatusMultiplier.GetMultiplier(OnyxGameInstance.instance.PlayerLevel + 1);
-
-            playerCurrentHealthGuiOnResearch.text = Mathf.Floor(playerHealthDefaultValue * multiplier).ToString();
-            playerNextHealthGuiOnResearch.text = Mathf.Floor(playerHealthDefaultValue * nextLevelMultiplier).ToString();
-
-            playerCurrentAttackGuiOnResearch.text = Mathf.Floor(playerAttackDefaultValue * multiplier).ToString();
-            playerNextAttackGuiOnResearch.text = Mathf.Floor(playerAttackDefaultValue * nextLevelMultiplier).ToString();
-
-            neededOnyxGuiOnResearch.text = levelUpCosts[index].ToString();
-            currentOnyxGuiOnResearch.text = OnyxGameInstance.instance.OnyxValue.ToString();
-            int remainingOnyx = OnyxGameInstance.instance.OnyxValue - levelUpCosts[index];
-            remainingOnyxGuiOnResearch.text = remainingOnyx.ToString();
-
-            if (OnyxGameInstance.instance.OnyxValue < levelUpCosts[index])
-            {
-                remainingOnyxGuiOnResearch.color = new Color(1, 0, 0);
-                levelUpButtonOnResearch.interactable = false;
-                levelUpButtonTextOnResearch.text = "Not Enough Cost";
-            }
+            researchGuiController.InitializeUpgradePanel(playerLevel, playerHealthDefaultValue, playerAttackDefaultValue, currentLevelMultiplier, nextLevelMultiplier, levelUpCosts[index], OnyxGameInstance.instance.OnyxValue);
         }
         else
+            researchGuiController.InitializeUpgradePanel(playerLevel, playerHealthDefaultValue, playerAttackDefaultValue, currentLevelMultiplier);
+    }
+
+    public void UpdateEmbargoPanel()
+    {
+        List<BioroidInformation> unlockableBioroidList = new List<BioroidInformation>();
+        ReadOnlyCollection<int> owningBioroidsIds = OnyxGameInstance.instance.OwningBioroidsIds;
+        foreach (BioroidInformation bioroid in bioroidList)
         {
-            playerCurrentLevelGuiOnResearch.text = OnyxGameInstance.instance.PlayerLevel.ToString();
-            playerNextLevelGuiOnResearch.text = "-";
-
-            playerCurrentHealthGuiOnResearch.text = Mathf.Floor(playerHealthDefaultValue * multiplier).ToString();
-            playerNextHealthGuiOnResearch.text = "-";
-
-            playerCurrentAttackGuiOnResearch.text = Mathf.Floor(playerAttackDefaultValue * multiplier).ToString();
-            playerNextAttackGuiOnResearch.text = "-";
-
-            neededOnyxGuiOnResearch.text = "-";
-            currentOnyxGuiOnResearch.text = "-";
-            remainingOnyxGuiOnResearch.text = "-";
-            levelUpButtonOnResearch.interactable = false;
-            levelUpButtonTextOnResearch.text = "Max Level";
+            bool isUnlockable = !owningBioroidsIds.Contains(bioroid.Id);
+            if (isUnlockable)
+                unlockableBioroidList.Add(bioroid);
         }
+
+        if (unlockableBioroidList.Count == 0)
+        {
+            researchGuiController.InitializeEmbargoList();
+            embargoSelectedBioroid = null;
+            researchGuiController.InitializeEmbargoInformation(OnyxGameInstance.instance.OnyxValue);
+        }
+        else
+            researchGuiController.InitializeEmbargoList(unlockableBioroidList, OnyxGameInstance.instance.PlayerLevel, OnyxGameInstance.instance.OnyxValue);
     }
 
     public void DisplayTipPanel(bool display)
