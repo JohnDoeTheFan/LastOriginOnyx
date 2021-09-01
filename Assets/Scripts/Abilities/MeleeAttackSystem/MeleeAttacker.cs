@@ -42,7 +42,7 @@ public class MeleeAttacker : AbilityBase
         }
 
         return true;
-        
+
     }
 
     public override void InstantiateAbilitySpecificGui(RectTransform abilitySpecificGuiArea)
@@ -62,7 +62,7 @@ public class MeleeAttacker : AbilityBase
             float nextComboInputStartTime = currentComboStartTime + currentCombo.nextComboInputStart;
             float nextComboInputEndTime = nextComboInputStartTime + currentCombo.nextComboInputDuration;
             bool canStartNextCombo = IsInTimeRange(Time.time, nextComboInputStartTime, nextComboInputEndTime);
-            if(canStartNextCombo)
+            if (canStartNextCombo)
             {
                 StartNextCombo();
             }
@@ -94,12 +94,11 @@ public class MeleeAttacker : AbilityBase
             foreach (DataOnTime<Vector2> velocityOnTime in currentCombo.velocityOnTimes)
                 StartCoroutine(Job(() => WaitForSecondsRoutine(velocityOnTime.time), () => AddVelocity(velocityOnTime.data)));
 
-            foreach (DataOnTime<GameObject> attackOnTime in currentCombo.attackOnTime)
+            foreach (DataOnTime<MeleeAttack> attackOnTime in currentCombo.attackOnTime)
                 StartCoroutine(Job(() => WaitForSecondsRoutine(attackOnTime.time), () =>
                 {
-                    attackOnTime.data.SetActive(false);
-                    attackOnTime.data.SetActive(true);
-                    }));
+                    attackOnTime.data.Activate();
+                }));
 
             animator.SetInteger("ComboCount", comboCount);
         }
@@ -120,7 +119,7 @@ public class MeleeAttacker : AbilityBase
     private void AddVelocity(Vector2 velocity)
     {
         Vector2 velocityWithFacingDirection = velocity;
-        if(abilityHolder.isFacingLeft)
+        if (abilityHolder.isFacingLeft)
             velocityWithFacingDirection.x *= -1;
 
         abilityHolder.AddVelocity(velocityWithFacingDirection);
@@ -142,6 +141,7 @@ public class MeleeAttacker : AbilityBase
         public float nextComboInputDuration;
         public bool canUseInAir;
         public List<DataOnTime<Vector2>> velocityOnTimes;
-        public List<DataOnTime<GameObject>> attackOnTime;
+        public List<DataOnTime<MeleeAttack>> attackOnTime;
     }
 }
+
