@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d0af79e70f02a74c9a5a6015ed32840, type: 3}
   m_Name: SaveDataForTest
   m_EditorClassIdentifier: 
+  saveDataVersion: 1
   doNotSaveForTest: 0
   networkDelay: {x: 0.1, y: 0.1}
   stageClearedList:
@@ -34,19 +35,19 @@ MonoBehaviour:
   - chapterNum: 1
     stageNum: 5
     stageType: 0
-    isCleared: 0
+    isCleared: 1
   - chapterNum: 1
     stageNum: 6
     stageType: 0
-    isCleared: 0
+    isCleared: 1
   - chapterNum: 1
     stageNum: 7
     stageType: 0
-    isCleared: 0
+    isCleared: 1
   - chapterNum: 1
     stageNum: 8
     stageType: 0
-    isCleared: 0
+    isCleared: 1
   - chapterNum: 1
     stageNum: 3
     stageType: 1
@@ -82,7 +83,7 @@ MonoBehaviour:
   - chapterNum: 2
     stageNum: 1
     stageType: 0
-    isCleared: 0
+    isCleared: 1
   - chapterNum: 2
     stageNum: 2
     stageType: 0
@@ -207,8 +208,13 @@ MonoBehaviour:
     stageNum: 4
     stageType: 2
     isCleared: 0
-  greetingPosition: {x: -0.99999905, y: 0.5999994}
-  greetingSize: 4.000001
-  onyxValue: 1100
-  playerLevel: 2
+  greetingPosition: {x: -1.1000011, y: -2.2}
+  greetingSize: 1.3000003
+  onyxValue: 1340
+  playerLevel: 4
   levelUpCost: f4010000e8030000dc050000d0070000c4090000b80b0000ac0d0000a00f000094110000
+  bioroidInformations:
+  - {fileID: 11400000, guid: d660ac79e67c2514081f851b40c327c1, type: 2}
+  - {fileID: 11400000, guid: b5505c86eff7a2e4c859d48f04f10c5d, type: 2}
+  - {fileID: 11400000, guid: 3ada63bd578a24e4c8dd159f3266eb9f, type: 2}
+  owningBioroidsIds: 1900000001040000e8030000

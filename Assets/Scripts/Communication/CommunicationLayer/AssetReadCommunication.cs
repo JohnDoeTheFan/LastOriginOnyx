@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Onyx.Communication.Protocol;
+using System.Collections.ObjectModel;
 
 namespace Onyx.Communication
 {
@@ -91,12 +92,12 @@ namespace Onyx.Communication
                 LevelUpPlayerRequest levelUpPlayerRequest = JsonUtility.FromJson<LevelUpPlayerRequest>(requestJsonString);
 
                 int lastPlayerLevel = saveDataAsset.PlayerLevel;
-                int lastOnxyValue = saveDataAsset.OnyxValue;
-                int lastOnxyCost = saveDataAsset.GetLevelUpCost();
+                int lastOnyxValue = saveDataAsset.OnyxValue;
+                int lastOnyxCost = saveDataAsset.GetLevelUpCost();
                 if (saveDataAsset.LevelUpPlayer())
                 {
                     Debug.Log("PlayerLevel: " + lastPlayerLevel + " + 1 = " + saveDataAsset.PlayerLevel);
-                    Debug.Log("LevelUpCost: " + lastOnxyValue + " - " + lastOnxyCost + " = " + saveDataAsset.OnyxValue);
+                    Debug.Log("LevelUpCost: " + lastOnyxValue + " - " + lastOnyxCost + " = " + saveDataAsset.OnyxValue);
                 }
                 else
                 {
@@ -104,6 +105,39 @@ namespace Onyx.Communication
                 }
 
                 responseObject = new LevelUpPlayerResponse(saveDataAsset.PlayerLevel, saveDataAsset.OnyxValue);
+            }
+            else if (requestBase.type == RequestType.UnlockCombatantEmbargo)
+            {
+                UnlockCombatantEmbargoRequest unlockCombatantEmbargoRequest = JsonUtility.FromJson<UnlockCombatantEmbargoRequest>(requestJsonString);
+
+                int lastOnyxValue = saveDataAsset.OnyxValue;
+                bool isSucceed = saveDataAsset.UnlockBioroid(unlockCombatantEmbargoRequest.bioroidId);
+                if (isSucceed)
+                {
+                    int unlockCost = saveDataAsset.GetBioroidUnlockCost(unlockCombatantEmbargoRequest.bioroidId);
+                    int remainOnyx = saveDataAsset.OnyxValue;
+                    Debug.Log("Bioroid " + unlockCombatantEmbargoRequest.bioroidId + " is unlocked.");
+                    Debug.Log("UnlockCost: " + lastOnyxValue + " - " + unlockCost + " = " + remainOnyx);
+                }
+                else
+                {
+                    Debug.Log("UnlockBioroid failed.");
+                }
+
+                responseObject = new UnlockCombatantEmbargoResponse(isSucceed, saveDataAsset.OnyxValue);
+            }
+            else if(requestBase.type == RequestType.GetOwningBioroidsIds)
+            {
+                ReadOnlyCollection<int> owningBioroidsIds = saveDataAsset.OwningBioroidsIds;
+                List<int> bioroidsIdsList = new List<int>();
+                bioroidsIdsList.AddRange(owningBioroidsIds);
+
+                foreach(int id in bioroidsIdsList)
+                {
+                    Debug.Log("Owning bioroid: " + id);
+                }
+
+                responseObject = new GetOwningBioroidsIdsResponse(bioroidsIdsList);
             }
 
             onOk(JsonUtility.FromJson<Response>(JsonUtility.ToJson(responseObject)));

@@ -103,10 +103,12 @@ public class BattleMapGameMode : MonoBehaviourBase
     {
         foreach (BioroidInformation combatant in combatantList)
         {
-            CombatantToggle newToggle = Instantiate<CombatantToggle>(combatantTogglePrefab, combatantToggleGroup.transform);
-            newToggle.SetBioroidInformation(combatant);
-            //combatantToggleGroup.RegisterToggle(newToggle.Toggle);
-            newToggle.Toggle.group = combatantToggleGroup;
+            if (OnyxGameInstance.instance.OwningBioroidsIds.Contains(combatant.Id))
+            {
+                CombatantToggle newToggle = Instantiate<CombatantToggle>(combatantTogglePrefab, combatantToggleGroup.transform);
+                newToggle.SetBioroidInformation(combatant);
+                newToggle.Toggle.group = combatantToggleGroup;
+            }
         }
     }
 

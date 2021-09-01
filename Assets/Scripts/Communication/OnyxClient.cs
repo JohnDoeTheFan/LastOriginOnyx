@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 using Onyx.Communication.Protocol;
+using System.Collections.Generic;
 
 namespace Onyx.Communication
 {
@@ -130,6 +131,30 @@ namespace Onyx.Communication
             void OnOk(LevelUpPlayerResponse levelUpPlayerResponse)
             {
                 callBack.Invoke(levelUpPlayerResponse.level, levelUpPlayerResponse.onyxValue);
+            }
+        }
+
+        public void UnlockCombatantEmbargo(UnlockCombatantEmbargoRequest unlockCombatantEmbargoRequest, Action<bool, int> callBack)
+        {
+            coroutineProxy.StartCoroutine(
+                communicationLayer.Communicate<UnlockCombatantEmbargoRequest, UnlockCombatantEmbargoResponse>(unlockCombatantEmbargoRequest, OnOk)
+                );
+
+            void OnOk(UnlockCombatantEmbargoResponse unlockCombatantEmbargoResponse)
+            {
+                callBack.Invoke(unlockCombatantEmbargoResponse.isSucceed, unlockCombatantEmbargoResponse.onyxValue);
+            }
+        }
+
+        public void GetOwningBioroidsIds(GetOwningBioroidsIdsRequest unlockCombatantEmbargoRequest, Action<List<int>> callBack)
+        {
+            coroutineProxy.StartCoroutine(
+                communicationLayer.Communicate<GetOwningBioroidsIdsRequest, GetOwningBioroidsIdsResponse>(unlockCombatantEmbargoRequest, OnOk)
+                );
+
+            void OnOk(GetOwningBioroidsIdsResponse getOwningBioroidsIdsResponse)
+            {
+                callBack.Invoke(getOwningBioroidsIdsResponse.owningBioroidsIds);
             }
         }
 

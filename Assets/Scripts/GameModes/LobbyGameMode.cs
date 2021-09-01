@@ -344,7 +344,7 @@ public class LobbyGameMode : MonoBehaviourBase
         {
             touchPreventingCanvas.gameObject.SetActive(true);
             // Replace below to unlock request
-            StartCoroutine(Job(() => WaitForSecondsRoutine(0.5f), () => AfterUnlock()));
+            OnyxGameInstance.instance.UnlockBioroid(embargoSelectedBioroid.Id, AfterUnlock);
         }
 
         void AfterUnlock()
@@ -382,6 +382,8 @@ public class LobbyGameMode : MonoBehaviourBase
 
     public void UpdateEmbargoPanel()
     {
+        researchGuiController.InitializeEmbargoInformation(OnyxGameInstance.instance.OnyxValue);
+
         List<BioroidInformation> unlockableBioroidList = new List<BioroidInformation>();
         ReadOnlyCollection<int> owningBioroidsIds = OnyxGameInstance.instance.OwningBioroidsIds;
         foreach (BioroidInformation bioroid in bioroidList)
@@ -399,6 +401,7 @@ public class LobbyGameMode : MonoBehaviourBase
         }
         else
             researchGuiController.InitializeEmbargoList(unlockableBioroidList, OnyxGameInstance.instance.PlayerLevel, OnyxGameInstance.instance.OnyxValue);
+
     }
 
     public void DisplayTipPanel(bool display)

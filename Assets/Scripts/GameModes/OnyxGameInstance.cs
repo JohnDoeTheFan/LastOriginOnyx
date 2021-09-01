@@ -93,7 +93,12 @@ public class OnyxGameInstance : MonoBehaviour
         }
         else
         {
-            if (!saveDataAsset.LoadFromFile())
+            saveDataAsset.PrepareVersionCheck();
+            if (saveDataAsset.LoadFromFile())
+            {
+                saveDataAsset.UpdateSaveData0To1(defaultSaveDataAsset);
+            }
+            else
             {
                 defaultSaveDataAsset.SaveAsFile();
 
@@ -138,6 +143,14 @@ public class OnyxGameInstance : MonoBehaviour
         void OnSuccessGetPlayerLevel(int playerLevel)
         {
             this.playerLevel = playerLevel;
+
+            onyxClient.GetOwningBioroidsIds(new GetOwningBioroidsIdsRequest(), OnSuccessGetOwningBioroidsIds);
+        }
+
+        void OnSuccessGetOwningBioroidsIds(List<int> owningBioroidsIds)
+        {
+            this.owningBioroidsIds.Clear();
+            this.owningBioroidsIds.AddRange(owningBioroidsIds);
 
             OnFinish();
         }
@@ -304,6 +317,20 @@ public class OnyxGameInstance : MonoBehaviour
         }
 
         return chapterInformations;
+    }
+
+    public void UnlockBioroid(int bioroidId, Action callBack)
+    {
+        UnlockCombatantEmbargoRequest request = new UnlockCombatantEmbargoRequest(bioroidId);
+        OnyxClient.UnlockCombatantEmbargo(request, AfterLevelUp);
+
+        void AfterLevelUp(bool isSucceed, int onyxValue)
+        {
+            if (isSucceed)
+                owningBioroidsIds.Add(bioroidId);
+            this.onyxValue = onyxValue;
+            callBack();
+        }
     }
 
     public class CommunicationRetryConfirm : OnyxClient.IRetryConfirm

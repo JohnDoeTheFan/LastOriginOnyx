@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using UnityEngine;
 
@@ -9,6 +10,8 @@ namespace Onyx.Communication
     [CreateAssetMenu(menuName = "Utility/SaveData")]
     public class SaveDataAsset : ScriptableObject
     {
+        [SerializeField]
+        private int saveDataVersion;
         [SerializeField]
         private bool doNotSaveForTest;
         [SerializeField]
@@ -25,12 +28,17 @@ namespace Onyx.Communication
         private int playerLevel = 1;
         [SerializeField]
         private List<int> levelUpCost;
+        [SerializeField]
+        private List<BioroidInformation> bioroidInformations;
+        [SerializeField]
+        private List<int> owningBioroidsIds;
 
         public Vector2 NetworkDelay => networkDelay;
         public Vector2 GreetingPosition => greetingPosition;
         public float GreetingSize => greetingSize;
         public int OnyxValue => onyxValue;
         public int PlayerLevel => playerLevel;
+        public ReadOnlyCollection<int> OwningBioroidsIds => owningBioroidsIds.AsReadOnly();
 
         public void SetDoNotSaveForTest(bool doNot)
         {
@@ -90,6 +98,7 @@ namespace Onyx.Communication
             SaveAsFile();
         }
 
+
         public bool LevelUpPlayer()
         {
             if (IsNotMaxLevel() && onyxValue >= GetLevelUpCost())
@@ -118,6 +127,37 @@ namespace Onyx.Communication
         {
             int index = playerLevel - 1;
             return index < levelUpCost.Count;
+        }
+
+        public bool UnlockBioroid(int bioroidId)
+        {
+            int foundedIndex = bioroidInformations.FindIndex((item) => item.Id == bioroidId);
+            if(foundedIndex == -1)
+                return false;
+
+            if (onyxValue < bioroidInformations[foundedIndex].UnlockCost)
+                return false;
+
+            if (playerLevel < bioroidInformations[foundedIndex].UnlockLevel)
+                return false;
+
+            if (owningBioroidsIds.Contains(bioroidId))
+                return false;
+
+            onyxValue -= bioroidInformations[foundedIndex].UnlockCost;
+            owningBioroidsIds.Add(bioroidId);
+
+            SaveAsFile();
+            return true;
+        }
+
+        public int GetBioroidUnlockCost(int bioroidId)
+        {
+            int foundedIndex = bioroidInformations.FindIndex((item) => item.Id == bioroidId);
+            if (foundedIndex == -1)
+                return -1;
+            else
+                return bioroidInformations[foundedIndex].UnlockCost;
         }
 
         public void SaveAsFile()
@@ -157,6 +197,23 @@ namespace Onyx.Communication
                 Debug.LogError("Save data reading Failed. Path: " + fullPath + ", Exception: " + e);
 
                 return false;
+            }
+        }
+
+        internal void PrepareVersionCheck()
+        {
+            saveDataVersion = 0;
+        }
+
+        public void UpdateSaveData0To1(SaveDataAsset defaultSaveData)
+        {
+            if(saveDataVersion == 0)
+            {
+                bioroidInformations.Clear();
+                bioroidInformations.AddRange(defaultSaveData.bioroidInformations);
+                owningBioroidsIds.Clear();
+                owningBioroidsIds.AddRange(defaultSaveData.owningBioroidsIds);
+                saveDataVersion = 1;
             }
         }
 

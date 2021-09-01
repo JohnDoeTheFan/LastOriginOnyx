@@ -12,10 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8982060b0a082d347b5738e3ddcd802f, type: 3}
   m_Name: TestBioroidInformation
   m_EditorClassIdentifier: 
+  id: 1000
   unit: {fileID: 5684826329192217018, guid: f3b323963e9046749a443b3071d3ccfc, type: 3}
   portrait: {fileID: 0}
   bioroidName: "\uC2E4\uD5D8\uC6A9 \uBC14\uC774\uC624\uB85C\uC774\uB4DC"
   description: "\uADFC\uC811 \uACF5\uACA9 \uC2E4\uD5D8\uAE30 \uC785\uB2C8\uB2E4."
+  unlockCost: 100
+  unlockLevel: 0
   abilities:
   - image: {fileID: 0}
     abilityName: "\uADFC\uC811 \uACF5\uACA9"

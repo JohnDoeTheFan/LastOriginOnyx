@@ -111,22 +111,34 @@ public class ResearchGuiController : MonoBehaviour
         for (int i = combatantEmbargoToggleGroup.transform.childCount - 1; i >= 0; i--)
             Destroy(combatantEmbargoToggleGroup.transform.GetChild(i).gameObject);
 
+        bool isFirstInteractableToggle = true;
+        combatantEmbargoToggleGroup.allowSwitchOff = true;
         foreach (BioroidInformation bioroid in bioroidList)
         {
             CombatantEmbargoToggle newToggle = Instantiate<CombatantEmbargoToggle>(combatantEmbargoTogglePrefab, combatantEmbargoToggleGroup.transform);
             newToggle.SetBioroidInformation(bioroid, playerLevel, onyxValue);
             newToggle.Toggle.group = combatantEmbargoToggleGroup;
+
+            if (newToggle.Toggle.interactable && isFirstInteractableToggle)
+            {
+                newToggle.Toggle.isOn = true;
+                combatantEmbargoToggleGroup.allowSwitchOff = false;
+                isFirstInteractableToggle = false;
+            }
         }
     }
     public void InitializeEmbargoList()
     {
+        for (int i = combatantEmbargoToggleGroup.transform.childCount - 1; i >= 0; i--)
+            Destroy(combatantEmbargoToggleGroup.transform.GetChild(i).gameObject);
+
         embargoListEmptyGraphic.gameObject.SetActive(true);
     }
 
     public void InitializeEmbargoInformation(BioroidInformation bioroidInformation, int onyxValue)
     {
         embargoPortrait.sprite = bioroidInformation.Portrait;
-        embargoName.text = bioroidInformation.name;
+        embargoName.text = bioroidInformation.BioroidName;
         embargoCurrentOnyxValue.text = onyxValue.ToString();
         embargoUnlockCost.text = bioroidInformation.UnlockCost.ToString();
         embargoRemainOnyxValue.text = (onyxValue - bioroidInformation.UnlockCost).ToString();
@@ -142,7 +154,6 @@ public class ResearchGuiController : MonoBehaviour
             embargoRemainOnyxValue.color = Color.white;
             embargoUnlockButton.interactable = true;
             embargoUnlockButtonText.text = "Unlock";
-
         }
     }
 
