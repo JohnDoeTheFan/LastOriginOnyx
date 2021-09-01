@@ -85,7 +85,7 @@ public interface IHitReactor
         public bool isKilledByHit;
     }
 
-    HitResult Hit(HitType type, float damage, Vector3 force = new Vector3());
+    HitResult Hit(HitType type, float damage, Vector3 knockBackVelocity = new Vector3());
 
     Vector3 GetWorldPosition { get; }
 

@@ -2,13 +2,15 @@
 using Onyx.Ability;
 using Onyx.GameElement;
 using Onyx.Input;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using UnityEngine;
 
 namespace Onyx
 {
+    /// <summary>
+    /// 게임 내에서 플레이어 또는 적의 역할을 수행하는 GameObject를 만들 수 있는 컴포넌트. 
+    /// </summary>
     public class MyUnit : MonoBehaviourBase, InputHandler.IInputReceiver, IHitReactor, IAbilityHolder, HealingItem.IHealingItemReactor
     {
         public delegate void OnEndOfStartHandler(MyUnit myUnit);
@@ -63,7 +65,10 @@ namespace Onyx
         private bool preventControl = false;
         private Vector2 leftStick = new Vector2(0, 0);
         private float remainHitRecoverTime = 0;
-        private Vector2 forceByDamage;
+        private float remainSkillMomentumRecoverTime = 0;
+        private Vector2 velocityChangeByDamage;
+        private Vector2 velocityChangeBySkill;
+        private bool isMovementOccupied;
 
         public float HealthPoint => healthPoint;
         public bool IsDead => isDead;
@@ -80,9 +85,10 @@ namespace Onyx
         int IAbilityHolder.LevelOfDifficulty => levelOfDifficulty;
         bool IAbilityHolder.ShouldUseLevelOfDifficulty => !CompareTag("Player");
         bool IAbilityHolder.isFacingLeft => rigidBody.transform.rotation.y != 0;
-
+        bool IAbilityHolder.isMovementOccupied => isMovementOccupied;
         GameObject IHitReactor.GameObject => gameObject;
 
+        bool IAbilityHolder.IsGrounded => groundChecker.IsGrounded;
 
         void Start()
         {
@@ -130,22 +136,27 @@ namespace Onyx
             else if (leftStick.x < 0)
                 inputDirection = Vector2.left;
 
+            if (isMovementOccupied)
+                inputDirection = Vector2.zero;
+
             RotateUnit(inputDirection);
 
             float currentAbsVelocityX = Mathf.Abs(rigidBody.velocity.x);
             bool isStopped = currentAbsVelocityX == 0;
-            bool isOverSpeed = !Mathf.Approximately(currentAbsVelocityX, maxVelocity) && currentAbsVelocityX > maxVelocity;
+            bool wasOverSpeed = !Mathf.Approximately(currentAbsVelocityX, maxVelocity) && currentAbsVelocityX > maxVelocity;
 
-            AddDamageForce();
-            if (remainHitRecoverTime == 0)
-                AddControlImpulse(inputDirection, isStopped, isOverSpeed);
+            AddDamageMomentum();
+            if (remainHitRecoverTime == 0 && remainSkillMomentumRecoverTime == 0)
+                AddControlMomentum(inputDirection, isStopped, wasOverSpeed);
+            AddSkillMomentum();
 
             remainHitRecoverTime = Mathf.Max(0, remainHitRecoverTime - Time.deltaTime);
+            remainSkillMomentumRecoverTime = Mathf.Max(0, remainSkillMomentumRecoverTime - Time.deltaTime);
 
-            if (isOverSpeed)
-                AddOverSpeedRecoverImpulse();
+            if (wasOverSpeed)
+                AddOverSpeedRecoverMomentum();
             else
-                LimitNewControlVelocity();
+                AddMomentumToLimitVelocity();
         }
 
         /// <summary>
@@ -171,13 +182,13 @@ namespace Onyx
         /// <param name="inputDirection">현재 입력</param>
         /// <param name="isStopped">현재 정지 여부</param>
         /// <param name="isOverSpeed">현재 과속 여부</param>
-        public void AddControlImpulse(Vector2 inputDirection, bool isStopped, bool isOverSpeed)
+        public void AddControlMomentum(Vector2 inputDirection, bool isStopped, bool isOverSpeed)
         {
             float velocityToAdd = maxVelocity;
             if (velocityReachTime > Time.deltaTime)
                 velocityToAdd *= Time.deltaTime / velocityReachTime;
 
-            float impulse = CalcMomentumForVelocity(velocityToAdd);
+            float impulse = CalcMomentumToChangeVelocity(velocityToAdd);
             if (!groundChecker.IsGrounded)
                 impulse *= velocityInAirRate;
 
@@ -209,7 +220,7 @@ namespace Onyx
             else if (rigidBody.velocity.x < 0)
                 stoppingImpulseDirection = Vector2.right;
 
-            float impluseToStop = CalcMomentumForVelocity(Mathf.Abs(rigidBody.velocity.x));
+            float impluseToStop = CalcMomentumToChangeVelocity(Mathf.Abs(rigidBody.velocity.x));
 
             float stoppingImpulse = Mathf.Min(impluseToStop, maximumStoppingImpulse);
 
@@ -219,13 +230,13 @@ namespace Onyx
         /// <summary>
         /// 과속 상태에서 벗어나기 위한 운동량을 가한다. 입력에 무관하게 가해진다.
         /// </summary>
-        private void AddOverSpeedRecoverImpulse()
+        private void AddOverSpeedRecoverMomentum()
         {
             float velocityToAdd = overSpeedRecoverVelocity;
             if (overSpeedRecoverVelocityReachTime > Time.deltaTime)
                 velocityToAdd *= Time.deltaTime / overSpeedRecoverVelocityReachTime;
 
-            float impulse = CalcMomentumForVelocity(velocityToAdd);
+            float impulse = CalcMomentumToChangeVelocity(velocityToAdd);
 
             Vector2 naturalImpulseDirection = Vector2.zero;
             if (rigidBody.velocity.x > 0)
@@ -239,12 +250,12 @@ namespace Onyx
         /// <summary>
         /// 입력으로 인한 운동량으로 인해 과속이 되지 않게 제한한다.
         /// </summary>
-        private void LimitNewControlVelocity()
+        private void AddMomentumToLimitVelocity()
         {
             float newVelocity = Mathf.Abs(rigidBody.velocity.x);
             if (newVelocity > maxVelocity)
             {
-                float limitingImpulse = CalcMomentumForVelocity(newVelocity - maxVelocity);
+                float limitingImpulse = CalcMomentumToChangeVelocity(newVelocity - maxVelocity);
 
                 Vector2 limitDirection = Vector2.zero;
                 if (rigidBody.velocity.x > 0)
@@ -259,22 +270,31 @@ namespace Onyx
         /// <summary>
         /// 도달하고자 하는 속도로 가속하기 위한 운동량(Momentum)을 계산한다.
         /// </summary>
-        /// <param name="velocity">도달하고자 하는 속도</param>
+        /// <param name="targetVelocity">도달하고자 하는 속도</param>
         /// <returns>운동량</returns>
-        float CalcMomentumForVelocity(float velocity)
+        float CalcMomentumToChangeVelocity(float targetVelocity)
         {
-            return rigidBody.mass * velocity;
+            return rigidBody.mass * targetVelocity;
         }
 
         /// <summary>
         /// 피해로 인한 운동량(넉백)을 가한다.
         /// </summary>
-        private void AddDamageForce()
+        private void AddDamageMomentum()
         {
-            if(forceByDamage != Vector2.zero)
+            if(velocityChangeByDamage != Vector2.zero)
             {
-                rigidBody.AddForce(forceByDamage * rigidBody.mass, ForceMode2D.Impulse);
-                forceByDamage = Vector2.zero;
+                rigidBody.AddForce(velocityChangeByDamage * rigidBody.mass, ForceMode2D.Impulse);
+                velocityChangeByDamage = Vector2.zero;
+            }
+        }
+
+        private void AddSkillMomentum()
+        {
+            if(velocityChangeBySkill != Vector2.zero)
+            {
+                rigidBody.AddForce(velocityChangeBySkill * rigidBody.mass, ForceMode2D.Impulse);
+                velocityChangeBySkill = Vector2.zero;
             }
         }
 
@@ -345,9 +365,15 @@ namespace Onyx
             }
         }
 
+        /// <summary>
+        /// 어빌리티의 스킬에 조작을 전달한다.
+        /// </summary>
+        /// <param name="abilityIndex">어빌리티 번호</param>
+        /// <param name="skillIndex">스킬 번호</param>
+        /// <param name="isDown">입력 유형</param>
         private void CallAbilitySkill(int abilityIndex, int skillIndex, bool isDown)
         {
-            if (abilities.Count > abilityIndex && abilities[abilityIndex] != null && skillIndex < abilities[abilityIndex].Skills.Count)
+            if (abilityIndex < abilities.Count && skillIndex < abilities[abilityIndex].Skills.Count)
             {
                 if (isDown)
                     abilities[abilityIndex].Skills[skillIndex].OnSkillTouchDown();
@@ -541,7 +567,7 @@ namespace Onyx
 
             if(force.sqrMagnitude > 0)
             {
-                forceByDamage += new Vector2(force.x, force.y);
+                velocityChangeByDamage += new Vector2(force.x, force.y);
                 remainHitRecoverTime = hitRecoverTime;
             }
 
@@ -552,6 +578,17 @@ namespace Onyx
         {
             foreach (IAbility ability in abilities)
                 ability.OnKillEnemy(enemy.transform);
+        }
+
+        void IAbilityHolder.AddVelocity(Vector2 velocity)
+        {
+            remainSkillMomentumRecoverTime = hitRecoverTime;
+            velocityChangeBySkill = velocity;
+        }
+
+        void IAbilityHolder.OccupyMovement(bool occupy)
+        {
+            isMovementOccupied = occupy;
         }
 
         public interface ISubscriber

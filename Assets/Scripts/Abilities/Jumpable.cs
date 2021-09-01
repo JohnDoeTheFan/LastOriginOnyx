@@ -38,8 +38,8 @@ public class Jumpable : AbilityBase
     protected override void Start()
     {
         base.Start();
-        skills.Add(new ButtonActiveAbilitySKill("Jump", jumpSkillImage, 0.5f, new SkillDescription(), StartCoroutine, Jump));
-        skills.Add(new ButtonActiveAbilitySKill("Dash", dashSkillImage, 1f, new SkillDescription(), StartCoroutine, Dash));
+        skills.Add(new ButtonActiveAbilitySKill("Jump", jumpSkillImage, 0.5f, new SkillDescription(), StartCoroutine, Jump, ()=> !abilityHolder.isMovementOccupied));
+        skills.Add(new ButtonActiveAbilitySKill("Dash", dashSkillImage, 1f, new SkillDescription(), StartCoroutine, Dash, () => !abilityHolder.isMovementOccupied));
     }
 
     private void Jump()

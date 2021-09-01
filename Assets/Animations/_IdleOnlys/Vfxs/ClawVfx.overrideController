@@ -1,0 +1,13 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: ClawVfx
+  m_Controller: {fileID: 9100000, guid: 01ab055bb93913a4b9591af6e658a373, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 21aaedab550cbf142b675c7b6f80e232, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 99aaf208922b97e4f9cfaf42d05f4f47, type: 2}
