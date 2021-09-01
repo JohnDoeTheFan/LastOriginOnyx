@@ -155,7 +155,7 @@ public partial class Bullet : TangibleComponent, IHitReactor
         hitDamage = damage;
     }
 
-    IHitReactor.HitResult IHitReactor.Hit(IHitReactor.HitType type, float damage, Vector3 force)
+    IHitReactor.HitResult IHitReactor.Hit(IHitReactor.HitType type, float damage, Vector3 knockBackVelocity, float stiffenTime)
     {
         return new IHitReactor.HitResult(0, false);
     }

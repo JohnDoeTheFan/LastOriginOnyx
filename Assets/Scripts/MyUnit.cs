@@ -22,7 +22,7 @@ namespace Onyx
         [SerializeField, Range(0.001f, 1f)] private float velocityInAirRate = 0.2f;
         [SerializeField, Range(1, 10)]      private float overSpeedRecoverVelocity = 5f;
         [SerializeField, Range(0.001f, 5)]  private float overSpeedRecoverVelocityReachTime = 0.1f;
-        [SerializeField, Range(0, 5f)]      private float hitRecoverTime = 0.2f;
+        [SerializeField, Range(0, 5f)]      private float knockBackRecoverTime = 0.2f;
 
         [Header("Status")]
         [SerializeField] private float healthPoint = 1;
@@ -64,11 +64,13 @@ namespace Onyx
         private bool isDead = false;
         private bool preventControl = false;
         private Vector2 leftStick = new Vector2(0, 0);
-        private float remainHitRecoverTime = 0;
+        private float remainKnockBackRecoverTime = 0;
         private float remainSkillMomentumRecoverTime = 0;
+        private float remainStiffenTime = 0;
         private Vector2 velocityChangeByDamage;
         private Vector2 velocityChangeBySkill;
         private bool isMovementOccupied;
+        private bool isControlPrevented => preventControl || (remainStiffenTime > 0f);
 
         public float HealthPoint => healthPoint;
         public bool IsDead => isDead;
@@ -123,6 +125,8 @@ namespace Onyx
                 dustParticleSystem.Play();
             else if (!shouldMakeDust && dustParticleSystem.isEmitting)
                 dustParticleSystem.Stop();
+
+            remainStiffenTime = Mathf.Max(0, remainStiffenTime - Time.deltaTime);
         }
 
         /// <summary>
@@ -146,11 +150,11 @@ namespace Onyx
             bool wasOverSpeed = !Mathf.Approximately(currentAbsVelocityX, maxVelocity) && currentAbsVelocityX > maxVelocity;
 
             AddDamageMomentum();
-            if (remainHitRecoverTime == 0 && remainSkillMomentumRecoverTime == 0)
+            if (remainKnockBackRecoverTime == 0 && remainSkillMomentumRecoverTime == 0)
                 AddControlMomentum(inputDirection, isStopped, wasOverSpeed);
             AddSkillMomentum();
 
-            remainHitRecoverTime = Mathf.Max(0, remainHitRecoverTime - Time.deltaTime);
+            remainKnockBackRecoverTime = Mathf.Max(0, remainKnockBackRecoverTime - Time.deltaTime);
             remainSkillMomentumRecoverTime = Mathf.Max(0, remainSkillMomentumRecoverTime - Time.deltaTime);
 
             if (wasOverSpeed)
@@ -445,7 +449,7 @@ namespace Onyx
 
         void InputHandler.IInputReceiver.OnLeftStick(Vector2 leftStick)
         {
-            if (preventControl)
+            if (isControlPrevented)
             {
                 this.leftStick = new Vector2(0, 0);
                 return;
@@ -457,7 +461,7 @@ namespace Onyx
 
         void InputHandler.IInputReceiver.OnRightStick(Vector2 rightStick)
         {
-            if (preventControl)
+            if (isControlPrevented)
                 return;
 
             if (abilities.Count > 0 && abilities[0] != null)
@@ -466,7 +470,7 @@ namespace Onyx
 
         void InputHandler.IInputReceiver.OnInteractButtonDown()
         {
-            if (preventControl)
+            if (isControlPrevented)
                 return;
 
             if (closestInteractable.Closest != null)
@@ -480,14 +484,14 @@ namespace Onyx
 
         void InputHandler.IInputReceiver.OnAbility2Skill1ButtonDown()
         {
-            if (preventControl)
+            if (isControlPrevented)
                 return;
 
             CallAbilitySkill(2, 1, true);
         }
         void InputHandler.IInputReceiver.OnAbility2Skill0ButtonDown()
         {
-            if (preventControl)
+            if (isControlPrevented)
                 return;
 
             CallAbilitySkill(2, 0, true);
@@ -496,28 +500,28 @@ namespace Onyx
 
         void InputHandler.IInputReceiver.OnAbility1Skill1ButtonDown()
         {
-            if (preventControl)
+            if (isControlPrevented)
                 return;
 
             CallAbilitySkill(1, 1, true);
         }
         void InputHandler.IInputReceiver.OnAbility1Skill1ButtonUp()
         {
-            if (preventControl)
+            if (isControlPrevented)
                 return;
 
             CallAbilitySkill(1, 1, false);
         }
         void InputHandler.IInputReceiver.OnAbility1Skill0ButtonDown()
         {
-            if (preventControl)
+            if (isControlPrevented)
                 return;
 
             CallAbilitySkill(1, 0, true);
         }
         void InputHandler.IInputReceiver.OnAbility1Skill0ButtonUp()
         {
-            if (preventControl)
+            if (isControlPrevented)
                 return;
 
             CallAbilitySkill(1, 0, false);
@@ -525,35 +529,35 @@ namespace Onyx
 
         void InputHandler.IInputReceiver.OnAbility0Skill1ButtonDown()
         {
-            if (preventControl)
+            if (isControlPrevented)
                 return;
 
             CallAbilitySkill(0, 1, true);
         }
         void InputHandler.IInputReceiver.OnAbility0Skill1ButtonUp()
         {
-            if (preventControl)
+            if (isControlPrevented)
                 return;
 
             CallAbilitySkill(0, 1, false);
         }
         void InputHandler.IInputReceiver.OnAbility0Skill0ButtonDown()
         {
-            if (preventControl)
+            if (isControlPrevented)
                 return;
 
             CallAbilitySkill(0, 0, true);
         }
         void InputHandler.IInputReceiver.OnAbility0Skill0ButtonUp()
         {
-            if (preventControl)
+            if (isControlPrevented)
                 return;
 
             CallAbilitySkill(0, 0, false);
         }
 
 
-        IHitReactor.HitResult IHitReactor.Hit(IHitReactor.HitType type, float damage, Vector3 force)
+        IHitReactor.HitResult IHitReactor.Hit(IHitReactor.HitType type, float damage, Vector3 knockBackVelocity, float stiffenTime)
         {
             AudioSource hitAudio = type switch
             {
@@ -565,10 +569,15 @@ namespace Onyx
 
             float acceptedDamage = TakeDamage(damage);
 
-            if(force.sqrMagnitude > 0)
+            if(knockBackVelocity.sqrMagnitude > 0)
             {
-                velocityChangeByDamage += new Vector2(force.x, force.y);
-                remainHitRecoverTime = hitRecoverTime;
+                velocityChangeByDamage += new Vector2(knockBackVelocity.x, knockBackVelocity.y);
+                remainKnockBackRecoverTime = knockBackRecoverTime;
+            }
+
+            if(stiffenTime > 0)
+            {
+                remainStiffenTime = stiffenTime;
             }
 
             return new IHitReactor.HitResult(damage, acceptedDamage != 0 && isDead);
@@ -582,7 +591,7 @@ namespace Onyx
 
         void IAbilityHolder.AddVelocity(Vector2 velocity)
         {
-            remainSkillMomentumRecoverTime = hitRecoverTime;
+            remainSkillMomentumRecoverTime = knockBackRecoverTime;
             velocityChangeBySkill = velocity;
         }
 

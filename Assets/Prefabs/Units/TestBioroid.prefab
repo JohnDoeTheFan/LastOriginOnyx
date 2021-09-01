@@ -246,7 +246,7 @@ MonoBehaviour:
   velocityInAirRate: 0.2
   overSpeedRecoverVelocity: 5
   overSpeedRecoverVelocityReachTime: 0.1
-  hitRecoverTime: 0.2
+  knockBackRecoverTime: 0.2
   healthPoint: 1
   maxHealth: 1
   groundChecker: {fileID: 3519570781410266153}
@@ -312,7 +312,7 @@ MonoBehaviour:
   skill1Sprite: {fileID: 0}
   combos:
   - duration: 0.5
-    damageMultiplier: 1
+    damageMultiplier: 2.5
     nextComboInputStart: 0.3
     nextComboInputDuration: 0.2
     canUseInAir: 0
@@ -323,7 +323,7 @@ MonoBehaviour:
     - time: 0.24
       data: {fileID: 1818310115581396242}
   - duration: 0.5
-    damageMultiplier: 1
+    damageMultiplier: 2.5
     nextComboInputStart: 0.3
     nextComboInputDuration: 0.2
     canUseInAir: 0
@@ -334,7 +334,7 @@ MonoBehaviour:
     - time: 0.24
       data: {fileID: 5534291637122453106}
   - duration: 0.5
-    damageMultiplier: 1
+    damageMultiplier: 4
     nextComboInputStart: 0.3
     nextComboInputDuration: 0.2
     canUseInAir: 1
@@ -344,6 +344,9 @@ MonoBehaviour:
     attackOnTime:
     - time: 0.24
       data: {fileID: 4369753536176552570}
+  reward: {fileID: 1210596201476666169, guid: bcbfec7f15f3567489e703f28419016b, type: 3}
+  rewardProbability: 0.1
+  damageMultiplierPerLevel: {fileID: 11400000, guid: 350ed219e736b1a49955c09116327240, type: 2}
 --- !u!114 &2138236767919888667
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -382,7 +385,7 @@ GameObject:
   - component: {fileID: 7266285818056490529}
   - component: {fileID: 1818310115581396242}
   - component: {fileID: 2662277457617043040}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: ClawVfx
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -490,6 +493,7 @@ MonoBehaviour:
   activationTime: 0.38
   colliderActivationTime: 0.1
   knockBackVelocity: {x: 3, y: 0}
+  stiffenTime: 0.4
 --- !u!61 &2662277457617043040
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -623,7 +627,7 @@ GameObject:
   - component: {fileID: 73232633855302159}
   - component: {fileID: 4369753536176552570}
   - component: {fileID: 8184180925141541179}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: ClawVfx (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -731,6 +735,7 @@ MonoBehaviour:
   activationTime: 0.38
   colliderActivationTime: 0.1
   knockBackVelocity: {x: 5, y: 0}
+  stiffenTime: 0.4
 --- !u!61 &8184180925141541179
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -6038,7 +6043,7 @@ GameObject:
   - component: {fileID: 176269157373976206}
   - component: {fileID: 5534291637122453106}
   - component: {fileID: 4836557128071816350}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: ClawVfx (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6146,6 +6151,7 @@ MonoBehaviour:
   activationTime: 0.38
   colliderActivationTime: 0.1
   knockBackVelocity: {x: 0, y: 5}
+  stiffenTime: 0.4
 --- !u!61 &4836557128071816350
 BoxCollider2D:
   m_ObjectHideFlags: 0

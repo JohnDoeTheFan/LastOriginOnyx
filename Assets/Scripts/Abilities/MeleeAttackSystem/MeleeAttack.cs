@@ -8,8 +8,9 @@ public class MeleeAttack : MonoBehaviourBase
     [SerializeField] float activationTime;
     [SerializeField] float colliderActivationTime;
     [SerializeField] private Vector2 knockBackVelocity;
+    [SerializeField] float stiffenTime;
 
-    public SubscribeManagerTemplate<ISubscriber> subscribers { private set; get; } = new SubscribeManagerTemplate<ISubscriber>();
+    public SubscribeManagerTemplate<ISubscriber> subscriberManager { private set; get; } = new SubscribeManagerTemplate<ISubscriber>();
 
     private Collider2D attackCollider2D;
 
@@ -26,6 +27,11 @@ public class MeleeAttack : MonoBehaviourBase
         StartCoroutine(Job(() => WaitForSecondsRoutine(colliderActivationTime), () => attackCollider2D.enabled = false));
     }
 
+    public void SetDamage(float damage)
+    {
+        this.damage = damage;
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         IHitReactor hitReactor = collision.gameObject.GetComponent<IHitReactor>();
@@ -35,8 +41,10 @@ public class MeleeAttack : MonoBehaviourBase
             if (transform.rotation.y != 0)
                 rotatedKnockBack.x *= -1;
 
-            IHitReactor.HitResult hitResult = hitReactor.Hit(IHitReactor.HitType.MeleeAttackStrike, damage, rotatedKnockBack);
-            subscribers.ForEach((item) => item.OnHit(this, hitReactor, hitResult));
+            Debug.Log(rotatedKnockBack);
+
+            IHitReactor.HitResult hitResult = hitReactor.Hit(IHitReactor.HitType.MeleeAttackStrike, damage, rotatedKnockBack, stiffenTime);
+            subscriberManager.ForEach((item) => item.OnHit(this, hitReactor, hitResult));
         }
     }
 

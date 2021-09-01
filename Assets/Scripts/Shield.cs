@@ -10,7 +10,7 @@ public class Shield : MonoBehaviour, IHitReactor
 
     GameObject IHitReactor.GameObject => gameObject;
 
-    IHitReactor.HitResult IHitReactor.Hit(IHitReactor.HitType type, float damage, Vector3 force)
+    IHitReactor.HitResult IHitReactor.Hit(IHitReactor.HitType type, float damage, Vector3 knockBackVelocity, float stiffenTime)
     {
         SubscribeManager.ForEach(item => item.OnBlock(damage));
         return new IHitReactor.HitResult(0, false);

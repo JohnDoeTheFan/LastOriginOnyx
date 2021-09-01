@@ -4,12 +4,15 @@ using UnityEngine;
 using Onyx.Ability;
 using System;
 
-public class MeleeAttacker : AbilityBase
+public class MeleeAttacker : AbilityBase, MeleeAttack.ISubscriber
 {
     [SerializeField] private int comboNum;
     [SerializeField] private string skill1Name;
     [SerializeField] private Sprite skill1Sprite;
     [SerializeField] List<ComboInformation> combos;
+    [SerializeField] GameObject reward;
+    [SerializeField] float rewardProbability;
+    [SerializeField] private MultiplierPerLevel damageMultiplierPerLevel;
 
     private int comboCount = -1;
     private Animator animator;
@@ -26,6 +29,23 @@ public class MeleeAttacker : AbilityBase
     protected override void Start()
     {
         skills.Add(new ButtonActiveAbilitySKill(skill1Name, skill1Sprite, 0f, new SkillDescription(), StartCoroutine, OnSkill1, IsAvailable));
+        HashSet<MeleeAttack> processedSet = new HashSet<MeleeAttack>();
+
+        foreach (ComboInformation combo in combos)
+        {
+            foreach (DataOnTime<MeleeAttack> attackOnTime in combo.attackOnTime)
+            {
+                if (!processedSet.Contains(attackOnTime.data))
+                {
+                    attackOnTime.data.subscriberManager.Subscribe(this);
+                    float damage = 0.1f * combo.damageMultiplier * damageMultiplierPerLevel.GetMultiplier(abilityHolder.Level);
+                    attackOnTime.data.SetDamage(damage);
+
+                    processedSet.Add(attackOnTime.data);
+
+                }
+            }
+        }
     }
 
     public bool IsAvailable()
@@ -123,6 +143,25 @@ public class MeleeAttacker : AbilityBase
             velocityWithFacingDirection.x *= -1;
 
         abilityHolder.AddVelocity(velocityWithFacingDirection);
+    }
+
+    void MeleeAttack.ISubscriber.OnHit(MeleeAttack attack, IHitReactor hitReactor, IHitReactor.HitResult hitResult)
+    {
+        if(hitResult.isKilledByHit && reward != null)
+        {
+            if(UnityEngine.Random.value < rewardProbability)
+            {
+                GameObject newReward = Instantiate(reward, hitReactor.GetWorldPosition, Quaternion.identity);
+                Rigidbody2D rigidBody = newReward.GetComponent<Rigidbody2D>();
+                if (rigidBody != null)
+                {
+                    float velocityY = 3f;
+                    float velocityX = UnityEngine.Random.Range(-velocityY / 2, velocityY / 2);
+                    Vector2 impulse = new Vector2(velocityX, rigidBody.mass * velocityY);
+                    rigidBody.AddForce(impulse, ForceMode2D.Impulse);
+                }
+            }
+        }
     }
 
     [System.Serializable]

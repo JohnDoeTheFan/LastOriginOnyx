@@ -4812,7 +4812,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bgmAudioSource: {fileID: 471756404}
-  stageInfoForStageScene: {fileID: 11400000, guid: 00066b4ff0fa70b40b55b677c82b016d, type: 2}
+  stageInfoForStageScene: {fileID: 11400000, guid: 9fe8e96ee6205cb4cbc0ec2a6b665146, type: 2}
   chapterInfoForStageScene: {fileID: 0}
   bioroidInfoForStageScene: {fileID: 11400000, guid: 3ada63bd578a24e4c8dd159f3266eb9f, type: 2}
   chapterInfoForSignIn: {fileID: 11400000, guid: f4984bb4fdf2e3949b4bb83de5ed8b85, type: 2}
@@ -4823,7 +4823,8 @@ MonoBehaviour:
   greetingCameraSize: 5
   greetingCameraSizeMinMax: {x: 1, y: 5}
   onyxValue: 0
-  playerLevel: 5
+  playerLevel: 3
+  owningBioroidsIds: 
   isFromTitleScene: 0
   isFromBatteMapScene: 0
   isFromBatteScene: 0
