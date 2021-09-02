@@ -14,7 +14,18 @@ namespace Onyx
     public class MyUnit : MonoBehaviourBase, InputHandler.IInputReceiver, IHitReactor, IAbilityHolder, HealingItem.IHealingItemReactor
     {
         public delegate void OnEndOfStartHandler(MyUnit myUnit);
-        public static event OnEndOfStartHandler OnEndOfStartEvent;
+        private static event OnEndOfStartHandler onEndOfStartEvent;
+        public static event OnEndOfStartHandler OnEndOfStartEvent {
+            add
+            {
+                onEndOfStartEvent = null;
+                onEndOfStartEvent += value;
+            }
+            remove
+            {
+
+            }
+        }
 
         [Header("Physics")]
         [SerializeField, Range(1, 10)]      private float maxVelocity = 3f;
@@ -110,7 +121,7 @@ namespace Onyx
             }
 
             // 시작 단계 초기화를 끝낸 후, 이를 알림.
-            OnEndOfStartEvent?.Invoke(this);
+            onEndOfStartEvent?.Invoke(this);
         }
 
         void Update()
