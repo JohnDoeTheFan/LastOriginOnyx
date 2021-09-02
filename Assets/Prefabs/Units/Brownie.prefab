@@ -425,8 +425,8 @@ MonoBehaviour:
   velocityReachTime: 0.001
   velocityInAirRate: 0.2
   overSpeedRecoverVelocity: 5
-  overSpeedRecoverVelocityReachTime: 0.1
-  hitRecoverTime: 0.2
+  overSpeedRecoverVelocityReachTime: 0.001
+  knockBackRecoverTime: 0.2
   healthPoint: 1
   maxHealth: 1
   groundChecker: {fileID: 3519570781410266153}
@@ -526,7 +526,9 @@ MonoBehaviour:
   abilityName: "\uBCF4\uBCD1"
   abilityImage: {fileID: 0}
   jumpVelocity: 11
-  dashVelocity: 15
+  extraJumpNumber: 0
+  dashVelocity: {x: 15, y: 0}
+  dashRecoverTime: 0.2
   groundChecker: {fileID: 3519570781410266153}
   jumpSkillImage: {fileID: 21300000, guid: b5d332b57f7c81a49981dc899e702a8e, type: 3}
   dashSkillImage: {fileID: 21300000, guid: 1f4758625312b9846bc56456dc98f7c1, type: 3}
@@ -534,7 +536,7 @@ MonoBehaviour:
   landAudioSource: {fileID: 3673322506993818297}
   afterImagePrefab: {fileID: 1257447924707107150, guid: ba763d84f542202439fef2df578fdb63, type: 3}
   afterImageTime: 0.2
-  afterImageTickTime: 0.05
+  afterImageTickTime: 0.09
 --- !u!114 &1151960724954712833
 MonoBehaviour:
   m_ObjectHideFlags: 0

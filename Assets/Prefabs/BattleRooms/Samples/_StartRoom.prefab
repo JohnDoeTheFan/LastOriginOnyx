@@ -1428,7 +1428,7 @@ TilemapRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1995857791
-  m_SortingLayer: -3
+  m_SortingLayer: -8
   m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
@@ -1580,7 +1580,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7362875178548015566, guid: 6b884a396357837468f2c123c798e84f, type: 3}
       propertyPath: m_SortingLayer
-      value: -4
+      value: -9
       objectReference: {fileID: 0}
     - target: {fileID: 7362875178548015567, guid: 6b884a396357837468f2c123c798e84f, type: 3}
       propertyPath: nextPortal
@@ -1592,11 +1592,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8307374390099325718, guid: 6b884a396357837468f2c123c798e84f, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
-      value: 2.56
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8307374390099325718, guid: 6b884a396357837468f2c123c798e84f, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
-      value: 2.56
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6b884a396357837468f2c123c798e84f, type: 3}

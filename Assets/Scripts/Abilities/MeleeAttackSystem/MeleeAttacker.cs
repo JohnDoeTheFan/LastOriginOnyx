@@ -142,7 +142,7 @@ public class MeleeAttacker : AbilityBase, MeleeAttack.ISubscriber
         if (abilityHolder.isFacingLeft)
             velocityWithFacingDirection.x *= -1;
 
-        abilityHolder.AddVelocity(velocityWithFacingDirection);
+        abilityHolder.AddVelocity(velocityWithFacingDirection, 0.2f);
     }
 
     void MeleeAttack.ISubscriber.OnHit(MeleeAttack attack, IHitReactor hitReactor, IHitReactor.HitResult hitResult)

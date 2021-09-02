@@ -168,10 +168,13 @@ namespace Onyx
             remainKnockBackRecoverTime = Mathf.Max(0, remainKnockBackRecoverTime - Time.deltaTime);
             remainSkillMomentumRecoverTime = Mathf.Max(0, remainSkillMomentumRecoverTime - Time.deltaTime);
 
-            if (wasOverSpeed)
-                AddOverSpeedRecoverMomentum();
-            else
-                AddMomentumToLimitVelocity();
+            if(remainSkillMomentumRecoverTime == 0)
+            {
+                if (wasOverSpeed)
+                    AddOverSpeedRecoverMomentum();
+                else
+                    AddMomentumToLimitVelocity();
+            }
         }
 
         /// <summary>
@@ -600,9 +603,9 @@ namespace Onyx
                 ability.OnKillEnemy(enemy.transform);
         }
 
-        void IAbilityHolder.AddVelocity(Vector2 velocity)
+        void IAbilityHolder.AddVelocity(Vector2 velocity, float recoverTime)
         {
-            remainSkillMomentumRecoverTime = knockBackRecoverTime;
+            remainSkillMomentumRecoverTime = recoverTime;
             velocityChangeBySkill = velocity;
         }
 

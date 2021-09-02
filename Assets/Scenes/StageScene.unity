@@ -4812,7 +4812,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bgmAudioSource: {fileID: 471756404}
-  stageInfoForStageScene: {fileID: 11400000, guid: 9fe8e96ee6205cb4cbc0ec2a6b665146, type: 2}
+  stageInfoForStageScene: {fileID: 11400000, guid: 1e1dc8f3f6f52514bb523e6155a1bc41, type: 2}
   chapterInfoForStageScene: {fileID: 0}
   bioroidInfoForStageScene: {fileID: 11400000, guid: 3ada63bd578a24e4c8dd159f3266eb9f, type: 2}
   chapterInfoForSignIn: {fileID: 11400000, guid: f4984bb4fdf2e3949b4bb83de5ed8b85, type: 2}
@@ -15808,6 +15808,10 @@ PrefabInstance:
       value: 65535
       objectReference: {fileID: 0}
     - target: {fileID: 1203986133642132125, guid: 955af07516529d94fa34b7bbe62312c8, type: 3}
+      propertyPath: m_ColliderPaths.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1203986133642132125, guid: 955af07516529d94fa34b7bbe62312c8, type: 3}
       propertyPath: m_CompositePaths.m_Paths.Array.size
       value: 2
       objectReference: {fileID: 0}
@@ -15833,11 +15837,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1203986133642132125, guid: 955af07516529d94fa34b7bbe62312c8, type: 3}
       propertyPath: m_CompositePaths.m_Paths.Array.data[1].Array.data[2].x
-      value: 0.50002533
+      value: 0.5000294
       objectReference: {fileID: 0}
     - target: {fileID: 1203986133642132125, guid: 955af07516529d94fa34b7bbe62312c8, type: 3}
       propertyPath: m_CompositePaths.m_Paths.Array.data[1].Array.data[2].y
-      value: 14.50001
+      value: 14.5
       objectReference: {fileID: 0}
     - target: {fileID: 1203986133642132125, guid: 955af07516529d94fa34b7bbe62312c8, type: 3}
       propertyPath: m_CompositePaths.m_Paths.Array.data[1].Array.data[3].x
@@ -16097,7 +16101,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1203986133642132125, guid: 955af07516529d94fa34b7bbe62312c8, type: 3}
       propertyPath: m_ColliderPaths.Array.data[0].m_ColliderPaths.Array.data[1].Array.size
-      value: 15
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1203986133642132125, guid: 955af07516529d94fa34b7bbe62312c8, type: 3}
       propertyPath: m_ColliderPaths.Array.data[0].m_ColliderPaths.Array.data[2].Array.size
@@ -16141,23 +16145,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1203986133642132125, guid: 955af07516529d94fa34b7bbe62312c8, type: 3}
       propertyPath: m_ColliderPaths.Array.data[0].m_ColliderPaths.Array.data[1].Array.data[1].Y
-      value: 129999900
+      value: 145000000
       objectReference: {fileID: 0}
     - target: {fileID: 1203986133642132125, guid: 955af07516529d94fa34b7bbe62312c8, type: 3}
       propertyPath: m_ColliderPaths.Array.data[0].m_ColliderPaths.Array.data[1].Array.data[2].X
-      value: 4999958
+      value: 145000000
       objectReference: {fileID: 0}
     - target: {fileID: 1203986133642132125, guid: 955af07516529d94fa34b7bbe62312c8, type: 3}
       propertyPath: m_ColliderPaths.Array.data[0].m_ColliderPaths.Array.data[1].Array.data[2].Y
-      value: 129999900
+      value: 145000000
       objectReference: {fileID: 0}
     - target: {fileID: 1203986133642132125, guid: 955af07516529d94fa34b7bbe62312c8, type: 3}
       propertyPath: m_ColliderPaths.Array.data[0].m_ColliderPaths.Array.data[1].Array.data[3].X
-      value: 4999899
+      value: 145000000
       objectReference: {fileID: 0}
     - target: {fileID: 1203986133642132125, guid: 955af07516529d94fa34b7bbe62312c8, type: 3}
       propertyPath: m_ColliderPaths.Array.data[0].m_ColliderPaths.Array.data[1].Array.data[3].Y
-      value: 129999959
+      value: 5000000
       objectReference: {fileID: 0}
     - target: {fileID: 1203986133642132125, guid: 955af07516529d94fa34b7bbe62312c8, type: 3}
       propertyPath: m_ColliderPaths.Array.data[0].m_ColliderPaths.Array.data[1].Array.data[4].X

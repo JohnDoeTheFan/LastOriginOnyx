@@ -85,7 +85,7 @@ namespace Onyx.Ability
         bool isMovementOccupied { get; }
         bool IsGrounded { get; }
 
-        void AddVelocity(Vector2 velocity);
+        void AddVelocity(Vector2 velocity, float recoverTime = 0f);
         void NotifyKillEnemy(GameObject enemy);
         void OccupyMovement(bool occupy);
     }
