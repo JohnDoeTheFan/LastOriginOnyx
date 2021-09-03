@@ -37,7 +37,7 @@ public class OnyxGameMode : RunAndGunGameMode
     [SerializeField] private Follower followerWithCamera;
     [SerializeField] private BattleRoom startRoom;
     [SerializeField] private BattleRoom endRoomPrefab;
-    [SerializeField] private BattleRoom testRoom;
+    [SerializeField] private BattleRoom testRoomPrefab;
     [SerializeField] private AudioClip bgm;
     [SerializeField] private AudioSource voiceAudioSource;
 
@@ -151,11 +151,16 @@ public class OnyxGameMode : RunAndGunGameMode
     {
         BattleRoom lastRoom = startRoom;
 
-        if(testRoom != null)
+        if(testRoomPrefab != null)
         {
-            lastRoom.AttachRoom(testRoom);
+            BattleRoom newBattleRoom = Instantiate<BattleRoom>(testRoomPrefab);
 
-            lastRoom = testRoom;
+            Vector2 newRoomPosition = CalcNewBattleRoomPosition(lastRoom, newBattleRoom);
+            newBattleRoom.transform.Translate(newRoomPosition);
+
+            lastRoom.AttachRoom(newBattleRoom);
+
+            lastRoom = newBattleRoom;
         }
         else if(OnyxGameInstance.instance.StageInfoForStageScene != null)
         {
@@ -287,7 +292,7 @@ public class OnyxGameMode : RunAndGunGameMode
         systemControl = false;
 
         float safefyTime = 2f;
-        if (testRoom == null && OnyxGameInstance.instance.StageInfoForStageScene != null)
+        if (testRoomPrefab == null && OnyxGameInstance.instance.StageInfoForStageScene != null)
             SaveStageFirstCleared(safefyTime);
         else
             SaveOnyxValue(ReadyForSceneTransition, safefyTime);
