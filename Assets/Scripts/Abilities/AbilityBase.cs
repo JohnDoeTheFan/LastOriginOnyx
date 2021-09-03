@@ -84,6 +84,7 @@ namespace Onyx.Ability
         bool isFacingLeft { get; }
         bool isMovementOccupied { get; }
         bool IsGrounded { get; }
+        Animator ModelAnimator { get; }
 
         void AddVelocity(Vector2 velocity, float recoverTime = 0f);
         void NotifyKillEnemy(GameObject enemy);

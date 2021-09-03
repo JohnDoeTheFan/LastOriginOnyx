@@ -41,8 +41,6 @@ public class MeleeAttack : MonoBehaviourBase
             if (transform.rotation.y != 0)
                 rotatedKnockBack.x *= -1;
 
-            Debug.Log(rotatedKnockBack);
-
             IHitReactor.HitResult hitResult = hitReactor.Hit(IHitReactor.HitType.MeleeAttackStrike, damage, rotatedKnockBack, stiffenTime);
             subscriberManager.ForEach((item) => item.OnHit(this, hitReactor, hitResult));
         }

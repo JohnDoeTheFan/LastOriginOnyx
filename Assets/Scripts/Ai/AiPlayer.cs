@@ -9,12 +9,10 @@ namespace Onyx.Ai
 {
     public class AiPlayer : MonoBehaviour, Sight.ISubscriber
     {
-        [SerializeField]
-        private AiScriptFactoryBase aiScriptFactory;
-        [SerializeField]
-        private VirtualInputSource virtualInputSourceAsController;
-        [SerializeField]
-        private Sight sight;
+        [SerializeField] private AiScriptFactoryBase aiScriptFactory;
+        [SerializeField] private VirtualInputSource virtualInputSourceAsController;
+        [SerializeField] private Sight sight;
+        [SerializeField] private Transform modelTransform;
 
         private AiScriptFactoryBase.AiScriptBase aiScript;
         private IDisposable unsubscriber;
@@ -26,7 +24,7 @@ namespace Onyx.Ai
             unsubscriber = sight.SubscribeManager.Subscribe(this);
 
             aiScript = aiScriptFactory.ProductAiScript();
-            aiScript.SetTransform(transform);
+            aiScript.SetTransform(modelTransform);
             aiScript.SetContoller(virtualInputSourceAsController);
         }
 

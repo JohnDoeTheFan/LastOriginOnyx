@@ -15,16 +15,10 @@ public class MeleeAttacker : AbilityBase, MeleeAttack.ISubscriber
     [SerializeField] private MultiplierPerLevel damageMultiplierPerLevel;
 
     private int comboCount = -1;
-    private Animator animator;
     private float currentComboStartTime;
     private Coroutine comboResetTimer;
     private bool isOccupiedByThis;
     private bool isInitializing;
-
-    private void Awake()
-    {
-        animator = GetComponent<Animator>();
-    }
 
     protected override void Start()
     {
@@ -120,7 +114,7 @@ public class MeleeAttacker : AbilityBase, MeleeAttack.ISubscriber
                     attackOnTime.data.Activate();
                 }));
 
-            animator.SetInteger("ComboCount", comboCount);
+            abilityHolder.ModelAnimator.SetInteger("ComboCount", comboCount);
         }
     }
 
@@ -130,7 +124,7 @@ public class MeleeAttacker : AbilityBase, MeleeAttack.ISubscriber
         isInitializing = true;
         StartCoroutine(Job(() => WaitForSecondsRoutine(0.25f), () => isInitializing = false));
         comboCount = -1;
-        animator.SetInteger("ComboCount", comboCount);
+        abilityHolder.ModelAnimator.SetInteger("ComboCount", comboCount);
         abilityHolder.OccupyMovement(false);
         isOccupiedByThis = false;
         comboResetTimer = null;

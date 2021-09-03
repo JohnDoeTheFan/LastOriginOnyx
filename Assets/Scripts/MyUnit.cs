@@ -27,6 +27,9 @@ namespace Onyx
             }
         }
 
+        [SerializeField] Animator modelAnimator;
+        [SerializeField] Transform rotatingParts;
+
         [Header("Physics")]
         [SerializeField, Range(1, 10)]      private float maxVelocity = 3f;
         [SerializeField, Range(0.001f, 5)]  private float velocityReachTime = 0.1f;
@@ -63,12 +66,8 @@ namespace Onyx
         [SerializeField] private MultiplierPerLevel healthMultipliers;
         [SerializeField] private int scoreMultiplier;
 
-        [Header("Gui")]
-        [SerializeField] Canvas unitGuiCanvas;
-
         private Rigidbody2D rigidBody;
         private InputHandler inputHandler;
-        private Animator animator;
         readonly private List<IAbility> abilities = new List<IAbility>();
         private ClosestObjectInSightManager<InteractableComponent> closestInteractable;
 
@@ -97,15 +96,16 @@ namespace Onyx
         int IAbilityHolder.Level => level;
         int IAbilityHolder.LevelOfDifficulty => levelOfDifficulty;
         bool IAbilityHolder.ShouldUseLevelOfDifficulty => !CompareTag("Player");
-        bool IAbilityHolder.isFacingLeft => rigidBody.transform.rotation.y != 0;
+        bool IAbilityHolder.isFacingLeft => rotatingParts.rotation.y != 0;
         bool IAbilityHolder.isMovementOccupied => isMovementOccupied;
         GameObject IHitReactor.GameObject => gameObject;
 
         bool IAbilityHolder.IsGrounded => groundChecker.IsGrounded;
 
+        Animator IAbilityHolder.ModelAnimator => modelAnimator;
+
         void Start()
         {
-            animator = GetComponent<Animator>();
             rigidBody = GetComponent<Rigidbody2D>();
             inputHandler = GetComponent<InputHandler>();
             inputHandler.AddInputReceiverRegisterAwaiter(this);
@@ -128,8 +128,8 @@ namespace Onyx
         {
             UpdateMovement();
 
-            animator.SetBool("Grounded", groundChecker.IsGrounded);
-            animator.SetFloat("Speed", Mathf.Abs(rigidBody.velocity.x));
+            modelAnimator.SetBool("Grounded", groundChecker.IsGrounded);
+            modelAnimator.SetFloat("Speed", Mathf.Abs(rigidBody.velocity.x));
 
             bool shouldMakeDust = groundChecker.IsGrounded && Mathf.Abs(rigidBody.velocity.x) > dustMakingVelocity;
             if (shouldMakeDust && !dustParticleSystem.isEmitting)
@@ -183,15 +183,13 @@ namespace Onyx
         /// <param name="inputDirection">입력 방향</param>
         private void RotateUnit(Vector2 inputDirection)
         {
-            Quaternion rotation = transform.rotation;
+            Quaternion rotation = rotatingParts.rotation;
             if (inputDirection == Vector2.right)
                 rotation = Quaternion.identity;
             else if (inputDirection == Vector2.left)
                 rotation = Quaternion.Euler(new Vector3(0, 180, 0));
 
-            transform.rotation = rotation;
-            if (unitGuiCanvas != null)
-                unitGuiCanvas.transform.localRotation = rotation;
+            rotatingParts.rotation = rotation;
         }
 
         /// <summary>
@@ -321,7 +319,7 @@ namespace Onyx
             isDead = true;
             inputHandler.AddInputReceiverUnregisterAwaiter(this);
             leftStick = Vector2.zero;
-            animator.SetTrigger("Die");
+            modelAnimator.SetTrigger("Die");
             gameObject.layer = (int)LayerSetting.DeadBody;
 
             SubscribeManager.ForEach(item => item.OnDeath(this));
@@ -332,12 +330,12 @@ namespace Onyx
             isDead = false;
             inputHandler.AddInputReceiverRegisterAwaiter(this);
             TakeHeal(1);
-            animator.SetTrigger("Revive");
+            modelAnimator.SetTrigger("Revive");
         }
 
         public void Ceremony()
         {
-            animator.SetTrigger("Ceremony");
+            modelAnimator.SetTrigger("Ceremony");
         }
 
         public void TeleportAt(Vector3 position)
@@ -363,7 +361,7 @@ namespace Onyx
                 if (healthPoint == 0)
                     Die();
 
-                animator.SetTrigger("Hit");
+                modelAnimator.SetTrigger("Hit");
 
                 return healthPoint - healthPointBackup;
             }
@@ -479,7 +477,7 @@ namespace Onyx
                 return;
 
             if (abilities.Count > 0 && abilities[0] != null)
-                abilities[0].OnChangeDirection(Quaternion.Euler(0, 0, Vector2.SignedAngle(transform.rotation * Vector2.right, rightStick)));
+                abilities[0].OnChangeDirection(Quaternion.Euler(0, 0, Vector2.SignedAngle(Vector2.right, rightStick)));
         }
 
         void InputHandler.IInputReceiver.OnInteractButtonDown()
