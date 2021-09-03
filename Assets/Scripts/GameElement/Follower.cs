@@ -11,7 +11,7 @@ namespace Onyx.GameElement
         [SerializeField] private float followSpeed = 0.05f;
 
         public Mode mode;
-        public MinMax2 limit;
+        public Bounds limit;
 
         [SerializeField] private bool shouldLimitMinX;
         [SerializeField] private bool shouldLimitMinY;

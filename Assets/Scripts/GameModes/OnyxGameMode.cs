@@ -185,13 +185,16 @@ public class OnyxGameMode : RunAndGunGameMode
 
         static Vector2 CalcNewBattleRoomPosition(BattleRoom lastRoom, BattleRoom newRoom)
         {
-            Vector2 lastRoomTileMapSize = lastRoom.CalcTileMapSize();
-            Vector2 newRoomTileMapSize = newRoom.CalcTileMapSize();
+            newRoom.CompressTileMapBounds();
+            Vector2 gridPosition = newRoom.GridPosition;
+
+            Bounds lastRoomBounds = lastRoom.CalcTileMapBounds();
+            Bounds newRoomBounds = newRoom.CalcTileMapBounds();
 
             Vector2 newRoomPosition = new Vector2
             {
-                x = lastRoom.transform.position.x + (lastRoomTileMapSize.x / 2f) + (newRoomTileMapSize.x / 2f),
-                y = 0
+                x = lastRoomBounds.center.x + lastRoomBounds.extents.x + newRoomBounds.extents.x - newRoomBounds.center.x,
+                y = lastRoomBounds.center.y - lastRoomBounds.extents.y + newRoomBounds.extents.y - newRoomBounds.center.y
             };
 
             return newRoomPosition;
@@ -430,8 +433,8 @@ public class OnyxGameMode : RunAndGunGameMode
         float commandPanelHeight = mainCameraHeight * ratioOfCommandPanel;
         followerWithCamera.SetMargin(new Vector2(0, -1 * commandPanelHeight / 2));
 
-        MinMax2 tileMapBound = battleRoom.CalcTileMapBound();
-        followerWithCamera.limit = CalcCameraFollowerLimit(tileMapBound, newOrthographicSize, mainCamera.aspect, followerWithCamera.Margin);
+        Bounds tileMapBounds = battleRoom.CalcTileMapBounds();
+        followerWithCamera.limit = CalcCameraFollowerLimit(tileMapBounds, newOrthographicSize, mainCamera.aspect, followerWithCamera.Margin);
         followerWithCamera.SetShouldLimit(true);
 
         for (int i = 0; i < backgroundHolder.transform.childCount; i++)
@@ -449,20 +452,22 @@ public class OnyxGameMode : RunAndGunGameMode
         return orthographicSize;
     }
 
-    MinMax2 CalcCameraFollowerLimit(MinMax2 bounds, float orthographicSize, float cameraAspect, Vector2 cameraMargin)
+    Bounds CalcCameraFollowerLimit(Bounds bounds, float orthographicSize, float cameraAspect, Vector2 cameraMargin)
     {
-        MinMax2 output = new MinMax2();
-        output.min.x = bounds.min.x + orthographicSize * cameraAspect;
-        output.min.y = bounds.min.y + orthographicSize;
-        output.max.x = bounds.max.x - orthographicSize * cameraAspect;
-        output.max.y = bounds.max.y - orthographicSize;
+        float xMin = bounds.min.x + orthographicSize * cameraAspect;
+        float xMax = bounds.max.x - orthographicSize * cameraAspect;
+        float yMin = bounds.min.y + orthographicSize;
+        float yMax = bounds.max.y - orthographicSize;
 
         if (cameraMargin.y < 0)
-            output.min.y += cameraMargin.y * 2;
+            yMin += cameraMargin.y * 2;
         else if (cameraMargin.y > 0)
-            output.max.y += cameraMargin.y;
+            yMax += cameraMargin.y;
 
-        return output;
+        Vector2 center = new Vector2((xMax + xMin) / 2, (yMax + yMin) / 2);
+        Vector2 size = new Vector2(xMax - xMin, yMax - yMin);
+
+        return new Bounds(center, size);
     }
 
     void OnExitBattleRoom(BattleRoomPortal exitingPortal, GameObject user)

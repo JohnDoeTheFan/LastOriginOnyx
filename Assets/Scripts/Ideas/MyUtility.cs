@@ -230,16 +230,3 @@ public class ClosestObjectInSightManager<T> : Sight.ISubscriber where T : Compon
         shouldStop = true;
     }
 }
-
-[Serializable]
-public struct MinMax2
-{
-    public MinMax2(Vector2 min, Vector2 max)
-    {
-        this.min = min;
-        this.max = max;
-    }
-
-    public Vector2 min;
-    public Vector2 max;
-}

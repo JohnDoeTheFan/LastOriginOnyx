@@ -31,6 +31,7 @@ namespace Onyx.BattleRoom
         private int remainEnemyCount;
         private int wholeEnemyCount;
 
+        public Vector2 GridPosition => new Vector2(grid.transform.position.x, grid.transform.position.y);
         public int RemainEnemyCount => remainEnemyCount;
         public int WholeEnemyCount => wholeEnemyCount;
         public GameObject Background => background;
@@ -75,16 +76,27 @@ namespace Onyx.BattleRoom
             return new Vector2(grid.cellSize.x * tileMapComponent.size.x, grid.cellSize.x * tileMapComponent.size.y);
         }
 
-        public MinMax2 CalcTileMapBound()
+        public void CompressTileMapBounds()
         {
-            Vector3 gridPosition = tileMapComponent.transform.position;
-            BoundsInt gridBounds = tileMapComponent.cellBounds;
+            tileMapComponent.CompressBounds();
+        }
+
+        public Bounds CalcTileMapBounds()
+        {
+            Vector3 tileMapPosition = tileMapComponent.transform.position;
+
+            BoundsInt tileMapBound = tileMapComponent.cellBounds;
             Vector3 cellSize = tileMapComponent.cellSize;
 
-            Vector2 gridMin = new Vector2(gridPosition.x + gridBounds.xMin * cellSize.x, gridPosition.y + gridBounds.yMin * cellSize.y);
-            Vector2 gridMax = new Vector2(gridPosition.x + gridBounds.xMax * cellSize.x, gridPosition.y + gridBounds.yMax * cellSize.y);
+            float xMin = tileMapPosition.x + tileMapBound.xMin * cellSize.x;
+            float xMax = tileMapPosition.x + tileMapBound.xMax * cellSize.x;
+            float yMin = tileMapPosition.y + tileMapBound.yMin * cellSize.y;
+            float yMax = tileMapPosition.y + tileMapBound.yMax * cellSize.y;
 
-            return new MinMax2(gridMin, gridMax);
+            Vector2 center = new Vector2((xMax + xMin) / 2, (yMax + yMin) / 2);
+            Vector2 size = new Vector2(xMax - xMin, yMax - yMin);
+
+            return new Bounds(center, size);
         }
 
         private void EnterViaPortal(BattleRoomPortal portal)
