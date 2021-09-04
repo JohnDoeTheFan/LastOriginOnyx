@@ -181,7 +181,7 @@ namespace Onyx
         /// Unit 을 회전한다.
         /// </summary>
         /// <param name="inputDirection">입력 방향</param>
-        private void RotateUnit(Vector2 inputDirection)
+        public void RotateUnit(Vector2 inputDirection)
         {
             Quaternion rotation = rotatingParts.rotation;
             if (inputDirection == Vector2.right)

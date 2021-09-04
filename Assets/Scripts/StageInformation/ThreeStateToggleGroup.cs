@@ -79,12 +79,18 @@ public abstract class ThreeStateToggleGroup<TCoreData> : MonoBehaviour
     {
         readonly Action<ButtonAsThreeStateToggle<TCoreData>, bool> OnChangeInteractable;
         readonly Action<ButtonAsThreeStateToggle<TCoreData>, bool> OnChangeIsOn;
+
+        IDisposable unsubscriber;
+
+        protected override IDisposable Unsubscriber => unsubscriber;
+
         public ThreeStateToggleSubscriber(ButtonAsThreeStateToggle<TCoreData> threeStateToggle, Action<ButtonAsThreeStateToggle<TCoreData>, bool> OnChangeInteractable, Action<ButtonAsThreeStateToggle<TCoreData>, bool> OnChangeIsOn)
         {
-            InitUniSubscriber(threeStateToggle.SubscribeManager.Subscribe(this));
+            unsubscriber = threeStateToggle.SubscribeManager.Subscribe(this);
             this.OnChangeInteractable = OnChangeInteractable;
             this.OnChangeIsOn = OnChangeIsOn;
         }
+
 
         void ButtonAsThreeStateToggle<TCoreData>.ISubscriber.OnChageInteractable(ButtonAsThreeStateToggle<TCoreData> threeStateToggle, bool interactable)
         {

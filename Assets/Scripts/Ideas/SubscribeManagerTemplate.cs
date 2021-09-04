@@ -7,20 +7,15 @@ public interface IUnsubscriber
     void SetOnUnsubscribe(Action onUnsubscribe);
 }
 
-public class UniUnsubscriber : IUnsubscriber
+public abstract class UniUnsubscriber : IUnsubscriber
 {
-    IDisposable unsubscriber;
+    protected abstract IDisposable Unsubscriber { get; }
     Action onUnsubscribe;
 
     public void Unsubscribe()
     {
         onUnsubscribe?.Invoke();
-        unsubscriber.Dispose();
-    }
-
-    public void InitUniSubscriber(IDisposable unsubscriber)
-    {
-        this.unsubscriber = unsubscriber;
+        Unsubscriber.Dispose();
     }
 
     public void SetOnUnsubscribe(Action onUnsubscribe)

@@ -509,9 +509,12 @@ public class OnyxGameMode : RunAndGunGameMode
         readonly Action<BattleRoom, bool> OnEnter;
         readonly Action<BattleRoomPortal, GameObject> OnExit;
 
+        IDisposable unsubscriber;
+        protected override IDisposable Unsubscriber => throw new NotImplementedException();
+
         public BattleRoomSubscriber(BattleRoom battleRoom, Action<BattleRoom, bool> OnEnter, Action<BattleRoomPortal, GameObject> OnExit)
         {
-            InitUniSubscriber(battleRoom.SubscribeManager.Subscribe(this));
+            unsubscriber = battleRoom.SubscribeManager.Subscribe(this);
 
             this.OnEnter = OnEnter;
             this.OnExit = OnExit;

@@ -154,10 +154,12 @@ namespace Onyx.BattleRoom
         private class DestoryTargetSubscriber : UniUnsubscriber, MyUnit.ISubscriber
         {
             readonly Action onDeath;
+            IDisposable unsubscriber;
+            protected override IDisposable Unsubscriber => unsubscriber;
 
             public DestoryTargetSubscriber(MyUnit target, Action onDeath)
             {
-                InitUniSubscriber(target.SubscribeManager.Subscribe(this));
+                unsubscriber = target.SubscribeManager.Subscribe(this);
                 this.onDeath = onDeath;
             }
 

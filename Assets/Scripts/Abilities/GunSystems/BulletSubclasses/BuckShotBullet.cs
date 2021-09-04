@@ -59,9 +59,12 @@ public class BuckShotBullet : Bullet
     {
         readonly BuckShotBullet buckShotBullet;
 
+        IDisposable unsubscriber;
+        protected override IDisposable Unsubscriber => unsubscriber;
+
         public BallSubscriber(Bullet ball, BuckShotBullet buckShotBullet)
         {
-            InitUniSubscriber(ball.SubscribeManager.Subscribe(this));
+            unsubscriber = ball.SubscribeManager.Subscribe(this);
             this.buckShotBullet = buckShotBullet;
         }
 
