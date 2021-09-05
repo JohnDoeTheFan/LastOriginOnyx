@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Onyx.GameElement
 {
@@ -19,10 +17,22 @@ namespace Onyx.GameElement
         [SerializeField] private bool shouldLimitMaxY;
         [SerializeField] private Vector2 margin;
 
+        public bool isManuallyUpdated = false;
+
         public Vector2 Margin => margin;
 
         // Update is called once per frame
         void Update()
+        {
+            if(!isManuallyUpdated)
+            {
+                UpdateManually();
+            }
+
+            isManuallyUpdated = false;
+        }
+
+        public void UpdateManually()
         {
             if (target != null)
             {
@@ -38,6 +48,8 @@ namespace Onyx.GameElement
                         break;
                 }
             }
+
+            isManuallyUpdated = true;
         }
 
         public void SetTarget(Transform target)

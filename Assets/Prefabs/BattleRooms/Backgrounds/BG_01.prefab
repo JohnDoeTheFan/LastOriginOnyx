@@ -76,8 +76,8 @@ SpriteRenderer:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 21.333334, y: 5}
+  m_DrawMode: 2
+  m_Size: {x: 30, y: 10}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -129,8 +129,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6087a7566ad2874d934a0b18d8be2b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  backgrounds: []
-  size: {x: 15, y: 5}
+  backgrounds:
+  - {fileID: 7450750627813630075}
+  - {fileID: 4005094578854582176}
+  - {fileID: 277982366703944064}
+  minBackgroundScrollAlpha: 0.5
 --- !u!1 &7450750627813630073
 GameObject:
   m_ObjectHideFlags: 0
@@ -207,8 +210,8 @@ SpriteRenderer:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 21.333334, y: 5}
+  m_DrawMode: 2
+  m_Size: {x: 50, y: 10}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -290,8 +293,8 @@ SpriteRenderer:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 21.333334, y: 5}
+  m_DrawMode: 2
+  m_Size: {x: 40, y: 10}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1

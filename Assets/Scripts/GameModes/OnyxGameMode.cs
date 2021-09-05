@@ -43,7 +43,7 @@ public class OnyxGameMode : RunAndGunGameMode
 
     private bool isLeftButtonDown;
     private bool isRightButtonDown;
-    private float orthographicSizeBackup;
+    private float dafaultOrthographicSize;
     private ReadOnlyCollection<IAbility> playerAbility;
     private readonly UnsubscriberPack battleRoomSubscribers = new UnsubscriberPack();
     private MyUnit playerUnitCache;
@@ -77,7 +77,7 @@ public class OnyxGameMode : RunAndGunGameMode
 
         InstantiateBattleRooms();
 
-        orthographicSizeBackup = mainCamera.orthographicSize;
+        dafaultOrthographicSize = mainCamera.orthographicSize;
 
         CameraSettingForBattleRoom(startRoom);
         InitBackground(startRoom);
@@ -134,7 +134,9 @@ public class OnyxGameMode : RunAndGunGameMode
         }
 
         // TODO: Check screen size change.
-        if(backgroundScroller != null)
+
+        //followerWithCamera.UpdateManually();
+        if (backgroundScroller != null)
         {
             backgroundScroller.ScrollBackground(mainCamera.transform.position);
         }
@@ -429,15 +431,26 @@ public class OnyxGameMode : RunAndGunGameMode
 
     void CameraSettingForBattleRoom(BattleRoom battleRoom)
     {
-        float ratioOfCommandPanel = commandPanel.GetSize().y / commandPanelCanvas.rect.height;
-
+        float heightPercentageOfCommandPanel = commandPanel.GetSize().y / commandPanelCanvas.rect.height;
         Vector2 tileMapSize = battleRoom.CalcTileMapSize();
-        Vector2 shrinkSize = new Vector2(tileMapSize.x, tileMapSize.y + tileMapSize.y * ratioOfCommandPanel);
-        float newOrthographicSize = CalcShrinkedOrthographicSize(orthographicSizeBackup, shrinkSize);
+
+        // Calculate expected camera height when shrinked by Y.
+        // ex) 
+        //      defaultCameraSize: 10
+        //      tileMapHeight: 8
+        //      heightPercentageOfCommandPanel: 0.2. so, defaultHeightOfCommandPanel: 2
+        //      if you have to shrink camera height about tileMapHeight = 4
+        //      than 0.8 : 8 = 0.2 : 2 and 0.8 : 4 = 0.2 : 1. so, heightOfCommandPanel should be 1.
+        //      And camera height changed 10(8+2) to 5(4+1).
+        float expectedCommandPanelHeightWhenShrinkedByY = tileMapSize.y * heightPercentageOfCommandPanel;
+        float expectedCameraHeightWhenShrinkedByY = tileMapSize.y + expectedCommandPanelHeightWhenShrinkedByY;
+
+        Vector2 shrinkSize = new Vector2(tileMapSize.x, expectedCameraHeightWhenShrinkedByY);
+        float newOrthographicSize = CalcShrinkedOrthographicSize(dafaultOrthographicSize, shrinkSize);
         mainCamera.orthographicSize = newOrthographicSize;
 
         float mainCameraHeight = mainCamera.orthographicSize * 2;
-        float commandPanelHeight = mainCameraHeight * ratioOfCommandPanel;
+        float commandPanelHeight = mainCameraHeight * heightPercentageOfCommandPanel;
         followerWithCamera.SetMargin(new Vector2(0, -1 * commandPanelHeight / 2));
 
         Bounds tileMapBounds = battleRoom.CalcTileMapBounds();
@@ -447,13 +460,16 @@ public class OnyxGameMode : RunAndGunGameMode
 
     void InitBackground(BattleRoom battleRoom)
     {
-        Bounds tileMapBounds = battleRoom.CalcTileMapBounds();
-
         backgroundScroller = null;
         for (int i = 0; i < backgroundHolder.transform.childCount; i++)
             Destroy(backgroundHolder.transform.GetChild(i).gameObject);
         backgroundScroller = Instantiate(battleRoom.Background, backgroundHolder.transform);
-        backgroundScroller.Construct(tileMapBounds, mainCamera.transform.position);
+
+        Bounds tileMapBounds = battleRoom.CalcTileMapBounds();
+
+        backgroundHolder.transform.position = tileMapBounds.center;
+
+        backgroundScroller.Construct(followerWithCamera.limit, followerWithCamera.transform.position, tileMapBounds);
     }
 
     float CalcShrinkedOrthographicSize(float orthographicSize, Vector2 limitSize)
