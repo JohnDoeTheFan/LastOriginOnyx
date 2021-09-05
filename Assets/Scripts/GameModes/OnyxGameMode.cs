@@ -48,6 +48,7 @@ public class OnyxGameMode : RunAndGunGameMode
     private readonly UnsubscriberPack battleRoomSubscribers = new UnsubscriberPack();
     private MyUnit playerUnitCache;
     private Vector2 lastScreenSize;
+    private BackgroundScroller backgroundScroller;
 
     // TODO: Reworks control hierarchy
     // GameControl  CharacterControl
@@ -79,6 +80,7 @@ public class OnyxGameMode : RunAndGunGameMode
         orthographicSizeBackup = mainCamera.orthographicSize;
 
         CameraSettingForBattleRoom(startRoom);
+        InitBackground(startRoom);
 
         mainGuiCanvas.gameObject.SetActive(false);
         playerControlEnable = false;
@@ -132,6 +134,10 @@ public class OnyxGameMode : RunAndGunGameMode
         }
 
         // TODO: Check screen size change.
+        if(backgroundScroller != null)
+        {
+            backgroundScroller.ScrollBackground(mainCamera.transform.position);
+        }
     }
 
     public void OnDestroy()
@@ -402,6 +408,7 @@ public class OnyxGameMode : RunAndGunGameMode
     void OnEnterBattleRoom(BattleRoom battleRoom, bool shouldPlayBriefing)
     {
         CameraSettingForBattleRoom(battleRoom);
+        InitBackground(battleRoom);
         battleProgressGui.SetBattleRoom(battleRoom);
 
         fadeGui.StartFadeIn(AfterFadeIn);
@@ -436,10 +443,17 @@ public class OnyxGameMode : RunAndGunGameMode
         Bounds tileMapBounds = battleRoom.CalcTileMapBounds();
         followerWithCamera.limit = CalcCameraFollowerLimit(tileMapBounds, newOrthographicSize, mainCamera.aspect, followerWithCamera.Margin);
         followerWithCamera.SetShouldLimit(true);
+    }
 
+    void InitBackground(BattleRoom battleRoom)
+    {
+        Bounds tileMapBounds = battleRoom.CalcTileMapBounds();
+
+        backgroundScroller = null;
         for (int i = 0; i < backgroundHolder.transform.childCount; i++)
             Destroy(backgroundHolder.transform.GetChild(i).gameObject);
-        Instantiate(battleRoom.Background, backgroundHolder.transform);
+        backgroundScroller = Instantiate(battleRoom.Background, backgroundHolder.transform);
+        backgroundScroller.Construct(tileMapBounds, mainCamera.transform.position);
     }
 
     float CalcShrinkedOrthographicSize(float orthographicSize, Vector2 limitSize)
@@ -510,7 +524,7 @@ public class OnyxGameMode : RunAndGunGameMode
         readonly Action<BattleRoomPortal, GameObject> OnExit;
 
         IDisposable unsubscriber;
-        protected override IDisposable Unsubscriber => throw new NotImplementedException();
+        protected override IDisposable Unsubscriber => unsubscriber;
 
         public BattleRoomSubscriber(BattleRoom battleRoom, Action<BattleRoom, bool> OnEnter, Action<BattleRoomPortal, GameObject> OnExit)
         {

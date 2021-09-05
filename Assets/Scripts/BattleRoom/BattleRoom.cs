@@ -12,20 +12,13 @@ namespace Onyx.BattleRoom
         static public Action<BattleRoom, bool> OnEnter;
         static public Action<Action> OnExit;
 
-        [SerializeField]
-        private Grid grid;
-        [SerializeField]
-        private Tilemap tileMapComponent;
-        [SerializeField]
-        private GameObject background;
-        [SerializeField]
-        private List<MyUnit> destroyTargets;
-        [SerializeField]
-        private BattleRoomPortal enterPortal;
-        [SerializeField]
-        private BattleRoomPortal exitPortal;
-        [SerializeField]
-        private bool isFirstEntering = true;
+        [SerializeField] private Grid grid;
+        [SerializeField] private Tilemap tileMapComponent;
+        [SerializeField] private BackgroundScroller background;
+        [SerializeField] private List<MyUnit> destroyTargets;
+        [SerializeField] private BattleRoomPortal enterPortal;
+        [SerializeField] private BattleRoomPortal exitPortal;
+        [SerializeField] private bool isFirstEntering = true;
 
         readonly private UnsubscriberPack destroyTargetSubscribers = new UnsubscriberPack();
         private int remainEnemyCount;
@@ -34,7 +27,7 @@ namespace Onyx.BattleRoom
         public Vector2 GridPosition => new Vector2(grid.transform.position.x, grid.transform.position.y);
         public int RemainEnemyCount => remainEnemyCount;
         public int WholeEnemyCount => wholeEnemyCount;
-        public GameObject Background => background;
+        public BackgroundScroller Background => background;
         public SubscribeManagerTemplate<ISubscriber> SubscribeManager { private set; get; } = new SubscribeManagerTemplate<ISubscriber>();
 
         private void OnDestroy()
