@@ -129,7 +129,7 @@ namespace Onyx
             UpdateMovement();
 
             modelAnimator.SetBool("Grounded", groundChecker.IsGrounded);
-            modelAnimator.SetFloat("Speed", Mathf.Abs(rigidBody.velocity.x));
+            modelAnimator.SetBool("IsRunning", leftStick != Vector2.zero);
 
             bool shouldMakeDust = groundChecker.IsGrounded && Mathf.Abs(rigidBody.velocity.x) > dustMakingVelocity;
             if (shouldMakeDust && !dustParticleSystem.isEmitting)
@@ -140,11 +140,26 @@ namespace Onyx
             remainStiffenTime = Mathf.Max(0, remainStiffenTime - Time.deltaTime);
         }
 
+        Vector2 velocityBeforePhysicsUpdate;
+        Vector2 velocityAdded;
+
+        void FixedUpdate()
+        {
+            velocityBeforePhysicsUpdate = rigidBody.velocity;
+        }
+
         /// <summary>
         /// 캐릭터의 운동을 수행한다. 매 업데이트 마다 호출.
         /// </summary>
         void UpdateMovement()
         {
+            List<ContactPoint2D> list = new List<ContactPoint2D>();
+            rigidBody.GetContacts(list);
+            foreach(ContactPoint2D contact in list)
+            {
+                Debug.DrawLine(contact.point, contact.point + Vector2.up * 2, Color.red);
+            }
+
             Vector2 inputDirection = Vector2.zero;
             if (leftStick.x > 0)
                 inputDirection = Vector2.right;
@@ -162,7 +177,8 @@ namespace Onyx
 
             AddDamageMomentum();
             if (remainKnockBackRecoverTime == 0 && remainSkillMomentumRecoverTime == 0)
-                AddControlMomentum(inputDirection, isStopped, wasOverSpeed);
+                //AddControlMomentum(inputDirection, isStopped, wasOverSpeed);
+                AddControlMomentum2(inputDirection, isStopped);
             AddSkillMomentum();
 
             remainKnockBackRecoverTime = Mathf.Max(0, remainKnockBackRecoverTime - Time.deltaTime);
@@ -170,10 +186,10 @@ namespace Onyx
 
             if(remainSkillMomentumRecoverTime == 0)
             {
-                if (wasOverSpeed)
-                    AddOverSpeedRecoverMomentum();
-                else
-                    AddMomentumToLimitVelocity();
+                //if (wasOverSpeed)
+                //    AddOverSpeedRecoverMomentum();
+                //else
+                    //AddMomentumToLimitVelocity();
             }
         }
 
@@ -221,6 +237,46 @@ namespace Onyx
             else if (!isStopped)
             {
                 StopUnit(impulse);
+            }
+        }
+
+        /// <summary>
+        /// 입력에 따른 운동량을 가한다.
+        /// </summary>
+        /// <param name="inputDirection">현재 입력</param>
+        /// <param name="isStopped">현재 정지 여부</param>
+        /// <param name="isOverSpeed">현재 과속 여부</param>
+        public void AddControlMomentum2(Vector2 inputDirection, bool isStopped)
+        {
+            float velocityIncreaseForTick = maxVelocity;
+            if (velocityReachTime > Time.deltaTime)
+                velocityIncreaseForTick *= Time.deltaTime / velocityReachTime;
+
+            float maximumInpulse = CalcMomentumToChangeVelocity(velocityIncreaseForTick);
+            if (!groundChecker.IsGrounded)
+                maximumInpulse *= velocityInAirRate;
+
+            bool isInput = inputDirection != Vector2.zero;
+            if (isInput)
+            {
+                float impulse;
+                bool isDecelerating = rigidBody.velocity.x * inputDirection.x < 0;
+                if(isDecelerating)
+                {
+                    impulse = maximumInpulse;
+                }
+                else
+                {
+                    float diffWithMaximumVelocity = Mathf.Max(0, maxVelocity - Mathf.Abs(rigidBody.velocity.x));
+                    float velocityToAdd = Mathf.Min(velocityIncreaseForTick, diffWithMaximumVelocity);
+                    impulse = CalcMomentumToChangeVelocity(velocityToAdd);
+                }
+
+                rigidBody.AddForce(inputDirection * impulse, ForceMode2D.Impulse);
+            }
+            else if (!isStopped)
+            {
+                //StopUnit(maximumInpulse);
             }
         }
 
