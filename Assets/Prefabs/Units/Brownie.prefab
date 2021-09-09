@@ -363,6 +363,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eafd678d1a08f3f4ba2d7325d4e1f269, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  otherColliders: []
 --- !u!1 &4196301328055567101
 GameObject:
   m_ObjectHideFlags: 0
@@ -604,18 +605,18 @@ MonoBehaviour:
   _image: {fileID: 0}
   abilityName: "\uBCF4\uBCD1"
   abilityImage: {fileID: 0}
-  jumpVelocity: 11
-  extraJumpNumber: 0
-  dashVelocity: {x: 15, y: 0}
-  dashRecoverTime: 0.2
-  groundChecker: {fileID: 3519570781410266153}
   jumpSkillImage: {fileID: 21300000, guid: b5d332b57f7c81a49981dc899e702a8e, type: 3}
-  dashSkillImage: {fileID: 21300000, guid: 1f4758625312b9846bc56456dc98f7c1, type: 3}
+  jumpVelocity: 11.1
+  extraJumpNumber: 0
   jumpAudioSource: {fileID: 1679008781191016420}
   landAudioSource: {fileID: 3673322506993818297}
+  dashSkillImage: {fileID: 21300000, guid: 1f4758625312b9846bc56456dc98f7c1, type: 3}
+  dashVelocity: {x: 15, y: 0}
+  dashRecoverTime: 0.2
   afterImagePrefab: {fileID: 1257447924707107150, guid: ba763d84f542202439fef2df578fdb63, type: 3}
   afterImageTime: 0.2
   afterImageTickTime: 0.09
+  groundChecker: {fileID: 3519570781410266153}
 --- !u!114 &1151960724954712833
 MonoBehaviour:
   m_ObjectHideFlags: 0

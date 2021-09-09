@@ -6,17 +6,20 @@ using System;
 
 public class MeleeAttacker : AbilityBase, MeleeAttack.ISubscriber
 {
-    [SerializeField] private int comboNum;
     [SerializeField] private string skill1Name;
     [SerializeField] private Sprite skill1Sprite;
     [SerializeField] List<ComboInformation> combos;
+    [Header("Rewards")]
     [SerializeField] GameObject reward;
     [SerializeField] float rewardProbability;
     [SerializeField] private MultiplierPerLevel damageMultiplierPerLevel;
 
+    private int comboCountStringToHash = Animator.StringToHash("ComboCount");
     private int comboCount = -1;
+
     private float currentComboStartTime;
     private Coroutine comboResetTimer;
+
     private bool isOccupiedByThis;
     private bool isInitializing;
 
@@ -56,7 +59,6 @@ public class MeleeAttacker : AbilityBase, MeleeAttack.ISubscriber
         }
 
         return true;
-
     }
 
     public override void InstantiateAbilitySpecificGui(RectTransform abilitySpecificGuiArea)
@@ -114,7 +116,7 @@ public class MeleeAttacker : AbilityBase, MeleeAttack.ISubscriber
                     attackOnTime.data.Activate();
                 }));
 
-            abilityHolder.ModelAnimator.SetInteger("ComboCount", comboCount);
+            abilityHolder.ModelAnimator.SetInteger(comboCountStringToHash, comboCount);
         }
     }
 
@@ -124,7 +126,7 @@ public class MeleeAttacker : AbilityBase, MeleeAttack.ISubscriber
         isInitializing = true;
         StartCoroutine(Job(() => WaitForSecondsRoutine(0.25f), () => isInitializing = false));
         comboCount = -1;
-        abilityHolder.ModelAnimator.SetInteger("ComboCount", comboCount);
+        abilityHolder.ModelAnimator.SetInteger(comboCountStringToHash, comboCount);
         abilityHolder.OccupyMovement(false);
         isOccupiedByThis = false;
         comboResetTimer = null;

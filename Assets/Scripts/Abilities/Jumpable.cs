@@ -7,31 +7,24 @@ using Onyx.GameElement;
 public class Jumpable : AbilityBase, GroundChecker.ISubscriber
 {
 
-    [SerializeField, Range(1, 20)]
-    private float jumpVelocity = 3;
-    [SerializeField, Range(0, 5)]
-    private int extraJumpNumber = 0;
-    [SerializeField]
-    private Vector2 dashVelocity;
-    [SerializeField]
-    private float dashRecoverTime = 0.2f;
-    [SerializeField]
-    private GroundChecker groundChecker;
-    [SerializeField]
-    private Sprite jumpSkillImage;
-    [SerializeField]
-    private Sprite dashSkillImage;
-    [SerializeField]
-    private AudioSource jumpAudioSource;
-    [SerializeField]
-    private AudioSource landAudioSource;
-    [SerializeField]
-    private GameObject afterImagePrefab;
-    [SerializeField]
-    private float afterImageTime = 0.2f;
-    [SerializeField]
-    private float afterImageTickTime = 0.05f;
+    [Header("Jump")]
+    [SerializeField] private Sprite jumpSkillImage;
+    [SerializeField, Range(1, 20)] private float jumpVelocity = 3;
+    [SerializeField, Range(0, 5)] private int extraJumpNumber = 0;
+    [SerializeField] private AudioSource jumpAudioSource;
+    [SerializeField] private AudioSource landAudioSource;
+    [Header("Dash")]
+    [SerializeField] private Sprite dashSkillImage;
+    [SerializeField] private Vector2 dashVelocity;
+    [SerializeField] private float dashRecoverTime = 0.2f;
+    [Header("AfterImage")]
+    [SerializeField] private GameObject afterImagePrefab;
+    [SerializeField] private float afterImageTime = 0.2f;
+    [SerializeField] private float afterImageTickTime = 0.05f;
+    [Header("Etc")]
+    [SerializeField] private GroundChecker groundChecker;
 
+    private int dashStringToHash = Animator.StringToHash("Dash");
     private Rigidbody2D rigidBody;
     private int extraJumpCount;
 
@@ -43,12 +36,12 @@ public class Jumpable : AbilityBase, GroundChecker.ISubscriber
     protected override void Start()
     {
         base.Start();
-        skills.Add(new ButtonActiveAbilitySKill("Jump", jumpSkillImage, 0.1f, new SkillDescription(), StartCoroutine, Jump, ()=> !abilityHolder.isMovementOccupied));
+        skills.Add(new ButtonActiveAbilitySKill("Jump", jumpSkillImage, 0.1f, new SkillDescription(), StartCoroutine, TryJump, ()=> !abilityHolder.isMovementOccupied));
         skills.Add(new ButtonActiveAbilitySKill("Dash", dashSkillImage, 1f, new SkillDescription(), StartCoroutine, Dash, () => !abilityHolder.isMovementOccupied));
         groundChecker.SubscribeManager.Subscribe(this);
     }
 
-    private void Jump()
+    private void TryJump()
     {
         if(groundChecker.IsGrounded)
         {
@@ -86,11 +79,17 @@ public class Jumpable : AbilityBase, GroundChecker.ISubscriber
         if(dashVelocityToAdd.x * rigidBody.velocity.x > 0)
             dashVelocityToAdd.x -= rigidBody.velocity.x;
 
+        if (rigidBody.velocity.y < 0)
+            dashVelocityToAdd.y += -rigidBody.velocity.y;
+        else
+            dashVelocityToAdd.y -= rigidBody.velocity.y;
+
         abilityHolder.AddVelocity(dashVelocityToAdd, dashRecoverTime);
+        abilityHolder.ModelAnimator.SetTrigger(dashStringToHash);
 
         Instantiate<GameObject>(afterImagePrefab, transform.position, transform.rotation);
         StartCoroutine(AfterEffectCoroutine());
-        StartCoroutine(Job(()=>WaitForSecondsRoutine(0.2f), ()=>abilityHolder.OccupyMovement(false)));
+        StartCoroutine(Job(()=>WaitForSecondsRoutine(dashRecoverTime), ()=>abilityHolder.OccupyMovement(false)));
     }
 
     private IEnumerator AfterEffectCoroutine()
@@ -101,12 +100,6 @@ public class Jumpable : AbilityBase, GroundChecker.ISubscriber
             yield return new WaitForSeconds(afterImageTickTime);
             Instantiate<GameObject>(afterImagePrefab, transform.position, transform.rotation);
         }
-    }
-
-    public void PlayLandAudio()
-    {
-        if (landAudioSource != null)
-            landAudioSource.Play();
     }
 
     public override void InstantiateAbilitySpecificGui(RectTransform abilitySpecificGuiArea)
