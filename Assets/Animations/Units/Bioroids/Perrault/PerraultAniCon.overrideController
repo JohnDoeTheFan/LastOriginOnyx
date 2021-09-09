@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: PerraultAniCon
+  m_Controller: {fileID: 9100000, guid: adee4e15cc7bf854aacb887dd5099135, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 76cbb2c81e949fa478e45f50e43112a5, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 423c553a3c8529445a6980240a218e71, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 1a7941d4ade631a4fad536eff17c82ad, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 516453a63f8080f44b09a5ec07767d69, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: ab69e2bd0268fb448a573c5e741156d8, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 7c1e5a0f397d03440ba1cca5673bd956, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 9c1406862b0f85b49bfc9982cd94fa7f, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 1adf193b3954b3344a4a0c6a9402375d, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 9dd8fb7ee5daa7c4688be09c9d119801, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: b2ea7cdd0e8214d4e82144b2272000d7, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 523a46b5a946f0348b6a82fd7191a630, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 11ff646bc2eaf19408b94455a558f8a3, type: 2}

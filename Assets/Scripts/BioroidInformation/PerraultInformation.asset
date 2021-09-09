@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8982060b0a082d347b5738e3ddcd802f, type: 3}
+  m_Name: PerraultInformation
+  m_EditorClassIdentifier: 
+  id: 17
+  unit: {fileID: 5684826329192217018, guid: 0928d74c2bf42f046a08d09835bf34d8, type: 3}
+  portrait: {fileID: 0}
+  bioroidName: "CS \uD398\uB85C"
+  description: "\uCD5C\uACE0\uC758 \uACBD\uD638\uC6D0 \uD398\uB85C\uC785\uB2C8\uB2E4."
+  unlockCost: 1500
+  unlockLevel: 3
+  abilities:
+  - image: {fileID: 0}
+    abilityName: "\uB2E8\uBD84\uC790 \uD074\uB85C"
+    description: "\uB0A0\uCE74\uB85C\uC6B4 \uC190\uD1B1\uC73C\uB85C \uADFC\uC811
+      \uACF5\uACA9\uC744 \uC218\uD589\uD569\uB2C8\uB2E4."
+    skills:
+    - image: {fileID: 0}
+      skillName: "3\uC5F0\uD0C0"
+      description: 
+  - image: {fileID: 0}
+    abilityName: "\uACE0\uC591\uC774\uC758 \uBAB8\uB180\uB9BC"
+    description: "\uC720\uC5F0\uD55C \uBAB8\uC744 \uC774\uC6A9\uD574 \uC790\uC720\uB86D\uAC8C
+      \uC6C0\uC9C1\uC785\uB2C8\uB2E4."
+    skills:
+    - image: {fileID: 0}
+      skillName: "\uB0E5 \uC810\uD504"
+      description: "2\uB2E8 \uC810\uD504\uAC00 \uAC00\uB2A5\uD569\uB2C8\uB2E4."
+    - image: {fileID: 0}
+      skillName: "\uB364\uBE14\uB9C1"
+      description: "\uAC00\uBCCD\uAC8C \uD68C\uD53C\uD569\uB2C8\uB2E4."

@@ -78,7 +78,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Color.g
-    path: Brownie/FrontHand
+    path: Model/Face
     classID: 212
     script: {fileID: 0}
   - curve:
@@ -142,7 +142,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Color.b
-    path: Brownie/FrontHand
+    path: Model/Face
     classID: 212
     script: {fileID: 0}
   - curve:
@@ -206,7 +206,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Color.g
-    path: Brownie/FrontLowerArm
+    path: Model/FrontHand
     classID: 212
     script: {fileID: 0}
   - curve:
@@ -270,7 +270,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Color.b
-    path: Brownie/FrontLowerArm
+    path: Model/FrontHand
     classID: 212
     script: {fileID: 0}
   - curve:
@@ -334,7 +334,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Color.g
-    path: Brownie/FrontUpperArm
+    path: Model/FrontLowerArm
     classID: 212
     script: {fileID: 0}
   - curve:
@@ -398,7 +398,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Color.b
-    path: Brownie/FrontUpperArm
+    path: Model/FrontLowerArm
     classID: 212
     script: {fileID: 0}
   - curve:
@@ -462,7 +462,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Color.g
-    path: Brownie/Face
+    path: Model/FrontLowerLeg
     classID: 212
     script: {fileID: 0}
   - curve:
@@ -526,7 +526,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Color.b
-    path: Brownie/Face
+    path: Model/FrontLowerLeg
     classID: 212
     script: {fileID: 0}
   - curve:
@@ -590,7 +590,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Color.g
-    path: Brownie/Gun
+    path: Model/FrontUpperArm
     classID: 212
     script: {fileID: 0}
   - curve:
@@ -654,7 +654,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Color.b
-    path: Brownie/Gun
+    path: Model/FrontUpperArm
     classID: 212
     script: {fileID: 0}
   - curve:
@@ -718,7 +718,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Color.g
-    path: Brownie/MainBody
+    path: Model/FrontUpperLeg
     classID: 212
     script: {fileID: 0}
   - curve:
@@ -782,7 +782,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Color.b
-    path: Brownie/MainBody
+    path: Model/FrontUpperLeg
     classID: 212
     script: {fileID: 0}
   - curve:
@@ -846,7 +846,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Color.g
-    path: Brownie/FrontUpperLeg
+    path: Model/Gun
     classID: 212
     script: {fileID: 0}
   - curve:
@@ -910,7 +910,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Color.b
-    path: Brownie/FrontUpperLeg
+    path: Model/Gun
     classID: 212
     script: {fileID: 0}
   - curve:
@@ -974,7 +974,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Color.g
-    path: Brownie/FrontLowerLeg
+    path: Model/MainBody
     classID: 212
     script: {fileID: 0}
   - curve:
@@ -1038,7 +1038,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Color.b
-    path: Brownie/FrontLowerLeg
+    path: Model/MainBody
     classID: 212
     script: {fileID: 0}
   - curve:
@@ -1102,7 +1102,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Color.g
-    path: Brownie/RearUpperLeg
+    path: Model/RearLowerLeg
     classID: 212
     script: {fileID: 0}
   - curve:
@@ -1166,7 +1166,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Color.b
-    path: Brownie/RearUpperLeg
+    path: Model/RearLowerLeg
     classID: 212
     script: {fileID: 0}
   - curve:
@@ -1230,7 +1230,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Color.g
-    path: Brownie/RearLowerLeg
+    path: Model/RearUpperLeg
     classID: 212
     script: {fileID: 0}
   - curve:
@@ -1294,7 +1294,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Color.b
-    path: Brownie/RearLowerLeg
+    path: Model/RearUpperLeg
     classID: 212
     script: {fileID: 0}
   m_PPtrCurves: []
@@ -1306,140 +1306,140 @@ AnimationClip:
   m_ClipBindingConstant:
     genericBindings:
     - serializedVersion: 2
-      path: 4190578107
+      path: 1056840609
       attribute: 4215373228
       script: {fileID: 0}
       typeID: 212
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 4190578107
+      path: 1056840609
       attribute: 2334886179
       script: {fileID: 0}
       typeID: 212
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 3334676360
+      path: 133631199
       attribute: 4215373228
       script: {fileID: 0}
       typeID: 212
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 3334676360
+      path: 133631199
       attribute: 2334886179
       script: {fileID: 0}
       typeID: 212
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 698673431
+      path: 3227052891
       attribute: 4215373228
       script: {fileID: 0}
       typeID: 212
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 698673431
+      path: 3227052891
       attribute: 2334886179
       script: {fileID: 0}
       typeID: 212
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 4050150165
+      path: 769004928
       attribute: 4215373228
       script: {fileID: 0}
       typeID: 212
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 4050150165
+      path: 769004928
       attribute: 2334886179
       script: {fileID: 0}
       typeID: 212
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 3795248717
+      path: 792665540
       attribute: 4215373228
       script: {fileID: 0}
       typeID: 212
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 3795248717
+      path: 792665540
       attribute: 2334886179
       script: {fileID: 0}
       typeID: 212
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 3128122204
+      path: 3266437919
       attribute: 4215373228
       script: {fileID: 0}
       typeID: 212
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 3128122204
+      path: 3266437919
       attribute: 2334886179
       script: {fileID: 0}
       typeID: 212
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 3291092940
+      path: 3470510971
       attribute: 4215373228
       script: {fileID: 0}
       typeID: 212
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 3291092940
+      path: 3470510971
       attribute: 2334886179
       script: {fileID: 0}
       typeID: 212
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 726524243
+      path: 1581337028
       attribute: 4215373228
       script: {fileID: 0}
       typeID: 212
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 726524243
+      path: 1581337028
       attribute: 2334886179
       script: {fileID: 0}
       typeID: 212
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 3522410463
+      path: 332762373
       attribute: 4215373228
       script: {fileID: 0}
       typeID: 212
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 3522410463
+      path: 332762373
       attribute: 2334886179
       script: {fileID: 0}
       typeID: 212
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 1049903424
+      path: 4239555482
       attribute: 4215373228
       script: {fileID: 0}
       typeID: 212
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 1049903424
+      path: 4239555482
       attribute: 2334886179
       script: {fileID: 0}
       typeID: 212
@@ -1528,7 +1528,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Color.g
-    path: Brownie/FrontHand
+    path: Model/Face
     classID: 212
     script: {fileID: 0}
   - curve:
@@ -1592,7 +1592,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Color.b
-    path: Brownie/FrontHand
+    path: Model/Face
     classID: 212
     script: {fileID: 0}
   - curve:
@@ -1656,7 +1656,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Color.g
-    path: Brownie/FrontLowerArm
+    path: Model/FrontHand
     classID: 212
     script: {fileID: 0}
   - curve:
@@ -1720,7 +1720,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Color.b
-    path: Brownie/FrontLowerArm
+    path: Model/FrontHand
     classID: 212
     script: {fileID: 0}
   - curve:
@@ -1784,7 +1784,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Color.g
-    path: Brownie/FrontUpperArm
+    path: Model/FrontLowerArm
     classID: 212
     script: {fileID: 0}
   - curve:
@@ -1848,7 +1848,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Color.b
-    path: Brownie/FrontUpperArm
+    path: Model/FrontLowerArm
     classID: 212
     script: {fileID: 0}
   - curve:
@@ -1912,7 +1912,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Color.g
-    path: Brownie/Face
+    path: Model/FrontLowerLeg
     classID: 212
     script: {fileID: 0}
   - curve:
@@ -1976,7 +1976,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Color.b
-    path: Brownie/Face
+    path: Model/FrontLowerLeg
     classID: 212
     script: {fileID: 0}
   - curve:
@@ -2040,7 +2040,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Color.g
-    path: Brownie/Gun
+    path: Model/FrontUpperArm
     classID: 212
     script: {fileID: 0}
   - curve:
@@ -2104,7 +2104,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Color.b
-    path: Brownie/Gun
+    path: Model/FrontUpperArm
     classID: 212
     script: {fileID: 0}
   - curve:
@@ -2168,7 +2168,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Color.g
-    path: Brownie/MainBody
+    path: Model/FrontUpperLeg
     classID: 212
     script: {fileID: 0}
   - curve:
@@ -2232,7 +2232,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Color.b
-    path: Brownie/MainBody
+    path: Model/FrontUpperLeg
     classID: 212
     script: {fileID: 0}
   - curve:
@@ -2296,7 +2296,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Color.g
-    path: Brownie/FrontUpperLeg
+    path: Model/Gun
     classID: 212
     script: {fileID: 0}
   - curve:
@@ -2360,7 +2360,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Color.b
-    path: Brownie/FrontUpperLeg
+    path: Model/Gun
     classID: 212
     script: {fileID: 0}
   - curve:
@@ -2424,7 +2424,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Color.g
-    path: Brownie/FrontLowerLeg
+    path: Model/MainBody
     classID: 212
     script: {fileID: 0}
   - curve:
@@ -2488,7 +2488,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Color.b
-    path: Brownie/FrontLowerLeg
+    path: Model/MainBody
     classID: 212
     script: {fileID: 0}
   - curve:
@@ -2552,7 +2552,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Color.g
-    path: Brownie/RearUpperLeg
+    path: Model/RearLowerLeg
     classID: 212
     script: {fileID: 0}
   - curve:
@@ -2616,7 +2616,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Color.b
-    path: Brownie/RearUpperLeg
+    path: Model/RearLowerLeg
     classID: 212
     script: {fileID: 0}
   - curve:
@@ -2680,7 +2680,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Color.g
-    path: Brownie/RearLowerLeg
+    path: Model/RearUpperLeg
     classID: 212
     script: {fileID: 0}
   - curve:
@@ -2744,7 +2744,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Color.b
-    path: Brownie/RearLowerLeg
+    path: Model/RearUpperLeg
     classID: 212
     script: {fileID: 0}
   m_EulerEditorCurves: []
