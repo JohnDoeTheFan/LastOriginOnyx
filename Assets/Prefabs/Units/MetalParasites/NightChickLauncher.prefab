@@ -637,6 +637,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eafd678d1a08f3f4ba2d7325d4e1f269, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  otherColliders: []
 --- !u!1 &4152844832960633317
 GameObject:
   m_ObjectHideFlags: 0
@@ -742,7 +743,7 @@ MonoBehaviour:
   modelAnimator: {fileID: 8018057090887055770}
   rotatingParts: {fileID: 1133298391004524803}
   maxVelocity: 2
-  velocityReachTime: 0.1
+  velocityReachTime: 0.001
   velocityInAirRate: 0.2
   overSpeedRecoverVelocity: 5
   overSpeedRecoverVelocityReachTime: 0.1
