@@ -141,8 +141,8 @@ GameObject:
   - component: {fileID: 3053505282374138290}
   - component: {fileID: 3053505282374138289}
   - component: {fileID: 3053505282374138295}
-  - component: {fileID: 3053505282374138294}
   - component: {fileID: 3053505282374138251}
+  - component: {fileID: 7316065372745774391}
   m_Layer: 8
   m_Name: NightChickShielder
   m_TagString: Untagged
@@ -282,22 +282,6 @@ MonoBehaviour:
   cameraForProjection: {fileID: 0}
   mouseAngleCenterPointAdjust: {x: 0, y: 0, z: 0}
   inputOverlappingPreventTime: 0.5
---- !u!114 &3053505282374138294
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3053505282374138248}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c83c39225b4039e45afd351eda9be793, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  aiScriptFactory: {fileID: 11400000, guid: aadd77285c935a6458e3a3df73ad5df5, type: 2}
-  virtualInputSourceAsController: {fileID: 3053505282374138295}
-  sight: {fileID: 6075225018260231472}
-  modelTransform: {fileID: 6701754397816653128}
 --- !u!114 &3053505282374138251
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -314,6 +298,22 @@ MonoBehaviour:
   abilityName: 
   abilityImage: {fileID: 0}
   shield: {fileID: 1233962057467320876}
+--- !u!114 &7316065372745774391
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3053505282374138248}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 057a0209cc108214f9a49a5ce2957f63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  virtualInputSourceAsController: {fileID: 3053505282374138295}
+  sight: {fileID: 6075225018260231472}
+  modelTransform: {fileID: 6701754397816653128}
+  hesitateTimeMinMax: {x: 0.9, y: 1.1}
 --- !u!1 &3053505283117066286
 GameObject:
   m_ObjectHideFlags: 0
@@ -384,7 +384,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eafd678d1a08f3f4ba2d7325d4e1f269, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  otherColliders: []
 --- !u!1 &3100565098355693322
 GameObject:
   m_ObjectHideFlags: 0

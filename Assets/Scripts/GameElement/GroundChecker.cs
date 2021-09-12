@@ -9,7 +9,7 @@ namespace Onyx.GameElement
     {
         public bool IsGrounded => otherColliders.Count > 0;
         public SubscribeManagerTemplate<ISubscriber> SubscribeManager { private set; get; } = new SubscribeManagerTemplate<ISubscriber>();
-        public List<Collider2D> otherColliders = new List<Collider2D>();
+        private List<Collider2D> otherColliders = new List<Collider2D>();
 
         public Vector2 GetGroundVelocity()
         {

@@ -104,8 +104,8 @@ public class SideScrollStrategyGameMode : RunAndGunGameMode
         {
             MyUnit newUnit = Instantiate<MyUnit>(creatableUnits[relatedCreatableUnitsIndex].prefab, gameStartPosition.transform.position, Quaternion.identity);
             newUnit.gameObject.name = "Unit" + unitSeqNum++;
-            AiPlayer myBotAi = newUnit.GetComponent<AiPlayer>();
-            myBotAi.AiScript.SetFinalObjective( enemyBarrack );
+            // AiBase myBotAi = newUnit.GetComponent<AiBase>();
+            // myBotAi.AiScript.SetFinalObjective( enemyBarrack );
 
             currentCost -= creatableUnits[relatedCreatableUnitsIndex].cost;
             creatableUnits[relatedCreatableUnitsIndex].remainCoolTime = creatableUnits[relatedCreatableUnitsIndex].coolTime;
@@ -167,8 +167,8 @@ public class SideScrollStrategyGameMode : RunAndGunGameMode
             creatableEnemies[index].currentCount++;
             newUnit.gameObject.name = "Enemy" + enemySeqNum++;
 
-            AiPlayer myBotAi = newUnit.GetComponent<AiPlayer>();
-            myBotAi.AiScript.SetFinalObjective( playerBarrack);
+            // AiBase myBotAi = newUnit.GetComponent<AiBase>();
+            // myBotAi.AiScript.SetFinalObjective( playerBarrack);
 
             newUnit.SubscribeManager.Subscribe(new EnemyUnitGameRule(index));
         }

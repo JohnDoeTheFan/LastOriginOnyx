@@ -5301,7 +5301,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eafd678d1a08f3f4ba2d7325d4e1f269, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  otherColliders: []
 --- !u!1 &5228192563663565563
 GameObject:
   m_ObjectHideFlags: 0
@@ -5316,8 +5315,8 @@ GameObject:
   - component: {fileID: 5228192563663565505}
   - component: {fileID: 5228192563663565506}
   - component: {fileID: 5228192563663565508}
-  - component: {fileID: 5228192563663565509}
   - component: {fileID: 5228192563663565560}
+  - component: {fileID: 7983607275709806935}
   m_Layer: 8
   m_Name: NightChickSniper
   m_TagString: Untagged
@@ -5458,22 +5457,6 @@ MonoBehaviour:
   cameraForProjection: {fileID: 0}
   mouseAngleCenterPointAdjust: {x: 0, y: 0, z: 0}
   inputOverlappingPreventTime: 0.5
---- !u!114 &5228192563663565509
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5228192563663565563}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c83c39225b4039e45afd351eda9be793, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  aiScriptFactory: {fileID: 11400000, guid: 6f0797fa234b80b4d9c71675f9e724d4, type: 2}
-  virtualInputSourceAsController: {fileID: 5228192563663565508}
-  sight: {fileID: 3936699646797585987}
-  modelTransform: {fileID: 2031477039017465667}
 --- !u!114 &5228192563663565560
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5498,6 +5481,21 @@ MonoBehaviour:
   killRewards: []
   damageMultipliers: {fileID: 11400000, guid: 990cc5a820b58b941a6bd899bd53043a, type: 2}
   bulletEmptyNotifier: {fileID: 0}
+--- !u!114 &7983607275709806935
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5228192563663565563}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc3baca4f3b34d949a6ec553e389db98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  virtualInputSourceAsController: {fileID: 5228192563663565508}
+  sight: {fileID: 3936699646797585987}
+  modelTransform: {fileID: 2031477039017465667}
 --- !u!1 &5325810061069917305
 GameObject:
   m_ObjectHideFlags: 0
