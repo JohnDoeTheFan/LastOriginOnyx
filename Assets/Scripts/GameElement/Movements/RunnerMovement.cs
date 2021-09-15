@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RunnerMovement : MovementBase
+public class RunnerMovement : OneAxisMovementBase
 {
     [SerializeField] private GroundChecker groundChecker;
 

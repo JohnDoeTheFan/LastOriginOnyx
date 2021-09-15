@@ -116,16 +116,22 @@ namespace Onyx
         {
             movement.UpdateMovement(leftStick);
 
-            modelAnimator.SetBool("Grounded", groundChecker.IsGrounded);
+            if(groundChecker != null)
+                modelAnimator.SetBool("Grounded", groundChecker.IsGrounded);
             modelAnimator.SetBool("IsRunning", leftStick != Vector2.zero);
 
-            float characterVelocity = rigidBody.velocity.x- groundChecker.GetGroundVelocity().x;
+            float characterVelocity = rigidBody.velocity.x;
+            if (groundChecker != null)
+                characterVelocity -= groundChecker.GetGroundVelocity().x;
 
-            bool shouldMakeDust = groundChecker.IsGrounded && Mathf.Abs(characterVelocity) > dustMakingVelocity;
-            if (shouldMakeDust && !dustParticleSystem.isEmitting)
-                dustParticleSystem.Play();
-            else if (!shouldMakeDust && dustParticleSystem.isEmitting)
-                dustParticleSystem.Stop();
+            if(groundChecker!= null)
+            {
+                bool shouldMakeDust = groundChecker.IsGrounded && Mathf.Abs(characterVelocity) > dustMakingVelocity;
+                if (shouldMakeDust && !dustParticleSystem.isEmitting)
+                    dustParticleSystem.Play();
+                else if (!shouldMakeDust && dustParticleSystem.isEmitting)
+                    dustParticleSystem.Stop();
+            }
 
             remainStiffenTime = Mathf.Max(0, remainStiffenTime - Time.deltaTime);
         }

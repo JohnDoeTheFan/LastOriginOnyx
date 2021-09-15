@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace Onyx.Ai
 {
-    public class AiBase : MonoBehaviour, Sight.ISubscriber
+    public abstract class AiBase : MonoBehaviour, Sight.ISubscriber
     {
         [Header("AiBase")]
         [SerializeField] protected VirtualInputSource virtualInputSourceAsController;
@@ -22,7 +22,7 @@ namespace Onyx.Ai
 
         protected Transform ObjectiveOfTarget;
 
-        private void Start()
+        protected virtual void Start()
         {
             unsubscriber = sight.SubscribeManager.Subscribe(this);
         }
@@ -38,10 +38,7 @@ namespace Onyx.Ai
             OnUpdate();
         }
 
-        protected virtual void OnUpdate()
-        {
-
-        }
+        protected abstract void OnUpdate();
 
         void Sight.ISubscriber.OnEnter(GameObject enteringObject)
         {

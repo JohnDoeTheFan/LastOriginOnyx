@@ -28,12 +28,7 @@ public abstract class MovementBase : MonoBehaviour
         Vector2 inputDirection = Vector2.zero;
 
         if (!IsMovementOccupied)
-        {
-            if (leftStickInput.x > 0)
-                inputDirection = Vector2.right;
-            else if (leftStickInput.x < 0)
-                inputDirection = Vector2.left;
-        }
+            inputDirection = CullDirection(leftStickInput);
 
         RotateUnit(inputDirection);
 
@@ -43,6 +38,11 @@ public abstract class MovementBase : MonoBehaviour
         remainSkillVelocityRecoverTime = Mathf.Max(0, remainSkillVelocityRecoverTime - Time.deltaTime);
 
         lastInputDirection = leftStickInput;
+    }
+
+    public virtual Vector2 CullDirection(Vector2 leftStickInput)
+    {
+        return leftStickInput;
     }
 
     public abstract void OnUpdateMovement(Vector2 inputDirection);
@@ -107,6 +107,16 @@ public abstract class MovementBase : MonoBehaviour
     /// <param name="targetVelocity">도달하고자 하는 속도</param>
     /// <returns>운동량</returns>
     protected float CalcMomentumToChangeVelocity(float targetVelocity)
+    {
+        return rigidBody.mass * targetVelocity;
+    }
+
+    /// <summary>
+    /// 도달하고자 하는 속도로 가속하기 위한 운동량(Momentum)을 계산한다.
+    /// </summary>
+    /// <param name="targetVelocity">도달하고자 하는 속도</param>
+    /// <returns>운동량</returns>
+    protected Vector2 CalcMomentumToChangeVelocity(Vector2 targetVelocity)
     {
         return rigidBody.mass * targetVelocity;
     }

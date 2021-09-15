@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FrictionRunnerMovement : MovementBase
+public class FrictionRunnerMovement : OneAxisMovementBase
 {
     [SerializeField] private GroundChecker groundChecker;
 
@@ -48,7 +48,7 @@ public class FrictionRunnerMovement : MovementBase
         }
         else if (lastInputDirection != Vector2.zero)
         {
-            StopUnit2();
+            StopUnit();
         }
     }
 
@@ -56,7 +56,7 @@ public class FrictionRunnerMovement : MovementBase
     /// Unit 을 멈추기 위해 운동량을 가한다.
     /// </summary>
     /// <param name="maximumStoppingImpulse">멈출 때 사용될 수 있는 최대 힘</param>
-    private void StopUnit2()
+    private void StopUnit()
     {
         Vector2 groundVelocity = groundChecker.GetGroundVelocity();
 
