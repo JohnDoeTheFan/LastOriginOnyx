@@ -175,6 +175,7 @@ GameObject:
   - component: {fileID: 4784415437061118734}
   - component: {fileID: 9181104682134871597}
   - component: {fileID: 5684826329192217018}
+  - component: {fileID: 5657436394549491419}
   - component: {fileID: 996395275404322693}
   - component: {fileID: 4889531060949177076}
   - component: {fileID: 7247349942291385522}
@@ -294,6 +295,24 @@ MonoBehaviour:
   levelOfDifficulty: 0
   healthMultipliers: {fileID: 11400000, guid: 350ed219e736b1a49955c09116327240, type: 2}
   scoreMultiplier: 0
+--- !u!114 &5657436394549491419
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4333050997722928789}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5088d2df2fc907499c2411398e29c34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotatingParts: {fileID: 1274866191843599722}
+  damageVelocityRecoverTime: 0.2
+  groundChecker: {fileID: 3519570781410266153}
+  maxVelocity: 6
+  velocityReachTime: 0.001
+  velocityInAirRate: 0.2
 --- !u!114 &996395275404322693
 MonoBehaviour:
   m_ObjectHideFlags: 0

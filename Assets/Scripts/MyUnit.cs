@@ -28,15 +28,6 @@ namespace Onyx
         }
 
         [SerializeField] Animator modelAnimator;
-        [SerializeField] Transform rotatingParts;
-
-        [Header("Physics")]
-        [SerializeField, Range(1, 10)]      private float maxVelocity = 3f;
-        [SerializeField, Range(0.001f, 5)]  private float velocityReachTime = 0.1f;
-        [SerializeField, Range(0.001f, 1f)] private float velocityInAirRate = 0.2f;
-        [SerializeField, Range(1, 10)]      private float overSpeedRecoverVelocity = 5f;
-        [SerializeField, Range(0.001f, 5)]  private float overSpeedRecoverVelocityReachTime = 0.1f;
-        [SerializeField, Range(0, 5f)]      private float knockBackRecoverTime = 0.2f;
 
         [Header("Status")]
         [SerializeField] private float healthPoint = 1;
@@ -51,7 +42,6 @@ namespace Onyx
         [SerializeField] private float dustMakingVelocity = 3f;
 
         [Header("Audios")]
-        [SerializeField] private AudioSource runAudioSource;
         [SerializeField] private AudioSource bulletHitAudio;
 
         [Header("Voices")]
@@ -70,17 +60,12 @@ namespace Onyx
         private InputHandler inputHandler;
         readonly private List<IAbility> abilities = new List<IAbility>();
         private ClosestObjectInSightManager<InteractableComponent> closestInteractable;
+        private MovementBase movement;
 
         private bool isDead = false;
         private bool preventControl = false;
         private Vector2 leftStick = new Vector2(0, 0);
-        private float remainKnockBackRecoverTime = 0;
-        private float remainSkillMomentumRecoverTime = 0;
         private float remainStiffenTime = 0;
-        private Vector2 velocityChangeByDamage;
-        private Vector2 velocityChangeBySkill;
-        private bool isMovementOccupied;
-        private Vector2 lastInputDirection = Vector2.zero;
         private bool isControlPrevented => preventControl || (remainStiffenTime > 0f);
 
         public float HealthPoint => healthPoint;
@@ -92,22 +77,24 @@ namespace Onyx
         public ReadOnlyCollection<IAbility> Abilities => abilities.AsReadOnly();
         public SubscribeManagerTemplate<ISubscriber> SubscribeManager { private set; get; } = new SubscribeManagerTemplate<ISubscriber>();
         public int ScoreMultiplier => scoreMultiplier;
+        public MovementBase Movement => movement;
 
-        Vector3 IHitReactor.GetWorldPosition => transform.position;
         int IAbilityHolder.Level => level;
         int IAbilityHolder.LevelOfDifficulty => levelOfDifficulty;
         bool IAbilityHolder.ShouldUseLevelOfDifficulty => !CompareTag("Player");
-        bool IAbilityHolder.isFacingLeft => rotatingParts.rotation.y != 0;
-        bool IAbilityHolder.isMovementOccupied => isMovementOccupied;
+        bool IAbilityHolder.isFacingLeft => movement.IsFacingLeft;
+        bool IAbilityHolder.isMovementOccupied => movement.IsMovementOccupied;
+        bool IAbilityHolder.IsGrounded => groundChecker.IsGrounded;
+        Animator IAbilityHolder.ModelAnimator => modelAnimator;
+
+        Vector3 IHitReactor.GetWorldPosition => transform.position;
         GameObject IHitReactor.GameObject => gameObject;
 
-        bool IAbilityHolder.IsGrounded => groundChecker.IsGrounded;
-
-        Animator IAbilityHolder.ModelAnimator => modelAnimator;
 
         void Start()
         {
             rigidBody = GetComponent<Rigidbody2D>();
+            movement = GetComponent<MovementBase>();
             inputHandler = GetComponent<InputHandler>();
             inputHandler.AddInputReceiverRegisterAwaiter(this);
             abilities.AddRange(GetComponents<IAbility>());
@@ -127,7 +114,7 @@ namespace Onyx
 
         void Update()
         {
-            UpdateMovement2();
+            movement.UpdateMovement(leftStick);
 
             modelAnimator.SetBool("Grounded", groundChecker.IsGrounded);
             modelAnimator.SetBool("IsRunning", leftStick != Vector2.zero);
@@ -141,271 +128,6 @@ namespace Onyx
                 dustParticleSystem.Stop();
 
             remainStiffenTime = Mathf.Max(0, remainStiffenTime - Time.deltaTime);
-        }
-
-        Vector2 velocityBeforePhysicsUpdate;
-        Vector2 velocityAdded;
-
-        void FixedUpdate()
-        {
-            velocityBeforePhysicsUpdate = rigidBody.velocity;
-        }
-
-        /// <summary>
-        /// 캐릭터의 운동을 수행한다. 매 업데이트 마다 호출.
-        /// </summary>
-        void UpdateMovement()
-        {
-            Vector2 inputDirection = Vector2.zero;
-            if (leftStick.x > 0)
-                inputDirection = Vector2.right;
-            else if (leftStick.x < 0)
-                inputDirection = Vector2.left;
-
-            if (isMovementOccupied)
-                inputDirection = Vector2.zero;
-
-            RotateUnit(inputDirection);
-
-            float currentAbsVelocityX = Mathf.Abs(rigidBody.velocity.x);
-            bool isStopped = currentAbsVelocityX == 0;
-            bool wasOverSpeed = !Mathf.Approximately(currentAbsVelocityX, maxVelocity) && currentAbsVelocityX > maxVelocity;
-
-            AddDamageMomentum();
-            if (remainKnockBackRecoverTime == 0 && remainSkillMomentumRecoverTime == 0)
-                AddControlMomentum(inputDirection, isStopped, wasOverSpeed);
-            AddSkillMomentum();
-
-            remainKnockBackRecoverTime = Mathf.Max(0, remainKnockBackRecoverTime - Time.deltaTime);
-            remainSkillMomentumRecoverTime = Mathf.Max(0, remainSkillMomentumRecoverTime - Time.deltaTime);
-
-            if(remainSkillMomentumRecoverTime == 0)
-            {
-                if (wasOverSpeed)
-                    AddOverSpeedRecoverMomentum();
-                else
-                    AddMomentumToLimitVelocity();
-            }
-        }
-
-        /// <summary>
-        /// 캐릭터의 운동을 수행한다. 매 업데이트 마다 호출.
-        /// </summary>
-        void UpdateMovement2()
-        {
-            Vector2 inputDirection = Vector2.zero;
-            if (leftStick.x > 0)
-                inputDirection = Vector2.right;
-            else if (leftStick.x < 0)
-                inputDirection = Vector2.left;
-
-            if (isMovementOccupied)
-                inputDirection = Vector2.zero;
-
-            RotateUnit(inputDirection);
-
-            float currentAbsVelocityX = Mathf.Abs(rigidBody.velocity.x);
-            bool isStopped = currentAbsVelocityX == 0;
-            bool wasOverSpeed = !Mathf.Approximately(currentAbsVelocityX, maxVelocity) && currentAbsVelocityX > maxVelocity;
-
-            AddDamageMomentum();
-            if (remainKnockBackRecoverTime == 0 && remainSkillMomentumRecoverTime == 0)
-                AddControlMomentum2(inputDirection, isStopped);
-            AddSkillMomentum();
-
-            remainKnockBackRecoverTime = Mathf.Max(0, remainKnockBackRecoverTime - Time.deltaTime);
-            remainSkillMomentumRecoverTime = Mathf.Max(0, remainSkillMomentumRecoverTime - Time.deltaTime);
-
-            lastInputDirection = inputDirection;
-
-
-        }
-
-        /// <summary>
-        /// Unit 을 회전한다.
-        /// </summary>
-        /// <param name="inputDirection">입력 방향</param>
-        public void RotateUnit(Vector2 inputDirection)
-        {
-            Quaternion rotation = rotatingParts.rotation;
-            if (inputDirection == Vector2.right)
-                rotation = Quaternion.identity;
-            else if (inputDirection == Vector2.left)
-                rotation = Quaternion.Euler(new Vector3(0, 180, 0));
-
-            rotatingParts.rotation = rotation;
-        }
-
-        /// <summary>
-        /// 입력에 따른 운동량을 가한다.
-        /// </summary>
-        /// <param name="inputDirection">현재 입력</param>
-        /// <param name="isStopped">현재 정지 여부</param>
-        /// <param name="isOverSpeed">현재 과속 여부</param>
-        public void AddControlMomentum(Vector2 inputDirection, bool isStopped, bool isOverSpeed)
-        {
-            float velocityToAdd = maxVelocity;
-            if (velocityReachTime > Time.deltaTime)
-                velocityToAdd *= Time.deltaTime / velocityReachTime;
-
-            float impulse = CalcMomentumToChangeVelocity(velocityToAdd);
-            if (!groundChecker.IsGrounded)
-                impulse *= velocityInAirRate;
-
-            bool isInput = inputDirection != Vector2.zero;
-            if (isInput)
-            {
-                bool isDecelerating = rigidBody.velocity.x * inputDirection.x < 0;
-                bool isOverspeedRegisting = isOverSpeed && isDecelerating;
-                bool shouldAddImpulse = !isOverSpeed || isOverspeedRegisting;
-
-                if (shouldAddImpulse)
-                    rigidBody.AddForce(inputDirection * impulse, ForceMode2D.Impulse);
-            }
-            else if (!isStopped)
-            {
-                StopUnit(impulse);
-            }
-        }
-
-        /// <summary>
-        /// 입력에 따른 운동량을 가한다.
-        /// </summary>
-        /// <param name="inputDirection">현재 입력</param>
-        /// <param name="isStopped">현재 정지 여부</param>
-        /// <param name="isOverSpeed">현재 과속 여부</param>
-        public void AddControlMomentum2(Vector2 inputDirection, bool isStopped)
-        {
-            bool isInput = inputDirection != Vector2.zero;
-            if (isInput)
-            {
-                Vector2 groundVelocity = groundChecker.GetGroundVelocity();
-
-                float rotatedMaxVelocity = maxVelocity;
-                if (inputDirection.x < 0)
-                    rotatedMaxVelocity *= -1;
-
-                float maxVelocityUnderEnvironment = rotatedMaxVelocity + groundVelocity.x;
-                float diffWithMaximumVelocity = maxVelocityUnderEnvironment - rigidBody.velocity.x;
-
-                float velocityIncreaseForTick = diffWithMaximumVelocity;
-                if (velocityReachTime > Time.deltaTime)
-                    velocityIncreaseForTick *= Time.deltaTime / velocityReachTime;
-
-                float velocityToAdd = velocityIncreaseForTick;
-                float impulse = CalcMomentumToChangeVelocity(velocityToAdd);
-
-                rigidBody.AddForce(new Vector2(impulse, 0), ForceMode2D.Impulse);
-            }
-            else if (lastInputDirection != Vector2.zero)
-            {
-                StopUnit2();
-            }
-        }
-
-        /// <summary>
-        /// Unit 을 멈추기 위해 운동량을 가한다.
-        /// </summary>
-        /// <param name="maximumStoppingImpulse">멈출 때 사용될 수 있는 최대 힘</param>
-        private void StopUnit(float maximumStoppingImpulse)
-        {
-            Vector2 stoppingImpulseDirection = Vector2.zero;
-            if (rigidBody.velocity.x > 0)
-                stoppingImpulseDirection = Vector2.left;
-            else if (rigidBody.velocity.x < 0)
-                stoppingImpulseDirection = Vector2.right;
-
-            float impluseToStop = CalcMomentumToChangeVelocity(Mathf.Abs(rigidBody.velocity.x));
-
-            float stoppingImpulse = Mathf.Min(impluseToStop, maximumStoppingImpulse);
-
-            rigidBody.AddForce(stoppingImpulseDirection * stoppingImpulse, ForceMode2D.Impulse);
-        }
-
-        /// <summary>
-        /// Unit 을 멈추기 위해 운동량을 가한다.
-        /// </summary>
-        /// <param name="maximumStoppingImpulse">멈출 때 사용될 수 있는 최대 힘</param>
-        private void StopUnit2()
-        {
-            Vector2 groundVelocity = groundChecker.GetGroundVelocity();
-
-            float velocityToStop = (rigidBody.velocity.x - groundVelocity.x) * -1;
-
-            float impluseToStop = CalcMomentumToChangeVelocity(velocityToStop);
-
-            rigidBody.AddForce(new Vector2(impluseToStop, 0), ForceMode2D.Impulse);
-        }
-
-        /// <summary>
-        /// 과속 상태에서 벗어나기 위한 운동량을 가한다. 입력에 무관하게 가해진다.
-        /// </summary>
-        private void AddOverSpeedRecoverMomentum()
-        {
-            float velocityToAdd = overSpeedRecoverVelocity;
-            if (overSpeedRecoverVelocityReachTime > Time.deltaTime)
-                velocityToAdd *= Time.deltaTime / overSpeedRecoverVelocityReachTime;
-
-            float impulse = CalcMomentumToChangeVelocity(velocityToAdd);
-
-            Vector2 naturalImpulseDirection = Vector2.zero;
-            if (rigidBody.velocity.x > 0)
-                naturalImpulseDirection = Vector2.left;
-            else if (rigidBody.velocity.x < 0)
-                naturalImpulseDirection = Vector2.right;
-
-            rigidBody.AddForce(naturalImpulseDirection * impulse, ForceMode2D.Impulse);
-        }
-
-        /// <summary>
-        /// 입력으로 인한 운동량으로 인해 과속이 되지 않게 제한한다.
-        /// </summary>
-        private void AddMomentumToLimitVelocity()
-        {
-            float newVelocity = Mathf.Abs(rigidBody.velocity.x);
-            if (newVelocity > maxVelocity)
-            {
-                float limitingImpulse = CalcMomentumToChangeVelocity(newVelocity - maxVelocity);
-
-                Vector2 limitDirection = Vector2.zero;
-                if (rigidBody.velocity.x > 0)
-                    limitDirection = Vector2.left;
-                else if (rigidBody.velocity.x < 0)
-                    limitDirection = Vector2.right;
-
-                rigidBody.AddForce(limitDirection * limitingImpulse, ForceMode2D.Impulse);
-            }
-        }
-
-        /// <summary>
-        /// 도달하고자 하는 속도로 가속하기 위한 운동량(Momentum)을 계산한다.
-        /// </summary>
-        /// <param name="targetVelocity">도달하고자 하는 속도</param>
-        /// <returns>운동량</returns>
-        float CalcMomentumToChangeVelocity(float targetVelocity)
-        {
-            return rigidBody.mass * targetVelocity;
-        }
-
-        /// <summary>
-        /// 피해로 인한 운동량(넉백)을 가한다.
-        /// </summary>
-        private void AddDamageMomentum()
-        {
-            if(velocityChangeByDamage != Vector2.zero)
-            {
-                rigidBody.AddForce(velocityChangeByDamage * rigidBody.mass, ForceMode2D.Impulse);
-                velocityChangeByDamage = Vector2.zero;
-            }
-        }
-
-        private void AddSkillMomentum()
-        {
-            if(velocityChangeBySkill != Vector2.zero)
-            {
-                rigidBody.AddForce(velocityChangeBySkill * rigidBody.mass, ForceMode2D.Impulse);
-                velocityChangeBySkill = Vector2.zero;
-            }
         }
 
         public void Die()
@@ -490,12 +212,6 @@ namespace Onyx
                 else
                     abilities[abilityIndex].Skills[skillIndex].OnSkillTouchUp();
             }
-        }
-
-        public void PlayRunSound()
-        {
-            if (runAudioSource != null)
-                runAudioSource.Play();
         }
 
         public void PreventControl(bool prevent)
@@ -676,10 +392,7 @@ namespace Onyx
             float acceptedDamage = TakeDamage(damage);
 
             if(knockBackVelocity.sqrMagnitude > 0)
-            {
-                velocityChangeByDamage += new Vector2(knockBackVelocity.x, knockBackVelocity.y);
-                remainKnockBackRecoverTime = knockBackRecoverTime;
-            }
+                movement.AddDamageVelocity(new Vector2(knockBackVelocity.x, knockBackVelocity.y));
 
             if(stiffenTime > 0)
             {
@@ -697,13 +410,12 @@ namespace Onyx
 
         void IAbilityHolder.AddVelocity(Vector2 velocity, float recoverTime)
         {
-            remainSkillMomentumRecoverTime = recoverTime;
-            velocityChangeBySkill = velocity;
+            movement.AddSkillVelocity(velocity, recoverTime);
         }
 
         void IAbilityHolder.OccupyMovement(bool occupy)
         {
-            isMovementOccupied = occupy;
+            movement.IsMovementOccupied = occupy;
         }
 
         public interface ISubscriber

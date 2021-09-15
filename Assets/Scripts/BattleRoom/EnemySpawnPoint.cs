@@ -13,7 +13,7 @@ public class EnemySpawnPoint : MonoBehaviour
         MyUnit spawnedEnemy = Instantiate<MyUnit>(enemyToSpawn, transform.position, Quaternion.identity);
 
         if (shouldFaceRight)
-            spawnedEnemy.RotateUnit(Vector2.left);
+            spawnedEnemy.Movement.RotateUnit(Vector2.left);
 
         return spawnedEnemy;
     }
