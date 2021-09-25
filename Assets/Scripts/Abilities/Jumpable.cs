@@ -65,6 +65,8 @@ public class Jumpable : AbilityBase, GroundChecker.ISubscriber
             rigidBody.AddForce(Vector2.up * jumpVelocityToAdd * rigidBody.mass, ForceMode2D.Impulse);
             if (jumpAudioSource != null)
                 jumpAudioSource.Play();
+
+            abilityHolder.ModelAnimator.SetTrigger("Jump");
         }
     }
     private void Dash()

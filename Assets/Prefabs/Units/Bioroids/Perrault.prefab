@@ -508,7 +508,7 @@ MonoBehaviour:
     - time: 0.24
       data: {x: 2, y: 0}
     attackOnTime:
-    - time: 0.24
+    - time: 0.2
       data: {fileID: 1818310115581396242}
   - duration: 0.5
     damageMultiplier: 2.5
@@ -519,7 +519,7 @@ MonoBehaviour:
     - time: 0.24
       data: {x: 2, y: 6}
     attackOnTime:
-    - time: 0.24
+    - time: 0.2
       data: {fileID: 5534291637122453106}
   - duration: 0.5
     damageMultiplier: 4
@@ -530,17 +530,17 @@ MonoBehaviour:
     - time: 0.24
       data: {x: 3, y: -6}
     attackOnTime:
-    - time: 0.24
+    - time: 0.2
       data: {fileID: 4369753536176552570}
   airCombos:
   - duration: 0.5
     damageMultiplier: 2.5
     nextComboInputStart: 0.3
     nextComboInputDuration: 0.2
-    canUseInAir: 0
+    canUseInAir: 1
     velocityOnTimes: []
     attackOnTime:
-    - time: 0.24
+    - time: 0.2
       data: {fileID: 1314104894302612456}
   reward: {fileID: 1210596201476666169, guid: bcbfec7f15f3567489e703f28419016b, type: 3}
   rewardProbability: 0.1

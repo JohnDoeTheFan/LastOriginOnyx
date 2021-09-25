@@ -91,6 +91,7 @@ public class MeleeAttacker : AbilityBase, MeleeAttack.ISubscriber
                 currentCombos = groundCombos;
             else
                 currentCombos = airCombos;
+
             StartNextCombo();
         }
         else
