@@ -37,14 +37,18 @@ public class FrictionRunnerMovement : OneAxisMovementBase
             float maxVelocityUnderEnvironment = rotatedMaxVelocity + groundVelocity.x;
             float diffWithMaximumVelocity = maxVelocityUnderEnvironment - rigidBody.velocity.x;
 
-            float velocityIncreaseForTick = diffWithMaximumVelocity;
-            if (velocityReachTime > Time.deltaTime)
-                velocityIncreaseForTick *= Time.deltaTime / velocityReachTime;
+            if(diffWithMaximumVelocity * inputDirection.x > 0)
+            {
+                float velocityIncreaseForTick = diffWithMaximumVelocity;
+                if (velocityReachTime > Time.deltaTime)
+                    velocityIncreaseForTick *= Time.deltaTime / velocityReachTime;
 
-            float velocityToAdd = velocityIncreaseForTick;
-            float impulse = CalcMomentumToChangeVelocity(velocityToAdd);
+                float velocityToAdd = velocityIncreaseForTick;
+                float impulse = CalcMomentumToChangeVelocity(velocityToAdd);
 
-            rigidBody.AddForce(new Vector2(impulse, 0), ForceMode2D.Impulse);
+                rigidBody.AddForce(new Vector2(impulse, 0), ForceMode2D.Impulse);
+            }
+
         }
         else if (lastInputDirection != Vector2.zero)
         {
