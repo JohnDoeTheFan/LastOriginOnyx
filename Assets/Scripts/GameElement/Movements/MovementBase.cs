@@ -54,9 +54,9 @@ public abstract class MovementBase : MonoBehaviour
     public void RotateUnit(Vector2 inputDirection)
     {
         Quaternion rotation = rotatingParts.rotation;
-        if (inputDirection == Vector2.right)
+        if (inputDirection.x > 0)
             rotation = Quaternion.identity;
-        else if (inputDirection == Vector2.left)
+        else if (inputDirection.x < 0)
             rotation = Quaternion.Euler(new Vector3(0, 180, 0));
 
         rotatingParts.rotation = rotation;

@@ -6,6 +6,7 @@ public class FloatingMovement : MovementBase
 {
     [SerializeField, Range(1, 10)] float maxVelocity = 2;
     [SerializeField, Range(0.001f, 5)] private float velocityReachTime = 0.1f;
+
     public override void OnUpdateMovement(Vector2 inputDirection)
     {
         bool isStopped = rigidBody.velocity == Vector2.zero;
