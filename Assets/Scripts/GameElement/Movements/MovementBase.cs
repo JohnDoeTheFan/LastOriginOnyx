@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -99,6 +100,15 @@ public abstract class MovementBase : MonoBehaviour
     {
         remainSkillVelocityRecoverTime = skillVelocityRecoverTime;
         velocityChangeBySkill = skillVelocity;
+    }
+    public void SetDead()
+    {
+        OnDead();
+    }
+
+    protected virtual void OnDead()
+    {
+        return;
     }
 
     /// <summary>

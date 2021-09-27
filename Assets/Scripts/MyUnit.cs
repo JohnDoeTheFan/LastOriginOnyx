@@ -143,7 +143,7 @@ namespace Onyx
             leftStick = Vector2.zero;
             modelAnimator.SetTrigger("Die");
             gameObject.layer = (int)LayerSetting.DeadBody;
-
+            movement.SetDead();
             SubscribeManager.ForEach(item => item.OnDeath(this));
         }
 

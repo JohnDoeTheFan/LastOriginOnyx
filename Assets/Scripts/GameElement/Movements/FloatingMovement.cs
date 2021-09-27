@@ -7,14 +7,20 @@ public class FloatingMovement : MovementBase
     [SerializeField, Range(1, 10)] float maxVelocity = 2;
     [SerializeField, Range(0.001f, 5)] private float velocityReachTime = 0.1f;
 
+    bool isDead = false;
+
     public override void OnUpdateMovement(Vector2 inputDirection)
     {
         bool isStopped = rigidBody.velocity == Vector2.zero;
 
         ProcessDamageVelocity();
-        if (remainDamageVelocityRecoverTime == 0 && remainSkillVelocityRecoverTime == 0)
-            AddControlMomentum(inputDirection, isStopped);
-        ProcessSkillVelocity();
+
+        if(! isDead)
+        {
+            if (remainDamageVelocityRecoverTime == 0 && remainSkillVelocityRecoverTime == 0)
+                AddControlMomentum(inputDirection, isStopped);
+            ProcessSkillVelocity();
+        }
     }
 
     private void AddControlMomentum(Vector2 inputDirection, bool isStopped)
@@ -51,5 +57,11 @@ public class FloatingMovement : MovementBase
         Vector2 impluseToStop = CalcMomentumToChangeVelocity(velocityToStop);
 
         rigidBody.AddForce(impluseToStop, ForceMode2D.Impulse);
+    }
+
+    protected override void OnDead()
+    {
+        rigidBody.gravityScale = 1;
+        isDead = true;
     }
 }
