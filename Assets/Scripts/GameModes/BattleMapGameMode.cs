@@ -31,17 +31,57 @@ public class BattleMapGameMode : MonoBehaviourBase
     [SerializeField] private ToggleGroup combatantToggleGroup;
     [SerializeField] private CombatantToggle combatantTogglePrefab;
     [SerializeField] private List<BioroidInformation> combatantList;
+    [SerializeField] private Image combatantPortrait;
+    [SerializeField] private Text combatantName;
+    [SerializeField] private Text combatantDescription;
+    [SerializeField] private ToggleGroup skillToggleGroup;
+    [SerializeField] private List<Toggle> skillToggles;
+    [SerializeField] private List<Image> skillImages;
+    [SerializeField] private Text skillName;
+    [SerializeField] private Text skillDescription;
 
     private StageInformation stageInfo;
     private ChapterInformation chapterInfo;
     private BioroidInformation bioroidInfo;
+
+    private const int numberOfSkillsPerAbility = 2;
 
     private void Awake()
     {
         chapterGroup.SubscribeManager.Subscribe(new ChapterGroupSubscriber(OnChangeChapterSelection));
         stageGroup.SubscribeManager.Subscribe(new StageGroupSubscriber(OnChangeStageSelection));
 
-        CombatantToggle.OnSelected = (bioroid) => bioroidInfo = bioroid;
+        CombatantToggle.OnSelected = (bioroid) =>
+        {
+            bioroidInfo = bioroid;
+
+            combatantPortrait.sprite = bioroidInfo.Portrait;
+            combatantName.text = bioroidInfo.BioroidName;
+            combatantDescription.text = bioroidInfo.Description;
+
+            foreach (Toggle skillToggle in skillToggles)
+                skillToggle.interactable = false;
+            foreach (Image skillImage in skillImages)
+                skillImage.gameObject.SetActive(false);
+
+            var abilities = bioroidInfo.Abilities;
+
+            for(int i = 0; i < abilities.Count; i++)
+            {
+                for(int j = 0; j < abilities[i].skills.Count; j++)
+                {
+                    int index = i * numberOfSkillsPerAbility + j;
+                    if (index < skillToggles.Count)
+                    {
+                        skillToggles[index].interactable = true;
+                        skillImages[index].gameObject.SetActive(true);
+                        skillImages[index].sprite = abilities[i].skills[j].image;
+                    }
+                }
+            }
+            skillToggleGroup.allowSwitchOff = false;
+            skillToggles[0].isOn = true;
+        };
     }
 
     // Login -> ReadStageCleared    -Success->  FadeIn
@@ -71,6 +111,7 @@ public class BattleMapGameMode : MonoBehaviourBase
 
         void AfterFadeIn(FadeGui.FinishStatus finishStatus)
         {
+            InitSkillList();
             InitCombatantList();
         }
 
@@ -101,6 +142,7 @@ public class BattleMapGameMode : MonoBehaviourBase
 
     public void InitCombatantList()
     {
+        CombatantToggle firstToggle = null;
         foreach (BioroidInformation combatant in combatantList)
         {
             if (OnyxGameInstance.instance.OwningBioroidsIds.Contains(combatant.Id))
@@ -108,7 +150,36 @@ public class BattleMapGameMode : MonoBehaviourBase
                 CombatantToggle newToggle = Instantiate<CombatantToggle>(combatantTogglePrefab, combatantToggleGroup.transform);
                 newToggle.SetBioroidInformation(combatant);
                 newToggle.Toggle.group = combatantToggleGroup;
+
+                if (firstToggle == null)
+                    firstToggle = newToggle;
             }
+        }
+        firstToggle.Toggle.isOn = true;
+    }
+
+    public void InitSkillList()
+    {
+        for (int i = 0; i < skillToggles.Count; i++)
+        {
+            int abilityIndex = i / numberOfSkillsPerAbility;
+            int skillIndex = i % numberOfSkillsPerAbility;
+
+            Action<bool> OnValueChanged = (isOn) =>
+            {
+                if (isOn && bioroidInfo != null)
+                {
+                    ReadOnlyCollection<BioroidInformation.AbilityDescription> abilities = bioroidInfo.Abilities;
+                    if (abilityIndex < abilities.Count && skillIndex < abilities[abilityIndex].skills.Count)
+                    {
+                        BioroidInformation.AbilityDescription.SkillDescription skill = abilities[abilityIndex].skills[skillIndex];
+                        skillName.text = skill.skillName;
+                        skillDescription.text = skill.description;
+                    }
+                }
+            };
+
+            skillToggles[i].onValueChanged.AddListener(new UnityEngine.Events.UnityAction<bool>(OnValueChanged));
         }
     }
 
