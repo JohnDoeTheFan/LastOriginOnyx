@@ -30,7 +30,7 @@ public class BattleMapGameMode : MonoBehaviourBase
     [SerializeField] private Canvas combatantSelectionCanvas;
     [SerializeField] private ToggleGroup combatantToggleGroup;
     [SerializeField] private CombatantToggle combatantTogglePrefab;
-    [SerializeField] private List<BioroidInformation> combatantList;
+    [SerializeField] private BioroidList combatantList;
     [SerializeField] private Image combatantPortrait;
     [SerializeField] private Text combatantName;
     [SerializeField] private Text combatantDescription;
@@ -143,7 +143,7 @@ public class BattleMapGameMode : MonoBehaviourBase
     public void InitCombatantList()
     {
         CombatantToggle firstToggle = null;
-        foreach (BioroidInformation combatant in combatantList)
+        foreach (BioroidInformation combatant in combatantList.Bioroids)
         {
             if (OnyxGameInstance.instance.OwningBioroidsIds.Contains(combatant.Id))
             {

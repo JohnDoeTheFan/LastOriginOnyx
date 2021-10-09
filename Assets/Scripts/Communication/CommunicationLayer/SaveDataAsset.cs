@@ -10,34 +10,25 @@ namespace Onyx.Communication
     [CreateAssetMenu(menuName = "Utility/SaveData")]
     public class SaveDataAsset : ScriptableObject
     {
-        [SerializeField]
-        private int saveDataVersion;
-        [SerializeField]
-        private bool doNotSaveForTest;
-        [SerializeField]
-        private Vector2 networkDelay;
-        [SerializeField]
-        private List<StageInfo> stageClearedList;
-        [SerializeField]
-        private Vector2 greetingPosition;
-        [SerializeField]
-        private float greetingSize;
-        [SerializeField]
-        private int onyxValue;
-        [SerializeField]
-        private int playerLevel = 1;
-        [SerializeField]
-        private List<int> levelUpCost;
-        [SerializeField]
-        private List<BioroidInformation> bioroidInformations;
-        [SerializeField]
-        private List<int> owningBioroidsIds;
+        [SerializeField] private int saveDataVersion;
+        [SerializeField] private bool doNotSaveForTest;
+        [SerializeField] private Vector2 networkDelay;
+        [SerializeField] private List<StageInfo> stageClearedList;
+        [SerializeField] private Vector2 greetingPosition;
+        [SerializeField] private float greetingSize;
+        [SerializeField] private int onyxValue;
+        [SerializeField] private int playerLevel = 1;
+        [SerializeField] private List<int> levelUpCost;
+        [SerializeField] private BioroidList bioroidInformations;
+        [SerializeField] private List<int> owningBioroidsIds;
+        [SerializeField] private int aideBioroidId;
 
         public Vector2 NetworkDelay => networkDelay;
         public Vector2 GreetingPosition => greetingPosition;
         public float GreetingSize => greetingSize;
         public int OnyxValue => onyxValue;
         public int PlayerLevel => playerLevel;
+        public int AideBioroidId => aideBioroidId;
         public ReadOnlyCollection<int> OwningBioroidsIds => owningBioroidsIds.AsReadOnly();
 
         public void SetDoNotSaveForTest(bool doNot)
@@ -131,20 +122,21 @@ namespace Onyx.Communication
 
         public bool UnlockBioroid(int bioroidId)
         {
-            int foundedIndex = bioroidInformations.FindIndex((item) => item.Id == bioroidId);
+            List<BioroidInformation> bioroids = new List<BioroidInformation>(bioroidInformations.Bioroids);
+            int foundedIndex = bioroids.FindIndex((item) => item.Id == bioroidId);
             if(foundedIndex == -1)
                 return false;
 
-            if (onyxValue < bioroidInformations[foundedIndex].UnlockCost)
+            if (onyxValue < bioroids[foundedIndex].UnlockCost)
                 return false;
 
-            if (playerLevel < bioroidInformations[foundedIndex].UnlockLevel)
+            if (playerLevel < bioroids[foundedIndex].UnlockLevel)
                 return false;
 
             if (owningBioroidsIds.Contains(bioroidId))
                 return false;
 
-            onyxValue -= bioroidInformations[foundedIndex].UnlockCost;
+            onyxValue -= bioroids[foundedIndex].UnlockCost;
             owningBioroidsIds.Add(bioroidId);
 
             SaveAsFile();
@@ -153,11 +145,19 @@ namespace Onyx.Communication
 
         public int GetBioroidUnlockCost(int bioroidId)
         {
-            int foundedIndex = bioroidInformations.FindIndex((item) => item.Id == bioroidId);
+            List<BioroidInformation> bioroids = new List<BioroidInformation>(bioroidInformations.Bioroids);
+            int foundedIndex = bioroids.FindIndex((item) => item.Id == bioroidId);
             if (foundedIndex == -1)
                 return -1;
             else
-                return bioroidInformations[foundedIndex].UnlockCost;
+                return bioroids[foundedIndex].UnlockCost;
+        }
+
+        public void SetAideBioroidId(int aideBioroidId)
+        {
+            this.aideBioroidId = aideBioroidId;
+
+            SaveAsFile();
         }
 
         public void SaveAsFile()
@@ -209,10 +209,12 @@ namespace Onyx.Communication
         {
             if(saveDataVersion == 0)
             {
-                bioroidInformations.Clear();
-                bioroidInformations.AddRange(defaultSaveData.bioroidInformations);
+                bioroidInformations = defaultSaveData.bioroidInformations;
                 owningBioroidsIds.Clear();
                 owningBioroidsIds.AddRange(defaultSaveData.owningBioroidsIds);
+
+                aideBioroidId = defaultSaveData.aideBioroidId;
+
                 saveDataVersion = 1;
             }
         }

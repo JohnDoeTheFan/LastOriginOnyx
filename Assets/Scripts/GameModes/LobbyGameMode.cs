@@ -11,6 +11,7 @@ using Onyx.Core;
 public class LobbyGameMode : MonoBehaviourBase
 {
     [SerializeField] private Camera mainCamera;
+    [SerializeField] private SpriteRenderer aideBioroidImage;
 
     [Header("Guis")]
     [SerializeField] private Canvas touchPreventingCanvas;
@@ -25,6 +26,14 @@ public class LobbyGameMode : MonoBehaviourBase
     [SerializeField] private TextMeshProUGUI onyxResourceGui;
     [SerializeField] private TextMeshProUGUI playerLevelGuiOnMain;
     [SerializeField] private Canvas tipsCanvas;
+    [SerializeField] private CanvasGroup selectAideCanvas;
+    [SerializeField] private ToggleGroup selectAideToggleGroup;
+    [SerializeField] private Toggle selectAideTogglePrefab;
+    [SerializeField] private Image selectAideToggleImagePrefab;
+    [SerializeField] private Image selectAideBioroidImage;
+    [SerializeField] private Text selectAideBioroidName;
+    [SerializeField] private Text selectAideBioroidDescription;
+    [SerializeField] private Image aideBioroidPortrait;
 
     [Header("Audios")]
     [SerializeField] private AudioSource voiceAudioSource;
@@ -42,11 +51,12 @@ public class LobbyGameMode : MonoBehaviourBase
     [SerializeField] private MultiplierPerLevel playerStatusMultiplier;
     [SerializeField] private int playerHealthDefaultValue = 100;
     [SerializeField] private int playerAttackDefaultValue = 10;
-    [SerializeField] private List<BioroidInformation> bioroidList;
+    [SerializeField] private BioroidList bioroidList;
 
     [SerializeField] ResearchGuiController researchGuiController;
 
     private BioroidInformation embargoSelectedBioroid;
+    private BioroidInformation aideBioroid;
 
     private void Awake()
     {
@@ -66,9 +76,16 @@ public class LobbyGameMode : MonoBehaviourBase
 
         void AfterSignIn()
         {
+            List<BioroidInformation> bioroids = new List<BioroidInformation>(bioroidList.Bioroids);
+            var aideBioroid = bioroids.Find((item) => item.Id == OnyxGameInstance.instance.AideBioroidId);
+
             onyxResourceGui.text = OnyxGameInstance.instance.OnyxValue.ToString();
             playerLevelGuiOnMain.text = OnyxGameInstance.instance.PlayerLevel.ToString();
             UpdateResearchSubPanels();
+
+            aideBioroidImage.sprite = aideBioroid.Image;
+            aideBioroidPortrait.sprite = aideBioroid.Portrait;
+            voiceAudioSource.clip = aideBioroid.GreetingAudioClip;
 
             fadeGui.StartFadeIn(null);
             selectWorldCanvas.alpha = 0;
@@ -97,6 +114,8 @@ public class LobbyGameMode : MonoBehaviourBase
                 HideSelectWorldGui();
             else if (researchCanvas.gameObject.activeInHierarchy)
                 HideResearchGui();
+            else if (selectAideCanvas.gameObject.activeInHierarchy)
+                HideSelectAideGui();
             else if (greetingDecorationGui.gameObject.activeInHierarchy)
                 OnGreetingCameraEditCloseButton();
             else if (tipsCanvas.gameObject.activeInHierarchy)
@@ -105,6 +124,7 @@ public class LobbyGameMode : MonoBehaviourBase
                 quitCanvas.gameObject.SetActive(true);
         }
     }
+
 
     private void SetupGreeting()
     {
@@ -260,6 +280,7 @@ public class LobbyGameMode : MonoBehaviourBase
     public void DisplaySelectWorldGui()
     {
         selectWorldCanvas.gameObject.SetActive(true);
+        selectWorldCanvas.alpha = 0;
 
         IEnumerator IncreaseAlpha()
         {
@@ -291,6 +312,7 @@ public class LobbyGameMode : MonoBehaviourBase
     public void DisplayResearchGui()
     {
         researchCanvas.gameObject.SetActive(true);
+        researchCanvas.alpha = 0;
 
         IEnumerator IncreaseAlpha()
         {
@@ -314,6 +336,74 @@ public class LobbyGameMode : MonoBehaviourBase
                 researchCanvas.alpha = Mathf.Max(0, researchCanvas.alpha - TargetFrameSeconds / 0.3f);
             }
             researchCanvas.gameObject.SetActive(false);
+        }
+
+        StartCoroutine(DecreaseAlpha());
+    }
+
+    public void DisplaySelectAideGui()
+    {
+        selectAideCanvas.gameObject.SetActive(true);
+        InitSelectAidePanel();
+        selectAideCanvas.alpha = 0;
+
+        IEnumerator IncreaseAlpha()
+        {
+            while (selectAideCanvas.alpha != 1)
+            {
+                yield return new WaitForSeconds(TargetFrameSeconds);
+                selectAideCanvas.alpha = Mathf.Min(1, selectAideCanvas.alpha + TargetFrameSeconds / 0.3f);
+            }
+        }
+
+        StartCoroutine(IncreaseAlpha());
+    }
+
+    private void InitSelectAidePanel()
+    {
+        for(int i = 0; i < selectAideToggleGroup.transform.childCount; i++)
+            Destroy(selectAideToggleGroup.transform.GetChild(i).gameObject);
+
+        List<BioroidInformation> unlockedBioroidList = new List<BioroidInformation>();
+        ReadOnlyCollection<int> owningBioroidsIds = OnyxGameInstance.instance.OwningBioroidsIds;
+        foreach (BioroidInformation bioroid in bioroidList.Bioroids)
+        {
+            bool isUnlocked = owningBioroidsIds.Contains(bioroid.Id);
+            if (isUnlocked)
+                unlockedBioroidList.Add(bioroid);
+        }
+
+        foreach(BioroidInformation bioroid in unlockedBioroidList)
+        {
+            Toggle newToggle = Instantiate<Toggle>(selectAideTogglePrefab, selectAideToggleGroup.transform);
+            Image newImage = Instantiate<Image>(selectAideToggleImagePrefab, newToggle.transform);
+            newImage.sprite = bioroid.Portrait;
+            newToggle.group = selectAideToggleGroup;
+
+            BioroidInformation bioroidCapture = bioroid;
+            newToggle.onValueChanged.AddListener((isOn) =>
+            {
+                if(isOn)
+                {
+                    aideBioroid = bioroidCapture;
+                    selectAideBioroidImage.sprite = bioroidCapture.Image;
+                    selectAideBioroidName.text = bioroidCapture.BioroidName;
+                    selectAideBioroidDescription.text = bioroidCapture.Description;
+                }
+            });
+        }
+    }
+
+    public void HideSelectAideGui()
+    {
+        IEnumerator DecreaseAlpha()
+        {
+            while (selectAideCanvas.alpha != 0)
+            {
+                yield return new WaitForSeconds(TargetFrameSeconds);
+                selectAideCanvas.alpha = Mathf.Max(0, selectAideCanvas.alpha - TargetFrameSeconds / 0.3f);
+            }
+            selectAideCanvas.gameObject.SetActive(false);
         }
 
         StartCoroutine(DecreaseAlpha());
@@ -357,6 +447,20 @@ public class LobbyGameMode : MonoBehaviourBase
         }
     }
 
+    public void OnAideSelectButton()
+    {
+        touchPreventingCanvas.gameObject.SetActive(true);
+        OnyxGameInstance.instance.SetAideBioroidId(aideBioroid.Id, AfterSetAideBioroidId);
+
+        void AfterSetAideBioroidId()
+        {
+            touchPreventingCanvas.gameObject.SetActive(false);
+            aideBioroidImage.sprite = aideBioroid.Image;
+            aideBioroidPortrait.sprite = aideBioroid.Portrait;
+            HideSelectAideGui();
+        }
+    }
+
     public void UpdateResearchSubPanels()
     {
         UpdateUpgradeGui();
@@ -386,7 +490,7 @@ public class LobbyGameMode : MonoBehaviourBase
 
         List<BioroidInformation> unlockableBioroidList = new List<BioroidInformation>();
         ReadOnlyCollection<int> owningBioroidsIds = OnyxGameInstance.instance.OwningBioroidsIds;
-        foreach (BioroidInformation bioroid in bioroidList)
+        foreach (BioroidInformation bioroid in bioroidList.Bioroids)
         {
             bool isUnlockable = !owningBioroidsIds.Contains(bioroid.Id);
             if (isUnlockable)

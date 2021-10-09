@@ -1251,6 +1251,7 @@ MonoBehaviour:
   onyxValue: 0
   playerLevel: 0
   owningBioroidsIds: 
+  aideBioroidId: 0
   isFromTitleScene: 0
   isFromBatteMapScene: 0
   isFromBatteScene: 0
@@ -1570,10 +1571,7 @@ MonoBehaviour:
   combatantSelectionCanvas: {fileID: 1643197336}
   combatantToggleGroup: {fileID: 1349592647}
   combatantTogglePrefab: {fileID: 8928749328664350932, guid: 4eee0c5c44375f44799e7950f6c375de, type: 3}
-  combatantList:
-  - {fileID: 11400000, guid: d660ac79e67c2514081f851b40c327c1, type: 2}
-  - {fileID: 11400000, guid: b5505c86eff7a2e4c859d48f04f10c5d, type: 2}
-  - {fileID: 11400000, guid: 3ada63bd578a24e4c8dd159f3266eb9f, type: 2}
+  combatantList: {fileID: 11400000, guid: 9fd8b776ceeaa0a4c9d5b6997b43f84d, type: 2}
   combatantPortrait: {fileID: 59641069}
   combatantName: {fileID: 1896883572}
   combatantDescription: {fileID: 69783051}

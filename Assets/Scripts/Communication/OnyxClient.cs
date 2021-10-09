@@ -158,6 +158,31 @@ namespace Onyx.Communication
             }
         }
 
+        public void GetAideBioroidId(GetAideBioroidIdRequest getAideBioroidIdRequest, Action<int> callBack)
+        {
+            coroutineProxy.StartCoroutine(
+                communicationLayer.Communicate<GetAideBioroidIdRequest, GetAideBioroidIdResponse>(getAideBioroidIdRequest, OnOk)
+                );
+
+            void OnOk(GetAideBioroidIdResponse getAideBioroidIdResponse)
+            {
+                callBack(getAideBioroidIdResponse.aideBioroidId);
+            }
+        }
+
+        public void SetAideBioroidId(SetAideBioroidIdRequest setAideBioroidIdRequest, Action<bool> callBack)
+        {
+            coroutineProxy.StartCoroutine(
+                communicationLayer.Communicate<SetAideBioroidIdRequest, SetAideBioroidIdResponse>(setAideBioroidIdRequest, OnOk)
+                );
+
+            void OnOk(SetAideBioroidIdResponse setAideBioroidIdResponse)
+            {
+                callBack(setAideBioroidIdResponse.isSuccess);
+            }
+
+        }
+
         private void OnCommunicationFail(Func<IEnumerator> tryAgain, int retryCount)
         {
             Debug.Log("Communication is failed. retry count: " + retryCount);

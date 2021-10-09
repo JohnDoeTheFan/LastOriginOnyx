@@ -18,6 +18,8 @@ namespace Onyx.Communication.Protocol
         LevelUpPlayer,
         UnlockCombatantEmbargo,
         GetOwningBioroidsIds,
+        GetAideBioroidId,
+        SetAideBioroidId,
     }
 
     [Serializable]
@@ -149,6 +151,28 @@ namespace Onyx.Communication.Protocol
     }
 
     [Serializable]
+    public class GetAideBioroidIdRequest : UserRequest
+    {
+        public GetAideBioroidIdRequest() : base(RequestType.GetAideBioroidId)
+        {
+        }
+    }
+
+    [Serializable]
+    public class SetAideBioroidIdRequest : UserRequest
+    {
+        public SetAideBioroidIdRequest(int bioroidId) : base(RequestType.SetAideBioroidId)
+        {
+            this.bioroidId = bioroidId;
+        }
+        public int bioroidId;
+    }
+
+
+
+
+
+    [Serializable]
     public struct UidResponse
     {
         public UidResponse(int uid)
@@ -262,5 +286,25 @@ namespace Onyx.Communication.Protocol
             this.owningBioroidsIds = owningBioroidsIds;
         }
         public List<int> owningBioroidsIds;
+    }
+
+    [Serializable]
+    public struct GetAideBioroidIdResponse
+    {
+        public GetAideBioroidIdResponse(int aideBioroidId)
+        {
+            this.aideBioroidId = aideBioroidId;
+        }
+        public int aideBioroidId;
+    }
+
+    [Serializable]
+    public struct SetAideBioroidIdResponse
+    {
+        public SetAideBioroidIdResponse(bool isSuccess)
+        {
+            this.isSuccess = isSuccess;
+        }
+        public bool isSuccess;
     }
 }

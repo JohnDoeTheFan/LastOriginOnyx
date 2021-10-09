@@ -10,35 +10,23 @@ public class OnyxGameInstance : MonoBehaviour
 {
     public static OnyxGameInstance instance;
 
-    [SerializeField]
-    private AudioSource bgmAudioSource;
-    [SerializeField]
-    private StageInformation stageInfoForStageScene;
-    [SerializeField]
-    private ChapterInformation chapterInfoForStageScene;
-    [SerializeField]
-    private BioroidInformation bioroidInfoForStageScene;
-    [SerializeField]
-    private ChapterInformation chapterInfoForSignIn;
+    [SerializeField] private AudioSource bgmAudioSource;
+    [SerializeField] private StageInformation stageInfoForStageScene;
+    [SerializeField] private ChapterInformation chapterInfoForStageScene;
+    [SerializeField] private BioroidInformation bioroidInfoForStageScene;
+    [SerializeField] private ChapterInformation chapterInfoForSignIn;
+
     [Header("SaveData")]
-    [SerializeField]
-    private bool doNotSaveOrLoadForTest;
-    [SerializeField]
-    private SaveDataAsset saveDataAsset;
-    [SerializeField]
-    private SaveDataAsset defaultSaveDataAsset;
-    [SerializeField]
-    private Vector2 greetingCameraPosition;
-    [SerializeField]
-    private float greetingCameraSize = 5;
-    [SerializeField]
-    private Vector2 greetingCameraSizeMinMax = new Vector2(1, 5);
-    [SerializeField]
-    private int onyxValue;
-    [SerializeField]
-    private int playerLevel;
-    [SerializeField]
-    private List<int> owningBioroidsIds;
+    [SerializeField] private bool doNotSaveOrLoadForTest;
+    [SerializeField] private SaveDataAsset saveDataAsset;
+    [SerializeField] private SaveDataAsset defaultSaveDataAsset;
+    [SerializeField] private Vector2 greetingCameraPosition;
+    [SerializeField] private float greetingCameraSize = 5;
+    [SerializeField] private Vector2 greetingCameraSizeMinMax = new Vector2(1, 5);
+    [SerializeField] private int onyxValue;
+    [SerializeField] private int playerLevel;
+    [SerializeField] private List<int> owningBioroidsIds;
+    [SerializeField] private int aideBioroidId;
 
     private OnyxClient onyxClient;
     private bool isSignInSuccess;
@@ -58,6 +46,7 @@ public class OnyxGameInstance : MonoBehaviour
     public int OnyxValue => onyxValue;
     public int PlayerLevel => playerLevel;
     public ReadOnlyCollection<int> OwningBioroidsIds => owningBioroidsIds.AsReadOnly();
+    public int AideBioroidId => aideBioroidId;
 
     public bool IsSignInSuccess => isSignInSuccess;
 
@@ -152,6 +141,12 @@ public class OnyxGameInstance : MonoBehaviour
             this.owningBioroidsIds.Clear();
             this.owningBioroidsIds.AddRange(owningBioroidsIds);
 
+            onyxClient.GetAideBioroidId(new GetAideBioroidIdRequest(), OnSuccessGetAideBioroidId);
+        }
+
+        void OnSuccessGetAideBioroidId(int aideBioroidId)
+        {
+            this.aideBioroidId = aideBioroidId;
             OnFinish();
         }
 
@@ -329,6 +324,18 @@ public class OnyxGameInstance : MonoBehaviour
             if (isSucceed)
                 owningBioroidsIds.Add(bioroidId);
             this.onyxValue = onyxValue;
+            callBack();
+        }
+    }
+
+    public void SetAideBioroidId(int aideBioroidId, Action callBack)
+    {
+        SetAideBioroidIdRequest request = new SetAideBioroidIdRequest(aideBioroidId);
+        OnyxClient.SetAideBioroidId(request, AfterSetAideBioroidId);
+
+        void AfterSetAideBioroidId(bool isSucceed)
+        {
+            this.aideBioroidId = aideBioroidId;
             callBack();
         }
     }

@@ -68,7 +68,7 @@ namespace Onyx.Communication
 
                 responseObject = new GetOnyxValueResponse(saveDataAsset.OnyxValue);
             }
-            else if(requestBase.type == RequestType.AddOnyxValue)
+            else if (requestBase.type == RequestType.AddOnyxValue)
             {
                 AddOnyxValueRequest addOnyxRequest = JsonUtility.FromJson<AddOnyxValueRequest>(requestJsonString);
 
@@ -126,18 +126,31 @@ namespace Onyx.Communication
 
                 responseObject = new UnlockCombatantEmbargoResponse(isSucceed, saveDataAsset.OnyxValue);
             }
-            else if(requestBase.type == RequestType.GetOwningBioroidsIds)
+            else if (requestBase.type == RequestType.GetOwningBioroidsIds)
             {
                 ReadOnlyCollection<int> owningBioroidsIds = saveDataAsset.OwningBioroidsIds;
                 List<int> bioroidsIdsList = new List<int>();
                 bioroidsIdsList.AddRange(owningBioroidsIds);
 
-                foreach(int id in bioroidsIdsList)
+                foreach (int id in bioroidsIdsList)
                 {
                     Debug.Log("Owning bioroid: " + id);
                 }
 
                 responseObject = new GetOwningBioroidsIdsResponse(bioroidsIdsList);
+            }
+            else if (requestBase.type == RequestType.GetAideBioroidId)
+            {
+                responseObject = new GetAideBioroidIdResponse(saveDataAsset.AideBioroidId);
+            } 
+            else if (requestBase.type == RequestType.SetAideBioroidId)
+            {
+                SetAideBioroidIdRequest setAideBioroidIdRequest = JsonUtility.FromJson<SetAideBioroidIdRequest>(requestJsonString);
+
+                saveDataAsset.SetAideBioroidId(setAideBioroidIdRequest.bioroidId);
+                Debug.Log("Saved aide bioroid id: " + saveDataAsset.AideBioroidId);
+
+                responseObject = new SetAideBioroidIdResponse(true);
             }
 
             onOk(JsonUtility.FromJson<Response>(JsonUtility.ToJson(responseObject)));
