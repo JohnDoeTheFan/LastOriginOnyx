@@ -27,6 +27,10 @@ PrefabInstance:
       propertyPath: destroyTargets.Array.data[3]
       value: 
       objectReference: {fileID: 7515011545253111245}
+    - target: {fileID: 3375570557907310470, guid: a83d8259c0d1afd47a67004c3a97679a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.75
+      objectReference: {fileID: 0}
     - target: {fileID: 7401992962592904082, guid: a83d8259c0d1afd47a67004c3a97679a, type: 3}
       propertyPath: m_Tiles.Array.size
       value: 192
@@ -4241,7 +4245,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7401992963440100359, guid: a83d8259c0d1afd47a67004c3a97679a, type: 3}
       propertyPath: m_Name
-      value: New_C1_S5_B4
+      value: C1_S5_B4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a83d8259c0d1afd47a67004c3a97679a, type: 3}
