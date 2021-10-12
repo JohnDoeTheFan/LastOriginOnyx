@@ -12,10 +12,14 @@ public class FrictionRunnerMovement : OneAxisMovementBase
     [SerializeField, Range(0.001f, 5)] private float velocityReachTime = 0.1f;
     [SerializeField, Range(0.001f, 1f)] private float velocityInAirRate = 0.2f;
 
+    bool shouldStop = false;
+
     public override void OnUpdateMovement(Vector2 inputDirection)
     {
         float currentAbsVelocityX = Mathf.Abs(rigidBody.velocity.x);
-        bool isStopped = currentAbsVelocityX == 0;
+        bool isStopped = currentAbsVelocityX - groundChecker.GetGroundVelocity().x == 0;
+        if ((lastInputDirection != Vector2.zero && inputDirection != Vector2.zero) || remainDamageVelocityRecoverTime != 0 || remainSkillVelocityRecoverTime != 0)
+            shouldStop = true;
 
         ProcessDamageVelocity();
         if (remainDamageVelocityRecoverTime == 0 && remainSkillVelocityRecoverTime == 0)
@@ -35,10 +39,11 @@ public class FrictionRunnerMovement : OneAxisMovementBase
                 rotatedMaxVelocity *= -1;
 
             float maxVelocityUnderEnvironment = rotatedMaxVelocity + groundVelocity.x;
-            float diffWithMaximumVelocity = maxVelocityUnderEnvironment - rigidBody.velocity.x;
-
-            if(diffWithMaximumVelocity * inputDirection.x > 0)
+            bool shouldReduceSpeed = rigidBody.velocity.x * maxVelocityUnderEnvironment > 0 && Mathf.Abs(rigidBody.velocity.x) > Mathf.Abs(maxVelocityUnderEnvironment);
+            if (shouldReduceSpeed)
             {
+                float diffWithMaximumVelocity = maxVelocityUnderEnvironment - rigidBody.velocity.x;
+
                 float velocityIncreaseForTick = diffWithMaximumVelocity;
                 if (velocityReachTime > Time.deltaTime)
                     velocityIncreaseForTick *= Time.deltaTime / velocityReachTime;
@@ -48,11 +53,29 @@ public class FrictionRunnerMovement : OneAxisMovementBase
 
                 rigidBody.AddForce(new Vector2(impulse, 0), ForceMode2D.Impulse);
             }
+            else
+            {
+                float diffWithMaximumVelocity = maxVelocityUnderEnvironment - rigidBody.velocity.x;
+
+                if (diffWithMaximumVelocity * inputDirection.x > 0)
+                {
+                    float velocityIncreaseForTick = diffWithMaximumVelocity;
+                    if (velocityReachTime > Time.deltaTime)
+                        velocityIncreaseForTick *= Time.deltaTime / velocityReachTime;
+
+                    float velocityToAdd = velocityIncreaseForTick;
+                    float impulse = CalcMomentumToChangeVelocity(velocityToAdd);
+
+                    rigidBody.AddForce(new Vector2(impulse, 0), ForceMode2D.Impulse);
+                }
+            }
+
 
         }
-        else if (lastInputDirection != Vector2.zero)
+        else if (shouldStop)
         {
             StopUnit();
+            shouldStop = false;
         }
     }
 

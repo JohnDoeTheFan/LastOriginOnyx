@@ -78,8 +78,10 @@ public class Jumpable : AbilityBase, GroundChecker.ISubscriber
         if (abilityHolder.isFacingLeft)
             dashVelocityToAdd.x *= -1;
 
-        if(dashVelocityToAdd.x * rigidBody.velocity.x > 0)
-            dashVelocityToAdd.x -= rigidBody.velocity.x;
+        float controlVelocity = rigidBody.velocity.x - groundChecker.GetGroundVelocity().x;
+
+        if (dashVelocityToAdd.x * controlVelocity > 0)
+            dashVelocityToAdd.x -= controlVelocity;
 
         if (rigidBody.velocity.y < 0)
             dashVelocityToAdd.y += -rigidBody.velocity.y;
