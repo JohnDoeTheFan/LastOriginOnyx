@@ -103,5 +103,15 @@ public class MovingPlatform : MonoBehaviour
         startPosition = targetPosition;
         targetPosition = temp;
     }
+#if UNITY_EDITOR
+    private SpriteRenderer spriteRenderer;
 
+    private void OnDrawGizmos()
+    {
+        if(spriteRenderer == null)
+            spriteRenderer = GetComponent<SpriteRenderer>();
+        Gizmos.DrawWireCube(targetTransform.position, spriteRenderer.size);
+        Gizmos.DrawLine(transform.position, targetTransform.position);
+    }
+#endif
 }
