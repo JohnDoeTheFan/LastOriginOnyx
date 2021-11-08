@@ -3,12 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MovingPlatform : MonoBehaviour
+public class MovingPlatform : MonoBehaviourBase
 {
     [SerializeField] private Transform targetTransform;
     [SerializeField] [Range(0.1f, 20)] float moveTime = 1f;
     [SerializeField] [Range(0.01f, 0.5f)] float accelerationTimePercentage = 0.25f;
     [SerializeField] float waitTime;
+    [SerializeField] float firstDelay = 0f;
 
     private Vector2 startPosition;
     private Vector2 targetPosition;
@@ -24,6 +25,8 @@ public class MovingPlatform : MonoBehaviour
 
     private void FixedUpdate()
     {
+
+
         if (isMoving)
         {
             if (Time.fixedTime >= moveStartTime + moveTime)
@@ -81,7 +84,7 @@ public class MovingPlatform : MonoBehaviour
     {
         startPosition = transform.position;
         targetPosition = targetTransform.position;
-        StartCoroutine(Wait());
+        StartCoroutine(Job(()=>WaitForSecondsRoutine(firstDelay), ()=>StartCoroutine(Wait())));
     }
 
     private IEnumerator Wait()
@@ -103,6 +106,7 @@ public class MovingPlatform : MonoBehaviour
         startPosition = targetPosition;
         targetPosition = temp;
     }
+
 #if UNITY_EDITOR
     private SpriteRenderer spriteRenderer;
 
