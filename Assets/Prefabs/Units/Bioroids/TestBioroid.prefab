@@ -220,20 +220,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   modelAnimator: {fileID: 5365124535199727580}
-  rotatingParts: {fileID: 1274866191843599722}
-  maxVelocity: 6
-  velocityReachTime: 0.001
-  velocityInAirRate: 0.2
-  overSpeedRecoverVelocity: 5
-  overSpeedRecoverVelocityReachTime: 0.001
-  knockBackRecoverTime: 0.2
   healthPoint: 1
   maxHealth: 1
   groundChecker: {fileID: 3519570781410266153}
   sight: {fileID: 8254851933884168905}
   dustParticleSystem: {fileID: 5824086015507959240}
   dustMakingVelocity: 3
-  runAudioSource: {fileID: 4081199156425667484}
   bulletHitAudio: {fileID: 6952479380163805287}
   stageStartVoice: {fileID: 8300000, guid: f51b8399911c65a42838666a61be4421, type: 3}
   retireVoice: {fileID: 8300000, guid: 338b1f97449a7c4438c2917b58c7c14b, type: 3}
@@ -243,6 +235,7 @@ MonoBehaviour:
   levelOfDifficulty: 0
   healthMultipliers: {fileID: 11400000, guid: 350ed219e736b1a49955c09116327240, type: 2}
   scoreMultiplier: 0
+  hitRecoverTime: 1
 --- !u!114 &459437634836929091
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -306,40 +299,8 @@ MonoBehaviour:
   abilityImage: {fileID: 0}
   skill1Name: "\uD380\uCE58"
   skill1Sprite: {fileID: 0}
-  combos:
-  - duration: 0.5
-    damageMultiplier: 2.5
-    nextComboInputStart: 0.3
-    nextComboInputDuration: 0.2
-    canUseInAir: 0
-    velocityOnTimes:
-    - time: 0.24
-      data: {x: 2, y: 0}
-    attackOnTime:
-    - time: 0.24
-      data: {fileID: 1818310115581396242}
-  - duration: 0.5
-    damageMultiplier: 2.5
-    nextComboInputStart: 0.3
-    nextComboInputDuration: 0.2
-    canUseInAir: 0
-    velocityOnTimes:
-    - time: 0.24
-      data: {x: 2, y: 6}
-    attackOnTime:
-    - time: 0.24
-      data: {fileID: 5534291637122453106}
-  - duration: 0.5
-    damageMultiplier: 4
-    nextComboInputStart: 0.3
-    nextComboInputDuration: 0.2
-    canUseInAir: 1
-    velocityOnTimes:
-    - time: 0.24
-      data: {x: 3, y: -6}
-    attackOnTime:
-    - time: 0.24
-      data: {fileID: 4369753536176552570}
+  groundCombos: []
+  airCombos: []
   reward: {fileID: 1210596201476666169, guid: bcbfec7f15f3567489e703f28419016b, type: 3}
   rewardProbability: 0.1
   damageMultiplierPerLevel: {fileID: 11400000, guid: 350ed219e736b1a49955c09116327240, type: 2}

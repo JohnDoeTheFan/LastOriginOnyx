@@ -516,6 +516,7 @@ MonoBehaviour:
   levelOfDifficulty: 0
   healthMultipliers: {fileID: 11400000, guid: 350ed219e736b1a49955c09116327240, type: 2}
   scoreMultiplier: 0
+  hitRecoverTime: 1
 --- !u!114 &-6381297703944830749
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -616,7 +617,7 @@ MonoBehaviour:
   abilityName: "\uBCF4\uBCD1"
   abilityImage: {fileID: 0}
   jumpSkillImage: {fileID: 21300000, guid: b5d332b57f7c81a49981dc899e702a8e, type: 3}
-  jumpVelocity: 11.1
+  jumpVelocity: 9.5
   extraJumpNumber: 0
   jumpAudioSource: {fileID: 1679008781191016420}
   landAudioSource: {fileID: 3673322506993818297}

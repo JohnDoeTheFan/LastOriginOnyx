@@ -56,6 +56,9 @@ namespace Onyx
         [SerializeField] private MultiplierPerLevel healthMultipliers;
         [SerializeField] private int scoreMultiplier;
 
+        [Header("Etc")]
+        [SerializeField] private float hitRecoverTime;
+
         private Rigidbody2D rigidBody;
         private InputHandler inputHandler;
         readonly private List<IAbility> abilities = new List<IAbility>();
@@ -66,6 +69,7 @@ namespace Onyx
         private bool preventControl = false;
         private Vector2 leftStick = new Vector2(0, 0);
         private float remainStiffenTime = 0;
+        private float remainHitRecoverTime = 0;
         private bool isControlPrevented => preventControl || (remainStiffenTime > 0f);
 
         public float HealthPoint => healthPoint;
@@ -134,6 +138,7 @@ namespace Onyx
             }
 
             remainStiffenTime = Mathf.Max(0, remainStiffenTime - Time.deltaTime);
+            remainHitRecoverTime = Mathf.Max(0, remainHitRecoverTime - Time.deltaTime);
         }
 
         public void Die()
@@ -387,6 +392,9 @@ namespace Onyx
 
         IHitReactor.HitResult IHitReactor.Hit(IHitReactor.HitType type, float damage, Vector3 knockBackVelocity, float stiffenTime)
         {
+            if (remainHitRecoverTime != 0)
+                return new IHitReactor.HitResult(0, false);
+
             AudioSource hitAudio = type switch
             {
                 IHitReactor.HitType.Bullet => bulletHitAudio,
@@ -401,9 +409,10 @@ namespace Onyx
                 movement.AddDamageVelocity(new Vector2(knockBackVelocity.x, knockBackVelocity.y));
 
             if(stiffenTime > 0)
-            {
                 remainStiffenTime = stiffenTime;
-            }
+
+            if (acceptedDamage != 0 && hitRecoverTime > 0)
+                remainHitRecoverTime += hitRecoverTime;
 
             return new IHitReactor.HitResult(damage, acceptedDamage != 0 && isDead);
         }

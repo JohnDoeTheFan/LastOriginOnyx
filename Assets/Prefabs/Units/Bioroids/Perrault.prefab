@@ -435,6 +435,7 @@ MonoBehaviour:
   levelOfDifficulty: 0
   healthMultipliers: {fileID: 11400000, guid: 350ed219e736b1a49955c09116327240, type: 2}
   scoreMultiplier: 0
+  hitRecoverTime: 1
 --- !u!114 &5657436394549491419
 MonoBehaviour:
   m_ObjectHideFlags: 0
