@@ -7,15 +7,15 @@ namespace Onyx.BattleRoom
 {
     public class BattleRoom : MonoBehaviour
     {
-        static public Action<BattleRoom> OnStart;
+        static public Action<BattleRoom> OnStartInjection;
 
-        static public Action<BattleRoom, bool> OnEnter;
-        static public Action<Action> OnExit;
+        static public Action<BattleRoom, bool> OnEnterInjection;
+        static public Action<Action> OnExitInjection;
 
         [SerializeField] private Grid grid;
         [SerializeField] private Tilemap tileMapComponent;
         [SerializeField] private BackgroundScroller background;
-        [SerializeField] private List<MyUnit> destroyTargets;
+        [SerializeField] protected List<MyUnit> destroyTargets;
         [SerializeField] private BattleRoomPortal enterPortal;
         [SerializeField] private BattleRoomPortal exitPortal;
         [SerializeField] private bool isFirstEntering = true;
@@ -30,21 +30,13 @@ namespace Onyx.BattleRoom
         public BackgroundScroller Background => background;
         public SubscribeManagerTemplate<ISubscriber> SubscribeManager { private set; get; } = new SubscribeManagerTemplate<ISubscriber>();
 
-        private void OnDestroy()
+        private void Awake()
         {
-            destroyTargetSubscribers.UnsubscribeAll();
-        }
-
-        private void Start()
-        {
-            OnStart(this);
-
             remainEnemyCount = destroyTargets.Count;
             wholeEnemyCount = remainEnemyCount;
             foreach (var target in destroyTargets)
             {
                 destroyTargetSubscribers.Add(new DestoryTargetSubscriber(target, ReduceRemainEnemyCount));
-                target.PreventControl(true);
             }
 
             if (enterPortal != null)
@@ -52,16 +44,31 @@ namespace Onyx.BattleRoom
                 enterPortal.SetOnExit(OnTryToExitViaPortal);
                 enterPortal.SetOnEnter(EnterViaPortal);
             }
+
             if (exitPortal != null)
             {
-                if (remainEnemyCount != 0)
-                    exitPortal.gameObject.SetActive(false);
                 exitPortal.SetOnExit(OnTryToExitViaPortal);
                 exitPortal.SetOnEnter(EnterViaPortal);
             }
+        }
 
-            foreach (var target in destroyTargets)
-                target.gameObject.SetActive(false);
+        private void Start()
+        {
+            OnStartInjection(this);
+
+            if (exitPortal != null && remainEnemyCount != 0)
+                exitPortal.gameObject.SetActive(false);
+
+            OnStart();
+        }
+
+        protected virtual void OnStart()
+        {
+        }
+
+        private void OnDestroy()
+        {
+            destroyTargetSubscribers.UnsubscribeAll();
         }
 
         public Vector2 CalcTileMapSize()
@@ -99,14 +106,15 @@ namespace Onyx.BattleRoom
 
             SubscribeManager.ForEach(item => item.OnEnter(this, shouldPlayBriefing));
 
-            foreach (var target in destroyTargets)
-                target.PreventControl(false);
-
             enterPortal.gameObject.SetActive(false);
 
-            foreach (var target in destroyTargets)
-                target.gameObject.SetActive(true);
+            OnEnterViaPortal();
         }
+
+        protected virtual void OnEnterViaPortal()
+        {
+        }
+
 
         private void OnTryToExitViaPortal(BattleRoomPortal exitingPortal, GameObject user)
         {

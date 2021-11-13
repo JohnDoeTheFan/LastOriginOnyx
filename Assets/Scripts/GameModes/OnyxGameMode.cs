@@ -149,17 +149,17 @@ public class OnyxGameMode : RunAndGunGameMode
 
     public void InitBattleRoom()
     {
-        BattleRoom.OnStart = battleRoom =>
+        BattleRoom.OnStartInjection = battleRoom =>
         {
-            battleRoomSubscribers.Add(new BattleRoomSubscriber(battleRoom, OnEnterBattleRoom, OnExitBattleRoom));
         };
     }
 
     private void InstantiateBattleRooms()
     {
         BattleRoom lastRoom = startRoom;
+        battleRoomSubscribers.Add(new BattleRoomSubscriber(startRoom, OnEnterBattleRoom, OnExitBattleRoom));
 
-        if(testRoomPrefab != null)
+        if (testRoomPrefab != null)
         {
             BattleRoom newBattleRoom = Instantiate<BattleRoom>(testRoomPrefab);
 
@@ -167,6 +167,10 @@ public class OnyxGameMode : RunAndGunGameMode
             newBattleRoom.transform.Translate(newRoomPosition);
 
             lastRoom.AttachRoom(newBattleRoom);
+            battleRoomSubscribers.Add(new BattleRoomSubscriber(newBattleRoom, OnEnterBattleRoom, OnExitBattleRoom));
+
+            if (lastRoom != startRoom)
+                lastRoom.gameObject.SetActive(false);
 
             lastRoom = newBattleRoom;
         }
@@ -177,36 +181,44 @@ public class OnyxGameMode : RunAndGunGameMode
             foreach (BattleRoom battleRoomPrefab in battleRoomPrefabs)
             {
                 BattleRoom newBattleRoom = Instantiate<BattleRoom>(battleRoomPrefab);
-
                 Vector2 newRoomPosition = CalcNewBattleRoomPosition(lastRoom, newBattleRoom);
                 newBattleRoom.transform.Translate(newRoomPosition);
 
                 lastRoom.AttachRoom(newBattleRoom);
+                battleRoomSubscribers.Add(new BattleRoomSubscriber(newBattleRoom, OnEnterBattleRoom, OnExitBattleRoom));
+
+                if (lastRoom != startRoom)
+                    lastRoom.gameObject.SetActive(false);
 
                 lastRoom = newBattleRoom;
+
             }
         }
 
         Vector2 lastRoomPosition = CalcNewBattleRoomPosition(lastRoom, endRoomPrefab);
         BattleRoom endRoom = Instantiate<BattleRoom>(endRoomPrefab, lastRoomPosition, Quaternion.identity);
         lastRoom.AttachRoom(endRoom);
+        battleRoomSubscribers.Add(new BattleRoomSubscriber(endRoom, OnEnterBattleRoom, OnExitBattleRoom));
 
-        static Vector2 CalcNewBattleRoomPosition(BattleRoom lastRoom, BattleRoom newRoom)
+        if (lastRoom != startRoom)
+            lastRoom.gameObject.SetActive(false);
+
+    }
+    static Vector2 CalcNewBattleRoomPosition(BattleRoom lastRoom, BattleRoom newRoom)
+    {
+        newRoom.CompressTileMapBounds();
+        Vector2 gridPosition = newRoom.GridPosition;
+
+        Bounds lastRoomBounds = lastRoom.CalcTileMapBounds();
+        Bounds newRoomBounds = newRoom.CalcTileMapBounds();
+
+        Vector2 newRoomPosition = new Vector2
         {
-            newRoom.CompressTileMapBounds();
-            Vector2 gridPosition = newRoom.GridPosition;
+            x = lastRoomBounds.center.x + lastRoomBounds.extents.x + newRoomBounds.extents.x - newRoomBounds.center.x,
+            y = lastRoomBounds.center.y - lastRoomBounds.extents.y + newRoomBounds.extents.y - newRoomBounds.center.y
+        };
 
-            Bounds lastRoomBounds = lastRoom.CalcTileMapBounds();
-            Bounds newRoomBounds = newRoom.CalcTileMapBounds();
-
-            Vector2 newRoomPosition = new Vector2
-            {
-                x = lastRoomBounds.center.x + lastRoomBounds.extents.x + newRoomBounds.extents.x - newRoomBounds.center.x,
-                y = lastRoomBounds.center.y - lastRoomBounds.extents.y + newRoomBounds.extents.y - newRoomBounds.center.y
-            };
-
-            return newRoomPosition;
-        }
+        return newRoomPosition;
     }
 
     protected override void InitTriggerVolume()
@@ -253,7 +265,8 @@ public class OnyxGameMode : RunAndGunGameMode
             else
             {
                 myUnit.SubscribeManager.Subscribe(new UnitSubscriber(OnDeathEnemyUnit, OnUnitDamageOrHeal));
-                myUnit.SetLevelOfDifficulty(OnyxGameInstance.instance.StageInfoForStageScene.NeededPower);
+                if(OnyxGameInstance.instance.StageInfoForStageScene != null)
+                    myUnit.SetLevelOfDifficulty(OnyxGameInstance.instance.StageInfoForStageScene.NeededPower);
             }
                 
         };
@@ -409,6 +422,9 @@ public class OnyxGameMode : RunAndGunGameMode
 
     void OnEnterBattleRoom(BattleRoom battleRoom, bool shouldPlayBriefing)
     {
+        if (!battleRoom.gameObject.activeInHierarchy)
+            battleRoom.gameObject.SetActive(true);
+
         CameraSettingForBattleRoom(battleRoom);
         InitBackground(battleRoom);
         battleProgressGui.SetBattleRoom(battleRoom);
@@ -513,6 +529,7 @@ public class OnyxGameMode : RunAndGunGameMode
             user.transform.position = exitingPortal.DestinationPortal.transform.position;
             exitingPortal.DestinationPortal.Enter();
         }
+        
     }
 
     public void OnLeftButtonDown()

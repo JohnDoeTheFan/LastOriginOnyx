@@ -4831,7 +4831,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bgmAudioSource: {fileID: 471756404}
-  stageInfoForStageScene: {fileID: 0}
+  stageInfoForStageScene: {fileID: 11400000, guid: 04e5128c70139714ca4a636ad4a9fc12, type: 2}
   chapterInfoForStageScene: {fileID: 0}
   bioroidInfoForStageScene: {fileID: 11400000, guid: d660ac79e67c2514081f851b40c327c1, type: 2}
   chapterInfoForSignIn: {fileID: 11400000, guid: f4984bb4fdf2e3949b4bb83de5ed8b85, type: 2}
@@ -10051,7 +10051,7 @@ MonoBehaviour:
   followerWithCamera: {fileID: 1654023884}
   startRoom: {fileID: 4092212175575609389}
   endRoomPrefab: {fileID: 738292721402749424, guid: 5e1a2423fd186f94b93e4d5a4540fe49, type: 3}
-  testRoomPrefab: {fileID: 654169757907289586, guid: 4c5b0ce36de7d40459e7b02311e5e3bb, type: 3}
+  testRoomPrefab: {fileID: 0}
   bgm: {fileID: 8300000, guid: 4b49b3294ea687e49bb536d75028982d, type: 3}
   voiceAudioSource: {fileID: 1787502278}
 --- !u!1 &1654023879
