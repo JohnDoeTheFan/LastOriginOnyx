@@ -51,10 +51,10 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
+  MinDistance: 13
+  MaxDistance: 20
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -87,7 +87,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -742,20 +742,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   modelAnimator: {fileID: 8018057090887055770}
-  rotatingParts: {fileID: 1133298391004524803}
-  maxVelocity: 2
-  velocityReachTime: 0.001
-  velocityInAirRate: 0.2
-  overSpeedRecoverVelocity: 5
-  overSpeedRecoverVelocityReachTime: 0.1
-  knockBackRecoverTime: 0.2
   healthPoint: 1
   maxHealth: 1
   groundChecker: {fileID: 4152844832351958974}
   sight: {fileID: 5156177681752569181}
   dustParticleSystem: {fileID: 8246102902201094424}
   dustMakingVelocity: 3
-  runAudioSource: {fileID: 1845142849608146885}
   bulletHitAudio: {fileID: 4636317531224630284}
   stageStartVoice: {fileID: 0}
   retireVoice: {fileID: 0}
@@ -765,6 +757,7 @@ MonoBehaviour:
   levelOfDifficulty: 0
   healthMultipliers: {fileID: 11400000, guid: 990cc5a820b58b941a6bd899bd53043a, type: 2}
   scoreMultiplier: 6
+  hitRecoverTime: 0
 --- !u!114 &7476444972376584129
 MonoBehaviour:
   m_ObjectHideFlags: 0

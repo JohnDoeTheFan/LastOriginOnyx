@@ -16,6 +16,7 @@ MonoBehaviour:
   moveTime: 1
   accelerationTimePercentage: 0.25
   waitTime: 0
+  firstDelay: 0
 --- !u!1 &5088439972316476416
 GameObject:
   m_ObjectHideFlags: 0
@@ -100,6 +101,14 @@ PrefabInstance:
     - target: {fileID: 4976261629248711609, guid: cd6c3c90e630951469a04432dda7befe, type: 3}
       propertyPath: m_Name
       value: OneWayPlatform_Moving
+      objectReference: {fileID: 0}
+    - target: {fileID: 4976261629248711611, guid: cd6c3c90e630951469a04432dda7befe, type: 3}
+      propertyPath: m_BodyType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4976261629248711611, guid: cd6c3c90e630951469a04432dda7befe, type: 3}
+      propertyPath: m_Interpolate
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cd6c3c90e630951469a04432dda7befe, type: 3}
