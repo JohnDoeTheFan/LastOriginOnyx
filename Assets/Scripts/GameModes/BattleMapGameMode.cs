@@ -66,7 +66,8 @@ public class BattleMapGameMode : MonoBehaviourBase
 
             var abilities = bioroidInfo.Abilities;
 
-            for(int i = 0; i < abilities.Count; i++)
+            skillToggleGroup.allowSwitchOff = true;
+            for (int i = 0; i < abilities.Count; i++)
             {
                 for(int j = 0; j < abilities[i].skills.Count; j++)
                 {
@@ -74,6 +75,7 @@ public class BattleMapGameMode : MonoBehaviourBase
                     if (index < skillToggles.Count)
                     {
                         skillToggles[index].interactable = true;
+                        skillToggles[index].isOn = false;
                         skillImages[index].gameObject.SetActive(true);
                         skillImages[index].sprite = abilities[i].skills[j].image;
                     }

@@ -187,6 +187,7 @@ public class ResearchGuiController : MonoBehaviour
         embargoSelectedCombatant = bioroidInformation;
 
         embargoPortrait.sprite = embargoSelectedCombatant.Portrait;
+        embargoPortrait.enabled = true;
         embargoName.text = embargoSelectedCombatant.BioroidName;
         embargoDescription.text = embargoSelectedCombatant.Description;
         embargoCurrentOnyxValue.text = onyxValue.ToString();
@@ -239,6 +240,7 @@ public class ResearchGuiController : MonoBehaviour
     public void InitializeEmbargoInformation(int onyxValue)
     {
         embargoPortrait.sprite = null;
+        embargoPortrait.enabled = false;
         embargoName.text = "-";
         embargoDescription.text = "-";
         embargoCurrentOnyxValue.text = onyxValue.ToString();
