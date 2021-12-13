@@ -24,6 +24,7 @@ namespace Onyx.BattleRoom
         private int remainEnemyCount;
         private int wholeEnemyCount;
 
+        public Vector2 GridCellSize => grid.cellSize;
         public Vector2 GridPosition => new Vector2(grid.transform.position.x, grid.transform.position.y);
         public int RemainEnemyCount => remainEnemyCount;
         public int WholeEnemyCount => wholeEnemyCount;

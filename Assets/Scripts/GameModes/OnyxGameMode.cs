@@ -450,6 +450,8 @@ public class OnyxGameMode : RunAndGunGameMode
         float heightPercentageOfCommandPanel = commandPanel.GetSize().y / commandPanelCanvas.rect.height;
         Vector2 tileMapSize = battleRoom.CalcTileMapSize();
 
+        tileMapSize -= battleRoom.GridCellSize;
+
         // Calculate expected camera height when shrinked by Y.
         // ex) 
         //      defaultCameraSize: 10
@@ -470,7 +472,8 @@ public class OnyxGameMode : RunAndGunGameMode
         followerWithCamera.SetMargin(new Vector2(0, -1 * commandPanelHeight / 2));
 
         Bounds tileMapBounds = battleRoom.CalcTileMapBounds();
-        followerWithCamera.limit = CalcCameraFollowerLimit(tileMapBounds, newOrthographicSize, mainCamera.aspect, followerWithCamera.Margin);
+
+        followerWithCamera.limit = CalcCameraFollowerLimit(tileMapBounds, newOrthographicSize, mainCamera.aspect, followerWithCamera.Margin, battleRoom.GridCellSize);
         followerWithCamera.SetShouldLimit(true);
     }
 
@@ -498,12 +501,14 @@ public class OnyxGameMode : RunAndGunGameMode
         return orthographicSize;
     }
 
-    Bounds CalcCameraFollowerLimit(Bounds bounds, float orthographicSize, float cameraAspect, Vector2 cameraMargin)
+    Bounds CalcCameraFollowerLimit(Bounds bounds, float orthographicSize, float cameraAspect, Vector2 cameraMargin, Vector2 gridCellSize)
     {
-        float xMin = bounds.min.x + orthographicSize * cameraAspect;
-        float xMax = bounds.max.x - orthographicSize * cameraAspect;
-        float yMin = bounds.min.y + orthographicSize;
-        float yMax = bounds.max.y - orthographicSize;
+        float orthographicSizeX = orthographicSize * cameraAspect;
+        Vector2 halfCellSize = gridCellSize / 2;
+        float xMin = bounds.min.x + orthographicSizeX + halfCellSize.x;
+        float xMax = bounds.max.x - orthographicSizeX - halfCellSize.x;
+        float yMin = bounds.min.y + orthographicSize + halfCellSize.y;
+        float yMax = bounds.max.y - orthographicSize - halfCellSize.y;
 
         if (cameraMargin.y < 0)
             yMin += cameraMargin.y * 2;
