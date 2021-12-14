@@ -227,11 +227,19 @@ PrefabInstance:
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1203986133642132122, guid: 955af07516529d94fa34b7bbe62312c8, type: 3}
+      propertyPath: m_Tiles.Array.data[71].second.m_TileSpriteIndex
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1203986133642132122, guid: 955af07516529d94fa34b7bbe62312c8, type: 3}
       propertyPath: m_Tiles.Array.data[75].second.m_TileMatrixIndex
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1203986133642132122, guid: 955af07516529d94fa34b7bbe62312c8, type: 3}
       propertyPath: m_Tiles.Array.data[75].second.m_TileSpriteIndex
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1203986133642132122, guid: 955af07516529d94fa34b7bbe62312c8, type: 3}
+      propertyPath: m_Tiles.Array.data[82].second.m_TileSpriteIndex
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1203986133642132122, guid: 955af07516529d94fa34b7bbe62312c8, type: 3}
