@@ -31,6 +31,7 @@ public class OnyxGameMode : RunAndGunGameMode
     [SerializeField] private RectTransform onyxOrbCanvas;
     [SerializeField] private OnyxOrbGui onyxOrbGuiPrefab;
     [SerializeField] private BioroidInformationDisplayer bioroidInformationDisplayer;
+    [SerializeField] private Image characterPortrait;
 
     [Header("Onyx/Main")]
     [SerializeField] private GameObject backgroundHolder;
@@ -72,6 +73,7 @@ public class OnyxGameMode : RunAndGunGameMode
     protected override void Start()
     {
         Onyx.MyUnit playerUnit = Instantiate<Onyx.MyUnit>(OnyxGameInstance.instance.BioroidInfoForStageScene.Unit, gameStartPosition.position, gameStartPosition.rotation);
+        characterPortrait.sprite = OnyxGameInstance.instance.BioroidInfoForStageScene.Portrait;
         followerWithCamera.SetTarget(playerUnit.transform);
         bioroidInformationDisplayer.ParseBioroidInformation(OnyxGameInstance.instance.BioroidInfoForStageScene);
 

@@ -2119,7 +2119,7 @@ GameObject:
   - component: {fileID: 232113121}
   - component: {fileID: 232113120}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Portrait
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2543,7 +2543,7 @@ GameObject:
   - component: {fileID: 329082581}
   - component: {fileID: 329082580}
   m_Layer: 5
-  m_Name: Image (1)
+  m_Name: BackgroundInner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5194,7 +5194,7 @@ MonoBehaviour:
   bgmAudioSource: {fileID: 471756404}
   stageInfoForStageScene: {fileID: 11400000, guid: 00066b4ff0fa70b40b55b677c82b016d, type: 2}
   chapterInfoForStageScene: {fileID: 0}
-  bioroidInfoForStageScene: {fileID: 11400000, guid: d660ac79e67c2514081f851b40c327c1, type: 2}
+  bioroidInfoForStageScene: {fileID: 11400000, guid: 2be8a453661b72c46bcf16e1115ed2bf, type: 2}
   chapterInfoForSignIn: {fileID: 11400000, guid: f4984bb4fdf2e3949b4bb83de5ed8b85, type: 2}
   doNotSaveOrLoadForTest: 1
   saveDataAsset: {fileID: 11400000, guid: 198f1b0160ec1094e8a6dda8ae87c365, type: 2}
@@ -8954,7 +8954,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1367376220}
   m_Layer: 5
-  m_Name: Image
+  m_Name: PortraitFabricated
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9639,7 +9639,7 @@ GameObject:
   - component: {fileID: 1554573574}
   - component: {fileID: 1554573573}
   m_Layer: 5
-  m_Name: Image
+  m_Name: BackgroundOuter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10408,6 +10408,7 @@ MonoBehaviour:
   onyxOrbCanvas: {fileID: 223353790}
   onyxOrbGuiPrefab: {fileID: 120512253014789092, guid: 5380b9211df4c0941990cd9d22cca2cc, type: 3}
   bioroidInformationDisplayer: {fileID: 199236474}
+  characterPortrait: {fileID: 232113120}
   backgroundHolder: {fileID: 1711057582}
   followerWithCamera: {fileID: 1654023884}
   startRoom: {fileID: 13973662}

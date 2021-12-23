@@ -10758,6 +10758,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: New_C1_S8_B2
       objectReference: {fileID: 0}
+    - target: {fileID: 7401992963440100359, guid: a83d8259c0d1afd47a67004c3a97679a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7725681092366504936, guid: a83d8259c0d1afd47a67004c3a97679a, type: 3}
       propertyPath: m_RootOrder
       value: 4
