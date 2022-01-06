@@ -89,6 +89,7 @@ namespace Onyx.Ability
         void AddVelocity(Vector2 velocity, float recoverTime = 0f);
         void NotifyKillEnemy(GameObject enemy);
         void OccupyMovement(bool occupy);
+        Vector2 GetVelocityToStopOverGroundVelocity();
     }
 
     public abstract class AbilitySkill

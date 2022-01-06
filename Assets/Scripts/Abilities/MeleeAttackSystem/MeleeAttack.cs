@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -25,6 +26,19 @@ public class MeleeAttack : MonoBehaviourBase
         attackCollider2D.enabled = true;
         StartCoroutine(Job(() => WaitForSecondsRoutine(activationTime), () => gameObject.SetActive(false)));
         StartCoroutine(Job(() => WaitForSecondsRoutine(colliderActivationTime), () => attackCollider2D.enabled = false));
+    }
+    public void Activate(Func<bool> deactivateCondition)
+    {
+        gameObject.SetActive(true);
+        attackCollider2D.enabled = true;
+        StartCoroutine(Job(() => WaitUntilAndForSecondsRoutine(activationTime, deactivateCondition), () => gameObject.SetActive(false)));
+        StartCoroutine(Job(() => WaitUntilAndForSecondsRoutine(colliderActivationTime, deactivateCondition), () => attackCollider2D.enabled = false));
+
+        IEnumerator WaitUntilAndForSecondsRoutine(float seconds, Func<bool> condition)
+        {
+            yield return new WaitForSeconds(seconds);
+            yield return new WaitUntil(condition);
+        }
     }
 
     public void SetDamage(float damage)

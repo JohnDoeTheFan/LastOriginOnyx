@@ -427,6 +427,11 @@ namespace Onyx
         {
             movement.AddSkillVelocity(velocity, recoverTime);
         }
+        Vector2 IAbilityHolder.GetVelocityToStopOverGroundVelocity()
+        {
+            Vector2 velocityOverGroundVelocity = rigidBody.velocity - groundChecker.GetGroundVelocity();
+            return velocityOverGroundVelocity * -1;
+        }
 
         void IAbilityHolder.OccupyMovement(bool occupy)
         {

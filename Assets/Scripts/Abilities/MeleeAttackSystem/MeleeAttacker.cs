@@ -8,8 +8,9 @@ public class MeleeAttacker : AbilityBase, MeleeAttack.ISubscriber
 {
     [SerializeField] private string skill1Name;
     [SerializeField] private Sprite skill1Sprite;
-    [SerializeField] List<ComboInformation> groundCombos;
-    [SerializeField] List<ComboInformation> airCombos;
+    [SerializeField] private List<ComboInformation> groundCombos;
+    [SerializeField] private List<ComboInformation> airCombos;
+    [SerializeField] private float comboCoolTime = 0.25f;
 
     [Header("Rewards")]
     [SerializeField] GameObject reward;
@@ -127,13 +128,28 @@ public class MeleeAttacker : AbilityBase, MeleeAttack.ISubscriber
             isOccupiedByThis = true;
 
             currentComboStartTime = Time.time;
-            comboResetTimer = StartCoroutine(ResetComboCount(currentCombo.duration));
 
-            foreach (DataOnTime<Vector2> velocityOnTime in currentCombo.velocityOnTimes)
-                StartCoroutine(Job(() => WaitForSecondsRoutine(velocityOnTime.time), () => AddVelocity(velocityOnTime.data) ));
+            if(currentCombo.canUseInAir && currentCombo.keepUntilGrounded)
+                comboResetTimer = StartCoroutine(ResetComboCount(currentCombo.duration, ()=> abilityHolder.IsGrounded));
+            else
+                comboResetTimer = StartCoroutine(ResetComboCount(currentCombo.duration));
+
+            foreach (DataOnTime<Move> moveOnTime in currentCombo.moveOnTimes)
+            {
+                if (currentCombo.canUseInAir)
+                    StartCoroutine(Job(() => WaitForSecondsRoutine(moveOnTime.time), () => AddVelocity(moveOnTime.data.velocity, moveOnTime.data.shouldStopBeforeMove)));
+                else
+                    StartCoroutine(Job(() => WaitForSecondsRoutine(moveOnTime.time), () => AddVelocity(moveOnTime.data.velocity)));
+            }
+                
 
             foreach (DataOnTime<MeleeAttack> attackOnTime in currentCombo.attackOnTime)
-                StartCoroutine(Job(() => WaitForSecondsRoutine(attackOnTime.time), () =>  attackOnTime.data.Activate() ));
+            {
+                if (currentCombo.canUseInAir && currentCombo.keepUntilGrounded)
+                    StartCoroutine(Job(() => WaitForSecondsRoutine(attackOnTime.time), () => attackOnTime.data.Activate(() => abilityHolder.IsGrounded)));
+                else
+                    StartCoroutine(Job(() => WaitForSecondsRoutine(attackOnTime.time), () => attackOnTime.data.Activate()));
+            }
 
             abilityHolder.ModelAnimator.SetInteger(comboCountStringToHash, comboCount);
         }
@@ -141,9 +157,15 @@ public class MeleeAttacker : AbilityBase, MeleeAttack.ISubscriber
 
     private IEnumerator ResetComboCount(float time)
     {
+        yield return ResetComboCount(time, () => true);
+    }
+
+    private IEnumerator ResetComboCount(float time, Func<bool> condition)
+    {
         yield return new WaitForSeconds(time);
+        yield return new WaitUntil(condition);
         isResetting = true;
-        StartCoroutine(Job(() => WaitForSecondsRoutine(0.25f), () => isResetting = false));
+        StartCoroutine(Job(() => WaitForSecondsRoutine(comboCoolTime), () => isResetting = false));
         comboCount = -1;
         abilityHolder.ModelAnimator.SetInteger(comboCountStringToHash, comboCount);
         abilityHolder.OccupyMovement(false);
@@ -152,13 +174,22 @@ public class MeleeAttacker : AbilityBase, MeleeAttack.ISubscriber
         currentCombos = null;
     }
 
-    private void AddVelocity(Vector2 velocity)
+    private void AddVelocity(Vector2 velocity, bool shouldStopBeforeAdd = false)
     {
+
         Vector2 velocityWithFacingDirection = velocity;
         if (abilityHolder.isFacingLeft)
             velocityWithFacingDirection.x *= -1;
 
+        if(shouldStopBeforeAdd)
+        {
+            Vector2 velocityToStop = abilityHolder.GetVelocityToStopOverGroundVelocity();
+            velocityWithFacingDirection += velocityToStop;
+        }
+
+
         abilityHolder.AddVelocity(velocityWithFacingDirection, 0.2f);
+        Debug.Log(velocityWithFacingDirection);
     }
 
     void MeleeAttack.ISubscriber.OnHit(MeleeAttack attack, IHitReactor hitReactor, IHitReactor.HitResult hitResult)
@@ -188,6 +219,13 @@ public class MeleeAttacker : AbilityBase, MeleeAttack.ISubscriber
     }
 
     [System.Serializable]
+    private struct Move
+    {
+        public bool shouldStopBeforeMove;
+        public Vector2 velocity;
+    }
+
+    [System.Serializable]
     private struct ComboInformation
     {
         public float duration;
@@ -195,7 +233,8 @@ public class MeleeAttacker : AbilityBase, MeleeAttack.ISubscriber
         public float nextComboInputStart;
         public float nextComboInputDuration;
         public bool canUseInAir;
-        public List<DataOnTime<Vector2>> velocityOnTimes;
+        public bool keepUntilGrounded;
+        public List<DataOnTime<Move>> moveOnTimes;
         public List<DataOnTime<MeleeAttack>> attackOnTime;
     }
 }

@@ -46,63 +46,63 @@ Preset:
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: layers.Array.data[6]
-    value: 
+    value: Character/Player
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: layers.Array.data[7]
-    value: 
+    value: Character/Npc
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: layers.Array.data[8]
-    value: DropItem
+    value: Character/Enemy
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: layers.Array.data[9]
-    value: Player
+    value: Character/DeadBody
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: layers.Array.data[10]
-    value: Structures
+    value: 
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: layers.Array.data[11]
-    value: Sight
+    value: 
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: layers.Array.data[12]
-    value: GroundChecker
+    value: 
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: layers.Array.data[13]
-    value: Bullet
+    value: 
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: layers.Array.data[14]
-    value: Background
+    value: Object/Interactable
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: layers.Array.data[15]
-    value: 
+    value: Object/Structure
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: layers.Array.data[16]
-    value: 
+    value: Object/BulletOfPlayer
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: layers.Array.data[17]
-    value: 
+    value: Object/BulletOfEnemy
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: layers.Array.data[18]
-    value: 
+    value: Object/ShieldOfPlayer
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: layers.Array.data[19]
-    value: 
+    value: Object/ShieldOfEnemy
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: layers.Array.data[20]
-    value: 
+    value: Object/Trap
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: layers.Array.data[21]
@@ -110,15 +110,15 @@ Preset:
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: layers.Array.data[22]
-    value: 
+    value: Utility/Sight
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: layers.Array.data[23]
-    value: 
+    value: Utility/GroundChecker
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: layers.Array.data[24]
-    value: 
+    value: Utility/Background
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: layers.Array.data[25]
@@ -150,7 +150,7 @@ Preset:
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_SortingLayers.Array.size
-    value: 4
+    value: 11
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_SortingLayers.Array.data[0].name
@@ -158,7 +158,7 @@ Preset:
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_SortingLayers.Array.data[0].uniqueID
-    value: 2979778995
+    value: 4143399751
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_SortingLayers.Array.data[0].locked
@@ -166,11 +166,11 @@ Preset:
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_SortingLayers.Array.data[1].name
-    value: TileMap
+    value: Structures
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_SortingLayers.Array.data[1].uniqueID
-    value: 2299109505
+    value: 1288234859
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_SortingLayers.Array.data[1].locked
@@ -178,11 +178,11 @@ Preset:
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_SortingLayers.Array.data[2].name
-    value: Structures
+    value: TileMap
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_SortingLayers.Array.data[2].uniqueID
-    value: 1288234859
+    value: 2299109505
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_SortingLayers.Array.data[2].locked
@@ -190,14 +190,98 @@ Preset:
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_SortingLayers.Array.data[3].name
-    value: Default
+    value: Trap
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_SortingLayers.Array.data[3].uniqueID
-    value: 0
+    value: 1169506577
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: m_SortingLayers.Array.data[3].locked
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_SortingLayers.Array.data[4].name
+    value: AfterImage
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_SortingLayers.Array.data[4].uniqueID
+    value: 2002078801
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_SortingLayers.Array.data[4].locked
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_SortingLayers.Array.data[5].name
+    value: EnemyUnit
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_SortingLayers.Array.data[5].uniqueID
+    value: 674209533
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_SortingLayers.Array.data[5].locked
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_SortingLayers.Array.data[6].name
+    value: PlayerUnit
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_SortingLayers.Array.data[6].uniqueID
+    value: 998456535
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_SortingLayers.Array.data[6].locked
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_SortingLayers.Array.data[7].name
+    value: Weapon
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_SortingLayers.Array.data[7].uniqueID
+    value: 2317322349
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_SortingLayers.Array.data[7].locked
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_SortingLayers.Array.data[8].name
+    value: Fx
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_SortingLayers.Array.data[8].uniqueID
+    value: 2214750129
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_SortingLayers.Array.data[8].locked
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_SortingLayers.Array.data[9].name
+    value: DropItem
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_SortingLayers.Array.data[9].uniqueID
+    value: 1041559431
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_SortingLayers.Array.data[9].locked
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_SortingLayers.Array.data[10].name
+    value: Default
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_SortingLayers.Array.data[10].uniqueID
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_SortingLayers.Array.data[10].locked
     value: 0
     objectReference: {fileID: 0}
   m_ExcludedProperties: []

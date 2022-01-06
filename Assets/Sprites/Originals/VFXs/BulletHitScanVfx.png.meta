@@ -1,0 +1,690 @@
+fileFormatVersion: 2
+guid: f7b9d738264fd61468167df7d72622ba
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -293801945063850419
+    second: result3-export-Sheet_0
+  - first:
+      213: -188342545530496897
+    second: result3-export-Sheet_1
+  - first:
+      213: 3920374371221012224
+    second: result3-export-Sheet_2
+  - first:
+      213: -5554286741908576913
+    second: result3-export-Sheet_3
+  - first:
+      213: 6283049866118829567
+    second: result3-export-Sheet_4
+  - first:
+      213: 2737115008566375400
+    second: result3-export-Sheet_5
+  - first:
+      213: -8868392237598979353
+    second: result3-export-Sheet_6
+  - first:
+      213: 6470261996937517731
+    second: result3-export-Sheet_7
+  - first:
+      213: 5083792803690764935
+    second: result3-export-Sheet_8
+  - first:
+      213: 2446464210421830675
+    second: result3-export-Sheet_9
+  - first:
+      213: -1858106612318270690
+    second: result3-export-Sheet_10
+  - first:
+      213: -1398757272002345070
+    second: result3-export-Sheet_11
+  - first:
+      213: 1399518908863388856
+    second: result3-export-Sheet_12
+  - first:
+      213: 4289548030551451953
+    second: result3-export-Sheet_13
+  - first:
+      213: -6160817565759984150
+    second: result3-export-Sheet_14
+  - first:
+      213: -2024958378094396785
+    second: result3-export-Sheet_15
+  - first:
+      213: -4390583960722166296
+    second: result3-export-Sheet_16
+  - first:
+      213: 2375059154060960352
+    second: result3-export-Sheet_17
+  - first:
+      213: 1264470189784127189
+    second: result3-export-Sheet_18
+  - first:
+      213: 8453309984853946706
+    second: BulletScanVfx_0
+  - first:
+      213: -8325255678208146570
+    second: BulletScanVfx_1
+  - first:
+      213: -4402281272984898407
+    second: BulletScanVfx_2
+  - first:
+      213: -685815749753129878
+    second: BulletScanVfx_3
+  - first:
+      213: 1798606230466289960
+    second: BulletScanVfx_4
+  - first:
+      213: 1675944493460060442
+    second: BulletScanVfx_5
+  - first:
+      213: -3414834344990999225
+    second: BulletScanVfx_6
+  - first:
+      213: -6567989816464812416
+    second: BulletScanVfx_7
+  - first:
+      213: 746667489326736272
+    second: BulletScanVfx_8
+  - first:
+      213: 6573982984387066614
+    second: BulletScanVfx_9
+  - first:
+      213: 4513261014227818716
+    second: BulletScanVfx_10
+  - first:
+      213: -7807685322860937720
+    second: BulletScanVfx_11
+  - first:
+      213: -32524280008003337
+    second: BulletScanVfx_12
+  - first:
+      213: -8316799998220165641
+    second: BulletScanVfx_13
+  - first:
+      213: 1753601116241352849
+    second: BulletScanVfx_14
+  - first:
+      213: -4176789411428065906
+    second: BulletScanVfx_15
+  - first:
+      213: -962749957775630355
+    second: BulletScanVfx_16
+  - first:
+      213: 9146188964256358721
+    second: BulletScanVfx_17
+  - first:
+      213: -5256173617782638380
+    second: BulletScanVfx_18
+  - first:
+      213: 4635423347711133107
+    second: BulletHitScanVfx_0
+  - first:
+      213: -8783245370303682956
+    second: BulletHitScanVfx_1
+  - first:
+      213: 8067345792719546990
+    second: BulletHitScanVfx_2
+  - first:
+      213: -8904567219299071367
+    second: BulletHitScanVfx_3
+  - first:
+      213: -5056249056080358314
+    second: BulletHitScanVfx_4
+  - first:
+      213: -2063998710498196157
+    second: BulletHitScanVfx_5
+  - first:
+      213: -3699981615266947706
+    second: BulletHitScanVfx_6
+  - first:
+      213: 2104530266993561648
+    second: BulletHitScanVfx_7
+  - first:
+      213: -1749301418924042990
+    second: BulletHitScanVfx_8
+  - first:
+      213: -1436845036228272809
+    second: BulletHitScanVfx_9
+  - first:
+      213: -8157419218565883997
+    second: BulletHitScanVfx_10
+  - first:
+      213: -3986397846831221757
+    second: BulletHitScanVfx_11
+  - first:
+      213: 5559562104786318765
+    second: BulletHitScanVfx_12
+  - first:
+      213: 8383583208232122706
+    second: BulletHitScanVfx_13
+  - first:
+      213: -6583128376108350333
+    second: BulletHitScanVfx_14
+  - first:
+      213: -6360900695077364903
+    second: BulletHitScanVfx_15
+  - first:
+      213: -9038962936575314771
+    second: BulletHitScanVfx_16
+  - first:
+      213: -4961154134785974596
+    second: BulletHitScanVfx_17
+  - first:
+      213: -8076730790657571206
+    second: BulletHitScanVfx_18
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 64
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: BulletHitScanVfx_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2560
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 63, y: 0, z: 63, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3b5cfd7a9f4545040800000000000000
+      internalID: 4635423347711133107
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BulletHitScanVfx_1
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2432
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 63, y: 0, z: 63, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 47664ff0fd4ab1680800000000000000
+      internalID: -8783245370303682956
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BulletHitScanVfx_2
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2304
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 63, y: 0, z: 63, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e6a6a4f7148f4ff60800000000000000
+      internalID: 8067345792719546990
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BulletHitScanVfx_3
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2176
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 63, y: 0, z: 63, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 97a471fda4f9c6480800000000000000
+      internalID: -8904567219299071367
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BulletHitScanVfx_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2048
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 63, y: 0, z: 63, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6541d6cc54894d9b0800000000000000
+      internalID: -5056249056080358314
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BulletHitScanVfx_5
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1920
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 63, y: 0, z: 63, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 34504ebbb143b53e0800000000000000
+      internalID: -2063998710498196157
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BulletHitScanVfx_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1792
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 63, y: 0, z: 63, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 68d9982035607acc0800000000000000
+      internalID: -3699981615266947706
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BulletHitScanVfx_7
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1664
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 63, y: 0, z: 63, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0309537a02bc43d10800000000000000
+      internalID: 2104530266993561648
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BulletHitScanVfx_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1536
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 63, y: 0, z: 63, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 21512ffa0ab39b7e0800000000000000
+      internalID: -1749301418924042990
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BulletHitScanVfx_9
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1408
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 63, y: 0, z: 63, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 75d94526d0d4f0ce0800000000000000
+      internalID: -1436845036228272809
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BulletHitScanVfx_10
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1280
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 63, y: 0, z: 63, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3a79f69c0760bce80800000000000000
+      internalID: -8157419218565883997
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BulletHitScanVfx_11
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1152
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 63, y: 0, z: 63, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3043e3677487da8c0800000000000000
+      internalID: -3986397846831221757
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BulletHitScanVfx_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1024
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 63, y: 0, z: 63, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: da5f28a4748872d40800000000000000
+      internalID: 5559562104786318765
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BulletHitScanVfx_13
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 896
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 63, y: 0, z: 63, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 259fa9f7288785470800000000000000
+      internalID: 8383583208232122706
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BulletHitScanVfx_14
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 768
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 63, y: 0, z: 63, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 384844fee9704a4a0800000000000000
+      internalID: -6583128376108350333
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BulletHitScanVfx_15
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 640
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 63, y: 0, z: 63, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 95bd062f48a89b7a0800000000000000
+      internalID: -6360900695077364903
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BulletHitScanVfx_16
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 512
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 63, y: 0, z: 63, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: da4b18389172f8280800000000000000
+      internalID: -9038962936575314771
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BulletHitScanVfx_17
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 384
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 63, y: 0, z: 63, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cbe1f188990762bb0800000000000000
+      internalID: -4961154134785974596
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BulletHitScanVfx_18
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 256
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 63, y: 0, z: 63, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a7645646320b9ef80800000000000000
+      internalID: -8076730790657571206
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

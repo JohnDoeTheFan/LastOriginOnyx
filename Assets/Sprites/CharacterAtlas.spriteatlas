@@ -82,6 +82,19 @@ SpriteAtlas:
   - {fileID: 8645895675161100533, guid: d885e37848ddac84fa9a1eb23c90c36a, type: 3}
   - {fileID: -4118059693697897912, guid: d885e37848ddac84fa9a1eb23c90c36a, type: 3}
   - {fileID: 1132486753710184111, guid: d885e37848ddac84fa9a1eb23c90c36a, type: 3}
+  - {fileID: -2433101553496418760, guid: c8f30719225b63048a490de1fc7e45b3, type: 3}
+  - {fileID: -98565795004728403, guid: c8f30719225b63048a490de1fc7e45b3, type: 3}
+  - {fileID: 1778528774783749239, guid: c8f30719225b63048a490de1fc7e45b3, type: 3}
+  - {fileID: 903902670404576937, guid: c8f30719225b63048a490de1fc7e45b3, type: 3}
+  - {fileID: -5991425765375415367, guid: c8f30719225b63048a490de1fc7e45b3, type: 3}
+  - {fileID: 1555052903133445642, guid: c8f30719225b63048a490de1fc7e45b3, type: 3}
+  - {fileID: -8908080154542555058, guid: c8f30719225b63048a490de1fc7e45b3, type: 3}
+  - {fileID: -5653623547300199530, guid: c8f30719225b63048a490de1fc7e45b3, type: 3}
+  - {fileID: 2853257445630475719, guid: c8f30719225b63048a490de1fc7e45b3, type: 3}
+  - {fileID: 6262209907628896356, guid: c8f30719225b63048a490de1fc7e45b3, type: 3}
+  - {fileID: 8645895675161100533, guid: c8f30719225b63048a490de1fc7e45b3, type: 3}
+  - {fileID: -4118059693697897912, guid: c8f30719225b63048a490de1fc7e45b3, type: 3}
+  - {fileID: 1132486753710184111, guid: c8f30719225b63048a490de1fc7e45b3, type: 3}
   - {fileID: -5120493240221723518, guid: 4d978cba0aab9c547bad4637076455c0, type: 3}
   - {fileID: 4158662714132518785, guid: 4d978cba0aab9c547bad4637076455c0, type: 3}
   - {fileID: -5113566738358645543, guid: 4d978cba0aab9c547bad4637076455c0, type: 3}
@@ -109,6 +122,7 @@ SpriteAtlas:
   - {fileID: -8466085128557744250, guid: db68dbcbc12079d4c8e57f60c827ac6b, type: 3}
   - {fileID: -3001334373885789507, guid: db68dbcbc12079d4c8e57f60c827ac6b, type: 3}
   - {fileID: -3489262094299744749, guid: db68dbcbc12079d4c8e57f60c827ac6b, type: 3}
+  - {fileID: 21300000, guid: dd173ceb62982e64fb61aae0e51ac291, type: 3}
   - {fileID: -4586306369756883327, guid: 07048bede24bee84ca2165ccf9c9208a, type: 3}
   - {fileID: 5070788992546351477, guid: 468469deee1f6694ca1cddcc00f10e34, type: 3}
   - {fileID: 1721708538114724032, guid: 468469deee1f6694ca1cddcc00f10e34, type: 3}
@@ -133,6 +147,19 @@ SpriteAtlas:
   - FrontHand
   - FrontUpperLeg
   - NightChickLauncherParts_0
+  - RearLowerArm
+  - Head
+  - RearUpperArm
+  - RearUpperLeg
+  - FrontLowerArm
+  - RearHand
+  - FrontLowerLeg
+  - Body
+  - FrontUpperArm
+  - RearLowerLeg
+  - Hair
+  - FrontHand
+  - FrontUpperLeg
   - RearLowerArm
   - Head
   - RearUpperArm
@@ -173,6 +200,7 @@ SpriteAtlas:
   - FrontArm
   - Body
   - RearArm
+  - ValkyrieGun
   - NightChickShielderParts_0
   - ChickSniperParts_2
   - ChickSniperParts_1
