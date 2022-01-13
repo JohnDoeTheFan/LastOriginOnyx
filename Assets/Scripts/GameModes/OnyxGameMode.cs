@@ -389,9 +389,14 @@ public class OnyxGameMode : RunAndGunGameMode
             Vector3 unitViewportPosition = mainCamera.WorldToViewportPoint(myUnit.transform.position);
             Vector3 unitCanvasPosition = unitViewportPosition * onyxOrbCanvas.sizeDelta;
 
-            Vector2 scoreAnchor = onyxOrbCanvas.sizeDelta * scoreGui.rectTransform.anchorMin;
+            Vector3[] corners = new Vector3[4];
+            scoreGui.rectTransform.GetWorldCorners(corners);
+            Vector3 sum = new Vector3();
+            foreach (var corner in corners)
+                sum += corner;
+            Vector3 center = sum / 4;
 
-            orbGui.Initialize(unitCanvasPosition, scoreAnchor + scoreGui.rectTransform.anchoredPosition, () => Score += 10);
+            orbGui.Initialize(unitCanvasPosition, scoreGui.canvas.worldCamera.WorldToScreenPoint(center), () => Score += 10);
         }
 
     }

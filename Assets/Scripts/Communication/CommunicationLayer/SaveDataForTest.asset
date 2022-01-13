@@ -12,207 +12,208 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d0af79e70f02a74c9a5a6015ed32840, type: 3}
   m_Name: SaveDataForTest
   m_EditorClassIdentifier: 
-  saveDataVersion: 1
+  saveData:
+    saveDataVersion: 1
+    stageClearedList:
+    - chapterNum: 1
+      stageNum: 1
+      stageType: 0
+      isCleared: 0
+    - chapterNum: 1
+      stageNum: 2
+      stageType: 0
+      isCleared: 0
+    - chapterNum: 1
+      stageNum: 3
+      stageType: 0
+      isCleared: 0
+    - chapterNum: 1
+      stageNum: 4
+      stageType: 0
+      isCleared: 0
+    - chapterNum: 1
+      stageNum: 5
+      stageType: 0
+      isCleared: 0
+    - chapterNum: 1
+      stageNum: 6
+      stageType: 0
+      isCleared: 0
+    - chapterNum: 1
+      stageNum: 7
+      stageType: 0
+      isCleared: 0
+    - chapterNum: 1
+      stageNum: 8
+      stageType: 0
+      isCleared: 0
+    - chapterNum: 1
+      stageNum: 3
+      stageType: 1
+      isCleared: 0
+    - chapterNum: 1
+      stageNum: 4
+      stageType: 1
+      isCleared: 0
+    - chapterNum: 1
+      stageNum: 5
+      stageType: 1
+      isCleared: 0
+    - chapterNum: 1
+      stageNum: 6
+      stageType: 1
+      isCleared: 0
+    - chapterNum: 1
+      stageNum: 1
+      stageType: 2
+      isCleared: 0
+    - chapterNum: 1
+      stageNum: 2
+      stageType: 2
+      isCleared: 0
+    - chapterNum: 1
+      stageNum: 3
+      stageType: 2
+      isCleared: 0
+    - chapterNum: 1
+      stageNum: 4
+      stageType: 2
+      isCleared: 0
+    - chapterNum: 2
+      stageNum: 1
+      stageType: 0
+      isCleared: 0
+    - chapterNum: 2
+      stageNum: 2
+      stageType: 0
+      isCleared: 0
+    - chapterNum: 2
+      stageNum: 3
+      stageType: 0
+      isCleared: 0
+    - chapterNum: 2
+      stageNum: 4
+      stageType: 0
+      isCleared: 0
+    - chapterNum: 2
+      stageNum: 5
+      stageType: 0
+      isCleared: 0
+    - chapterNum: 2
+      stageNum: 6
+      stageType: 0
+      isCleared: 0
+    - chapterNum: 2
+      stageNum: 7
+      stageType: 0
+      isCleared: 0
+    - chapterNum: 2
+      stageNum: 8
+      stageType: 0
+      isCleared: 0
+    - chapterNum: 2
+      stageNum: 1
+      stageType: 1
+      isCleared: 0
+    - chapterNum: 2
+      stageNum: 3
+      stageType: 1
+      isCleared: 0
+    - chapterNum: 2
+      stageNum: 4
+      stageType: 1
+      isCleared: 0
+    - chapterNum: 2
+      stageNum: 7
+      stageType: 1
+      isCleared: 0
+    - chapterNum: 2
+      stageNum: 1
+      stageType: 2
+      isCleared: 0
+    - chapterNum: 2
+      stageNum: 2
+      stageType: 2
+      isCleared: 0
+    - chapterNum: 2
+      stageNum: 3
+      stageType: 2
+      isCleared: 0
+    - chapterNum: 2
+      stageNum: 4
+      stageType: 2
+      isCleared: 0
+    - chapterNum: 3
+      stageNum: 1
+      stageType: 0
+      isCleared: 0
+    - chapterNum: 3
+      stageNum: 2
+      stageType: 0
+      isCleared: 0
+    - chapterNum: 3
+      stageNum: 3
+      stageType: 0
+      isCleared: 0
+    - chapterNum: 3
+      stageNum: 4
+      stageType: 0
+      isCleared: 0
+    - chapterNum: 3
+      stageNum: 5
+      stageType: 0
+      isCleared: 0
+    - chapterNum: 3
+      stageNum: 6
+      stageType: 0
+      isCleared: 0
+    - chapterNum: 3
+      stageNum: 7
+      stageType: 0
+      isCleared: 0
+    - chapterNum: 3
+      stageNum: 8
+      stageType: 0
+      isCleared: 0
+    - chapterNum: 3
+      stageNum: 2
+      stageType: 1
+      isCleared: 0
+    - chapterNum: 3
+      stageNum: 3
+      stageType: 1
+      isCleared: 0
+    - chapterNum: 3
+      stageNum: 6
+      stageType: 1
+      isCleared: 0
+    - chapterNum: 3
+      stageNum: 7
+      stageType: 1
+      isCleared: 0
+    - chapterNum: 3
+      stageNum: 1
+      stageType: 2
+      isCleared: 0
+    - chapterNum: 3
+      stageNum: 2
+      stageType: 2
+      isCleared: 0
+    - chapterNum: 3
+      stageNum: 3
+      stageType: 2
+      isCleared: 0
+    - chapterNum: 3
+      stageNum: 4
+      stageType: 2
+      isCleared: 0
+    greetingPosition: {x: -2.5, y: 1.1}
+    greetingSize: 2.4
+    onyxValue: 0
+    playerLevel: 1
+    owningBioroidsIds: 19000000
+    aideBioroidId: 25
   doNotSaveForTest: 0
   networkDelay: {x: 0.1, y: 0.1}
-  stageClearedList:
-  - chapterNum: 1
-    stageNum: 1
-    stageType: 0
-    isCleared: 1
-  - chapterNum: 1
-    stageNum: 2
-    stageType: 0
-    isCleared: 1
-  - chapterNum: 1
-    stageNum: 3
-    stageType: 0
-    isCleared: 1
-  - chapterNum: 1
-    stageNum: 4
-    stageType: 0
-    isCleared: 1
-  - chapterNum: 1
-    stageNum: 5
-    stageType: 0
-    isCleared: 1
-  - chapterNum: 1
-    stageNum: 6
-    stageType: 0
-    isCleared: 1
-  - chapterNum: 1
-    stageNum: 7
-    stageType: 0
-    isCleared: 1
-  - chapterNum: 1
-    stageNum: 8
-    stageType: 0
-    isCleared: 1
-  - chapterNum: 1
-    stageNum: 3
-    stageType: 1
-    isCleared: 0
-  - chapterNum: 1
-    stageNum: 4
-    stageType: 1
-    isCleared: 0
-  - chapterNum: 1
-    stageNum: 5
-    stageType: 1
-    isCleared: 0
-  - chapterNum: 1
-    stageNum: 6
-    stageType: 1
-    isCleared: 0
-  - chapterNum: 1
-    stageNum: 1
-    stageType: 2
-    isCleared: 0
-  - chapterNum: 1
-    stageNum: 2
-    stageType: 2
-    isCleared: 0
-  - chapterNum: 1
-    stageNum: 3
-    stageType: 2
-    isCleared: 0
-  - chapterNum: 1
-    stageNum: 4
-    stageType: 2
-    isCleared: 0
-  - chapterNum: 2
-    stageNum: 1
-    stageType: 0
-    isCleared: 1
-  - chapterNum: 2
-    stageNum: 2
-    stageType: 0
-    isCleared: 0
-  - chapterNum: 2
-    stageNum: 3
-    stageType: 0
-    isCleared: 0
-  - chapterNum: 2
-    stageNum: 4
-    stageType: 0
-    isCleared: 0
-  - chapterNum: 2
-    stageNum: 5
-    stageType: 0
-    isCleared: 0
-  - chapterNum: 2
-    stageNum: 6
-    stageType: 0
-    isCleared: 0
-  - chapterNum: 2
-    stageNum: 7
-    stageType: 0
-    isCleared: 0
-  - chapterNum: 2
-    stageNum: 8
-    stageType: 0
-    isCleared: 0
-  - chapterNum: 2
-    stageNum: 1
-    stageType: 1
-    isCleared: 0
-  - chapterNum: 2
-    stageNum: 3
-    stageType: 1
-    isCleared: 0
-  - chapterNum: 2
-    stageNum: 4
-    stageType: 1
-    isCleared: 0
-  - chapterNum: 2
-    stageNum: 7
-    stageType: 1
-    isCleared: 0
-  - chapterNum: 2
-    stageNum: 1
-    stageType: 2
-    isCleared: 0
-  - chapterNum: 2
-    stageNum: 2
-    stageType: 2
-    isCleared: 0
-  - chapterNum: 2
-    stageNum: 3
-    stageType: 2
-    isCleared: 0
-  - chapterNum: 2
-    stageNum: 4
-    stageType: 2
-    isCleared: 0
-  - chapterNum: 3
-    stageNum: 1
-    stageType: 0
-    isCleared: 0
-  - chapterNum: 3
-    stageNum: 2
-    stageType: 0
-    isCleared: 0
-  - chapterNum: 3
-    stageNum: 3
-    stageType: 0
-    isCleared: 0
-  - chapterNum: 3
-    stageNum: 4
-    stageType: 0
-    isCleared: 0
-  - chapterNum: 3
-    stageNum: 5
-    stageType: 0
-    isCleared: 0
-  - chapterNum: 3
-    stageNum: 6
-    stageType: 0
-    isCleared: 0
-  - chapterNum: 3
-    stageNum: 7
-    stageType: 0
-    isCleared: 0
-  - chapterNum: 3
-    stageNum: 8
-    stageType: 0
-    isCleared: 0
-  - chapterNum: 3
-    stageNum: 2
-    stageType: 1
-    isCleared: 0
-  - chapterNum: 3
-    stageNum: 3
-    stageType: 1
-    isCleared: 0
-  - chapterNum: 3
-    stageNum: 6
-    stageType: 1
-    isCleared: 0
-  - chapterNum: 3
-    stageNum: 7
-    stageType: 1
-    isCleared: 0
-  - chapterNum: 3
-    stageNum: 1
-    stageType: 2
-    isCleared: 0
-  - chapterNum: 3
-    stageNum: 2
-    stageType: 2
-    isCleared: 0
-  - chapterNum: 3
-    stageNum: 3
-    stageType: 2
-    isCleared: 0
-  - chapterNum: 3
-    stageNum: 4
-    stageType: 2
-    isCleared: 0
-  greetingPosition: {x: -1.1000011, y: -2.2}
-  greetingSize: 1.3000003
-  onyxValue: 3050
-  playerLevel: 4
   levelUpCost: f4010000e8030000dc050000d0070000c4090000b80b0000ac0d0000a00f000094110000
-  bioroidInformations: {fileID: 0}
-  owningBioroidsIds: 190000000104000011000000
-  aideBioroidId: 17
+  bioroidInformations: {fileID: 11400000, guid: 9fd8b776ceeaa0a4c9d5b6997b43f84d, type: 2}

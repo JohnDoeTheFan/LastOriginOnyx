@@ -10,26 +10,19 @@ namespace Onyx.Communication
     [CreateAssetMenu(menuName = "Utility/SaveData")]
     public class SaveDataAsset : ScriptableObject
     {
-        [SerializeField] private int saveDataVersion;
+        [SerializeField] private SaveData saveData;
         [SerializeField] private bool doNotSaveForTest;
         [SerializeField] private Vector2 networkDelay;
-        [SerializeField] private List<StageInfo> stageClearedList;
-        [SerializeField] private Vector2 greetingPosition;
-        [SerializeField] private float greetingSize;
-        [SerializeField] private int onyxValue;
-        [SerializeField] private int playerLevel = 1;
         [SerializeField] private List<int> levelUpCost;
         [SerializeField] private BioroidList bioroidInformations;
-        [SerializeField] private List<int> owningBioroidsIds;
-        [SerializeField] private int aideBioroidId;
 
         public Vector2 NetworkDelay => networkDelay;
-        public Vector2 GreetingPosition => greetingPosition;
-        public float GreetingSize => greetingSize;
-        public int OnyxValue => onyxValue;
-        public int PlayerLevel => playerLevel;
-        public int AideBioroidId => aideBioroidId;
-        public ReadOnlyCollection<int> OwningBioroidsIds => owningBioroidsIds.AsReadOnly();
+        public Vector2 GreetingPosition => saveData.greetingPosition;
+        public float GreetingSize => saveData.greetingSize;
+        public int OnyxValue => saveData.onyxValue;
+        public int PlayerLevel => saveData.playerLevel;
+        public int AideBioroidId => saveData.aideBioroidId;
+        public ReadOnlyCollection<int> OwningBioroidsIds => saveData.owningBioroidsIds.AsReadOnly();
 
         public void SetDoNotSaveForTest(bool doNot)
         {
@@ -38,7 +31,7 @@ namespace Onyx.Communication
 
         public bool IsStageCleared(int chapterNum, int stageNum, int stageType)
         {
-            StageInfo stageInfo = stageClearedList.Find((item) => item.chapterNum == chapterNum && item.stageNum == stageNum && item.stageType == stageType);
+            StageInfo stageInfo = saveData.stageClearedList.Find((item) => item.chapterNum == chapterNum && item.stageNum == stageNum && item.stageType == stageType);
 
             if (IsVaild(stageInfo))
                 return stageInfo.isCleared;
@@ -53,13 +46,13 @@ namespace Onyx.Communication
 
         public void SetStageCleared(int chapterNum, int stageNum, int stageType)
         {
-            int index = stageClearedList.FindIndex((item) => item.chapterNum == chapterNum && item.stageNum == stageNum && item.stageType == stageType);
+            int index = saveData.stageClearedList.FindIndex((item) => item.chapterNum == chapterNum && item.stageNum == stageNum && item.stageType == stageType);
 
             if (index != -1)
             {
-                StageInfo stageInfo = stageClearedList[index];
+                StageInfo stageInfo = saveData.stageClearedList[index];
                 stageInfo.isCleared = true;
-                stageClearedList[index] = stageInfo;
+                saveData.stageClearedList[index] = stageInfo;
             }
             else
             {
@@ -68,7 +61,7 @@ namespace Onyx.Communication
                 newStageInfo.stageNum = stageNum;
                 newStageInfo.stageType = stageType;
                 newStageInfo.isCleared = true;
-                stageClearedList.Add(newStageInfo);
+                saveData.stageClearedList.Add(newStageInfo);
             }
 
             SaveAsFile();
@@ -76,15 +69,15 @@ namespace Onyx.Communication
 
         public void SetGreetingData(Vector2 position, float size)
         {
-            greetingPosition = position;
-            greetingSize = size;
+            saveData.greetingPosition = position;
+            saveData.greetingSize = size;
 
             SaveAsFile();
         }
 
         public void AddOnyx(int onyxValue)
         {
-            this.onyxValue += onyxValue;
+            saveData.onyxValue += onyxValue;
 
             SaveAsFile();
         }
@@ -92,10 +85,10 @@ namespace Onyx.Communication
 
         public bool LevelUpPlayer()
         {
-            if (IsNotMaxLevel() && onyxValue >= GetLevelUpCost())
+            if (IsNotMaxLevel() && saveData.onyxValue >= GetLevelUpCost())
             {
-                onyxValue -= GetLevelUpCost();
-                playerLevel += 1;
+                saveData.onyxValue -= GetLevelUpCost();
+                saveData.playerLevel += 1;
 
                 SaveAsFile();
 
@@ -107,7 +100,7 @@ namespace Onyx.Communication
 
         public int GetLevelUpCost()
         {
-            int index = playerLevel - 1;
+            int index = saveData.playerLevel - 1;
             if (IsNotMaxLevel())
                 return levelUpCost[index];
             else
@@ -116,7 +109,7 @@ namespace Onyx.Communication
 
         public bool IsNotMaxLevel()
         {
-            int index = playerLevel - 1;
+            int index = saveData.playerLevel - 1;
             return index < levelUpCost.Count;
         }
 
@@ -127,17 +120,17 @@ namespace Onyx.Communication
             if(foundedIndex == -1)
                 return false;
 
-            if (onyxValue < bioroids[foundedIndex].UnlockCost)
+            if (saveData.onyxValue < bioroids[foundedIndex].UnlockCost)
                 return false;
 
-            if (playerLevel < bioroids[foundedIndex].UnlockLevel)
+            if (saveData.playerLevel < bioroids[foundedIndex].UnlockLevel)
                 return false;
 
-            if (owningBioroidsIds.Contains(bioroidId))
+            if (saveData.owningBioroidsIds.Contains(bioroidId))
                 return false;
 
-            onyxValue -= bioroids[foundedIndex].UnlockCost;
-            owningBioroidsIds.Add(bioroidId);
+            saveData.onyxValue -= bioroids[foundedIndex].UnlockCost;
+            saveData.owningBioroidsIds.Add(bioroidId);
 
             SaveAsFile();
             return true;
@@ -155,7 +148,7 @@ namespace Onyx.Communication
 
         public void SetAideBioroidId(int aideBioroidId)
         {
-            this.aideBioroidId = aideBioroidId;
+            saveData.aideBioroidId = aideBioroidId;
 
             SaveAsFile();
         }
@@ -166,7 +159,7 @@ namespace Onyx.Communication
                 return;
 
             string fullPath = Path.Combine(Application.persistentDataPath, "OnyxSaveData0.dat");
-            string jsonData = JsonUtility.ToJson(this);
+            string jsonData = JsonUtility.ToJson(saveData);
 
             try
             {
@@ -187,8 +180,8 @@ namespace Onyx.Communication
             {
                 string jsonData = File.ReadAllText(fullPath);
                 Debug.Log("Loaded. Path: " + fullPath);
-
-                JsonUtility.FromJsonOverwrite(jsonData, this);
+                
+                saveData = JsonUtility.FromJson<SaveData>(jsonData);
 
                 return true;
             }
@@ -202,20 +195,20 @@ namespace Onyx.Communication
 
         internal void PrepareVersionCheck()
         {
-            saveDataVersion = 0;
+            saveData.saveDataVersion = 0;
         }
 
         public void UpdateSaveData0To1(SaveDataAsset defaultSaveData)
         {
-            if(saveDataVersion == 0)
+            if(saveData.saveDataVersion == 0)
             {
                 bioroidInformations = defaultSaveData.bioroidInformations;
-                owningBioroidsIds.Clear();
-                owningBioroidsIds.AddRange(defaultSaveData.owningBioroidsIds);
+                saveData.owningBioroidsIds.Clear();
+                saveData.owningBioroidsIds.AddRange(defaultSaveData.saveData.owningBioroidsIds);
 
-                aideBioroidId = defaultSaveData.aideBioroidId;
+                saveData.aideBioroidId = defaultSaveData.saveData.aideBioroidId;
 
-                saveDataVersion = 1;
+                saveData.saveDataVersion = 1;
             }
         }
 
@@ -226,6 +219,31 @@ namespace Onyx.Communication
             public int stageNum;
             public int stageType;
             public bool isCleared;
+        }
+
+        [System.Serializable]
+        private struct SaveData
+        {
+            public int saveDataVersion;
+            public List<StageInfo> stageClearedList;
+            public Vector2 greetingPosition;
+            public float greetingSize;
+            public int onyxValue;
+            public int playerLevel;
+            public List<int> owningBioroidsIds;
+            public int aideBioroidId;
+
+            public static SaveData Default = new SaveData
+            {
+                saveDataVersion = 1,
+                stageClearedList = new List<StageInfo>(),
+                greetingPosition = new Vector2(-2.5f, 1.1f),
+                greetingSize = 2.4f,
+                onyxValue = 0,
+                playerLevel = 1,
+                owningBioroidsIds = new List<int> { 25 },
+                aideBioroidId = 25,
+            };
         }
     }
 }
