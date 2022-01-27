@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: GameRuleDialogue
   m_EditorClassIdentifier: 
   dialogues:
-  - name: Tutori
-    text: Kill enemies as you can.
+  - name: "\uC870\uC791 \uC124\uBA85"
+    text: "\uC774\uB3D9: \uD654\uC0B4\uD45C"
     updateDuration: 0
-  - name: Another Tutori
-    text: Don't die.
+  - name: "\uC870\uC791 \uC124\uBA85"
+    text: "A: \uC7AC\uC7A5\uC804, Z: \uC0AC\uACA9, S: \uB300\uC26C, X: \uC810\uD504,
+      C: \uC218\uB958\uD0C4"
     updateDuration: 0

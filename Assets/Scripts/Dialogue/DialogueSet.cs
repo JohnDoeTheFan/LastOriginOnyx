@@ -6,9 +6,18 @@ using UnityEngine.Events;
 [CreateAssetMenu(menuName = "Utility/Dialogue/Set")]
 public class DialogueSet : ScriptableObject
 {
+    public enum PortraitPosition
+    {
+        Left,
+        Center,
+        Right
+    }
+
     [System.Serializable]
     public class Dialogue
     {
+        public Sprite Portrait;
+        public PortraitPosition PortraitPosition;
         public string name;
         public string text;
         public float updateDuration;

@@ -107,6 +107,15 @@ public class OnyxGameMode : RunAndGunGameMode
         void AfterMissionStartSequence()
         {
             Destroy(missionStartSequence.gameObject);
+
+            if (startingDialogue != null)
+                GetComponent<DialogueBehaviour>().StartDialogueDeck(startingDialogue, AfterStartDialogue);
+            else
+                AfterStartDialogue();
+        }
+
+        void AfterStartDialogue()
+        {
             mainGuiCanvas.gameObject.SetActive(true);
             commandPanel.Unlock(playerAbility);
             playerControlEnable = true;

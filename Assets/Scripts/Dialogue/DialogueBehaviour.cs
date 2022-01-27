@@ -92,6 +92,16 @@ public class DialogueBehaviour : MonoBehaviour
         string DialogueGui.ILine.Content => dialogue.text;
 
         float DialogueGui.ILine.UpdateDuration => dialogue.updateDuration;
+
+        Sprite DialogueGui.ILine.Portrait => dialogue.Portrait;
+
+        DialogueGui.PortraitPosition DialogueGui.ILine.PortraitPosition => dialogue.PortraitPosition switch
+        {
+            DialogueSet.PortraitPosition.Left => DialogueGui.PortraitPosition.Left,
+            DialogueSet.PortraitPosition.Center => DialogueGui.PortraitPosition.Center,
+            DialogueSet.PortraitPosition.Right => DialogueGui.PortraitPosition.Right,
+            _ => throw new NotImplementedException(),
+        };
     }
 
     private IEnumerator DialogueRoutine(Action onEnd)
