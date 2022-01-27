@@ -406,7 +406,7 @@ namespace Onyx
             float acceptedDamage = TakeDamage(damage);
 
             if(knockBackVelocity.sqrMagnitude > 0)
-                movement.AddDamageVelocity(new Vector2(knockBackVelocity.x, knockBackVelocity.y));
+                movement.SetOverridingVelocity(new Vector2(knockBackVelocity.x, knockBackVelocity.y));
 
             if(stiffenTime > 0)
                 remainStiffenTime = stiffenTime;
@@ -423,10 +423,15 @@ namespace Onyx
                 ability.OnKillEnemy(enemy.transform);
         }
 
+        void IAbilityHolder.SetVelocity(Vector2 velocity, float recoverTime)
+        {
+            movement.SetOverridingVelocity(velocity, recoverTime);
+        }
         void IAbilityHolder.AddVelocity(Vector2 velocity, float recoverTime)
         {
-            movement.AddSkillVelocity(velocity, recoverTime);
+            movement.AddAddtionalVelocity(velocity, recoverTime);
         }
+
         Vector2 IAbilityHolder.GetVelocityToStopOverGroundVelocity()
         {
             Vector2 velocityOverGroundVelocity = rigidBody.velocity - groundChecker.GetGroundVelocity();

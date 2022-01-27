@@ -86,6 +86,7 @@ namespace Onyx.Ability
         bool IsGrounded { get; }
         Animator ModelAnimator { get; }
 
+        void SetVelocity(Vector2 velocity, float recoverTime = 0f);
         void AddVelocity(Vector2 velocity, float recoverTime = 0f);
         void NotifyKillEnemy(GameObject enemy);
         void OccupyMovement(bool occupy);

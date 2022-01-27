@@ -20,12 +20,13 @@ public class RunnerMovement : OneAxisMovementBase
         bool isStopped = currentAbsVelocityX == 0;
         bool wasOverSpeed = !Mathf.Approximately(currentAbsVelocityX, maxVelocity) && currentAbsVelocityX > maxVelocity;
 
-        ProcessDamageVelocity();
-        if (remainDamageVelocityRecoverTime == 0 && remainSkillVelocityRecoverTime == 0)
+        ProcessAdditionalVelocity();
+        if (remainAdditionalVelocityRecoverTime == 0 && remainOverridingVelocityRecoverTime == 0)
             AddControlMomentum(inputDirection, isStopped, wasOverSpeed);
-        ProcessSkillVelocity();
+        if(_hasOverridingVelocityToProcess)
+            ProcessOverridingVelocity();
 
-        if (remainSkillVelocityRecoverTime == 0)
+        if (remainOverridingVelocityRecoverTime == 0)
         {
             if (wasOverSpeed)
                 AddOverSpeedRecoverMomentum();

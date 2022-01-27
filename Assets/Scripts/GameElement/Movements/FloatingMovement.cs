@@ -13,13 +13,14 @@ public class FloatingMovement : MovementBase
     {
         bool isStopped = rigidBody.velocity == Vector2.zero;
 
-        ProcessDamageVelocity();
+        ProcessAdditionalVelocity();
 
         if(! isDead)
         {
-            if (remainDamageVelocityRecoverTime == 0 && remainSkillVelocityRecoverTime == 0)
+            if (remainAdditionalVelocityRecoverTime == 0 && remainOverridingVelocityRecoverTime == 0)
                 AddControlMomentum(inputDirection, isStopped);
-            ProcessSkillVelocity();
+            if(_hasOverridingVelocityToProcess)
+                ProcessOverridingVelocity();
         }
     }
 

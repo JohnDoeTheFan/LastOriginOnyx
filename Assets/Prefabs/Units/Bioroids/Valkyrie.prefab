@@ -395,7 +395,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotatingParts: {fileID: 1274866191843599722}
-  damageVelocityRecoverTime: 0.2
+  _addtionalVelocityRecoverTime: 0.2
   groundChecker: {fileID: 3519570781410266153}
   maxVelocity: 6
   velocityReachTime: 0.001
@@ -456,7 +456,8 @@ MonoBehaviour:
     - time: 0.5
       data:
         shouldStopBeforeMove: 0
-        velocity: {x: -5, y: 0}
+        velocity: {x: -8, y: 0}
+        recoverTime: 0.5
     attackOnTime:
     - time: 0.5
       data: {fileID: 1818310115581396242}
@@ -471,11 +472,13 @@ MonoBehaviour:
     - time: 0
       data:
         shouldStopBeforeMove: 1
-        velocity: {x: 0, y: 0}
+        velocity: {x: 0, y: 5}
+        recoverTime: 0
     - time: 0.5
       data:
         shouldStopBeforeMove: 1
         velocity: {x: -3, y: 5}
+        recoverTime: 0.5
     attackOnTime:
     - time: 0.5
       data: {fileID: 86418643566786731}

@@ -18,13 +18,22 @@ public class FrictionRunnerMovement : OneAxisMovementBase
     {
         float currentAbsVelocityX = Mathf.Abs(rigidBody.velocity.x);
         bool isStopped = currentAbsVelocityX - groundChecker.GetGroundVelocity().x == 0;
-        if ((lastInputDirection != Vector2.zero && inputDirection != Vector2.zero) || remainDamageVelocityRecoverTime != 0 || remainSkillVelocityRecoverTime != 0)
+        if ((lastInputDirection != Vector2.zero && inputDirection != Vector2.zero) || remainAdditionalVelocityRecoverTime != 0 || remainOverridingVelocityRecoverTime != 0)
             shouldStop = true;
 
-        ProcessDamageVelocity();
-        if (remainDamageVelocityRecoverTime == 0 && remainSkillVelocityRecoverTime == 0)
+        if (_hasOverridingVelocityToProcess)
+        {
+            _additionalVelocity = Vector2.zero;
+            ProcessOverridingVelocity();
+        }
+        else if(_additionalVelocity != Vector2.zero)
+        {
+            ProcessAdditionalVelocity();
+        }
+        else if(remainAdditionalVelocityRecoverTime == 0 && remainOverridingVelocityRecoverTime == 0)
+        {
             AddControlMomentum(inputDirection, isStopped);
-        ProcessSkillVelocity();
+        }
     }
 
     private void AddControlMomentum(Vector2 inputDirection, bool isStopped)
@@ -77,6 +86,16 @@ public class FrictionRunnerMovement : OneAxisMovementBase
             StopUnit();
             shouldStop = false;
         }
+    }
+
+    protected override void ProcessOverridingVelocity()
+    {
+        Vector2 pureVelocity = rigidBody.velocity - groundChecker.GetGroundVelocity();
+        Vector2 stoppingVelocity = pureVelocity * -1;
+        Vector2 VelocityToAdd = stoppingVelocity + _overridingVelocity;
+        rigidBody.AddForce(VelocityToAdd * rigidBody.mass, ForceMode2D.Impulse);
+        _overridingVelocity = Vector2.zero;
+        _hasOverridingVelocityToProcess = false;
     }
 
     /// <summary>

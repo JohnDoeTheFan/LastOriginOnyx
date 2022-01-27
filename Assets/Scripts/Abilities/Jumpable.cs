@@ -78,17 +78,7 @@ public class Jumpable : AbilityBase, GroundChecker.ISubscriber
         if (abilityHolder.isFacingLeft)
             dashVelocityToAdd.x *= -1;
 
-        float controlVelocity = rigidBody.velocity.x - groundChecker.GetGroundVelocity().x;
-
-        if (dashVelocityToAdd.x * controlVelocity > 0)
-            dashVelocityToAdd.x -= controlVelocity;
-
-        if (rigidBody.velocity.y < 0)
-            dashVelocityToAdd.y += -rigidBody.velocity.y;
-        else
-            dashVelocityToAdd.y -= rigidBody.velocity.y;
-
-        abilityHolder.AddVelocity(dashVelocityToAdd, dashRecoverTime);
+        abilityHolder.SetVelocity(dashVelocityToAdd, dashRecoverTime);
         abilityHolder.ModelAnimator.SetTrigger(dashStringToHash);
 
         Instantiate<GameObject>(afterImagePrefab, transform.position, transform.rotation);

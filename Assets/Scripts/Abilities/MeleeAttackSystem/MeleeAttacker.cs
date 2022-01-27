@@ -135,12 +135,7 @@ public class MeleeAttacker : AbilityBase, MeleeAttack.ISubscriber
                 comboResetTimer = StartCoroutine(ResetComboCount(currentCombo.duration));
 
             foreach (DataOnTime<Move> moveOnTime in currentCombo.moveOnTimes)
-            {
-                if (currentCombo.canUseInAir)
-                    StartCoroutine(Job(() => WaitForSecondsRoutine(moveOnTime.time), () => AddVelocity(moveOnTime.data.velocity, moveOnTime.data.shouldStopBeforeMove)));
-                else
-                    StartCoroutine(Job(() => WaitForSecondsRoutine(moveOnTime.time), () => AddVelocity(moveOnTime.data.velocity)));
-            }
+                StartCoroutine(Job(() => WaitForSecondsRoutine(moveOnTime.time), () => AddMove(moveOnTime.data)));
                 
 
             foreach (DataOnTime<MeleeAttack> attackOnTime in currentCombo.attackOnTime)
@@ -174,22 +169,16 @@ public class MeleeAttacker : AbilityBase, MeleeAttack.ISubscriber
         currentCombos = null;
     }
 
-    private void AddVelocity(Vector2 velocity, bool shouldStopBeforeAdd = false)
+    private void AddMove(Move move)
     {
-
-        Vector2 velocityWithFacingDirection = velocity;
+        Vector2 velocityWithFacingDirection = move.velocity;
         if (abilityHolder.isFacingLeft)
             velocityWithFacingDirection.x *= -1;
 
-        if(shouldStopBeforeAdd)
-        {
-            Vector2 velocityToStop = abilityHolder.GetVelocityToStopOverGroundVelocity();
-            velocityWithFacingDirection += velocityToStop;
-        }
-
-
-        abilityHolder.AddVelocity(velocityWithFacingDirection, 0.2f);
-        Debug.Log(velocityWithFacingDirection);
+        if (move.shouldStopBeforeMove)
+            abilityHolder.SetVelocity(velocityWithFacingDirection, move.recoverTime);
+        else
+            abilityHolder.AddVelocity(velocityWithFacingDirection, move.recoverTime);
     }
 
     void MeleeAttack.ISubscriber.OnHit(MeleeAttack attack, IHitReactor hitReactor, IHitReactor.HitResult hitResult)
@@ -223,6 +212,7 @@ public class MeleeAttacker : AbilityBase, MeleeAttack.ISubscriber
     {
         public bool shouldStopBeforeMove;
         public Vector2 velocity;
+        public float recoverTime;
     }
 
     [System.Serializable]

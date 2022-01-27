@@ -6,14 +6,15 @@ using UnityEngine;
 public abstract class MovementBase : MonoBehaviour
 {
     [SerializeField] Transform rotatingParts;
-    [SerializeField, Range(0, 5f)] private float damageVelocityRecoverTime = 0.2f;
+    [SerializeField, Range(0, 5f)] private float _defaultRecoverTime = 0.2f;
 
     protected Rigidbody2D rigidBody;
 
-    protected float remainDamageVelocityRecoverTime = 0;
-    protected float remainSkillVelocityRecoverTime = 0;
-    protected Vector2 velocityChangeByDamage;
-    protected Vector2 velocityChangeBySkill;
+    protected float remainAdditionalVelocityRecoverTime = 0;
+    protected float remainOverridingVelocityRecoverTime = 0;
+    protected Vector2 _additionalVelocity;
+    protected bool _hasOverridingVelocityToProcess = false;
+    protected Vector2 _overridingVelocity;
     protected Vector2 lastInputDirection = Vector2.zero;
 
     public bool IsMovementOccupied { get; set; }
@@ -35,8 +36,8 @@ public abstract class MovementBase : MonoBehaviour
 
         OnUpdateMovement(inputDirection);
 
-        remainDamageVelocityRecoverTime = Mathf.Max(0, remainDamageVelocityRecoverTime - Time.deltaTime);
-        remainSkillVelocityRecoverTime = Mathf.Max(0, remainSkillVelocityRecoverTime - Time.deltaTime);
+        remainAdditionalVelocityRecoverTime = Mathf.Max(0, remainAdditionalVelocityRecoverTime - Time.deltaTime);
+        remainOverridingVelocityRecoverTime = Mathf.Max(0, remainOverridingVelocityRecoverTime - Time.deltaTime);
 
         lastInputDirection = leftStickInput;
     }
@@ -66,41 +67,50 @@ public abstract class MovementBase : MonoBehaviour
     /// <summary>
     /// 피해로 인한 운동량(넉백)을 가한다.
     /// </summary>
-    protected void ProcessDamageVelocity()
+    protected void ProcessAdditionalVelocity()
     {
-        if (velocityChangeByDamage != Vector2.zero)
+        if (_additionalVelocity != Vector2.zero)
         {
-            rigidBody.AddForce(velocityChangeByDamage * rigidBody.mass, ForceMode2D.Impulse);
-            velocityChangeByDamage = Vector2.zero;
+            rigidBody.AddForce(_additionalVelocity * rigidBody.mass, ForceMode2D.Impulse);
+            _additionalVelocity = Vector2.zero;
         }
     }
 
-    protected void ProcessSkillVelocity()
+    protected virtual void ProcessOverridingVelocity()
     {
-        if (velocityChangeBySkill != Vector2.zero)
-        {
-            rigidBody.AddForce(velocityChangeBySkill * rigidBody.mass, ForceMode2D.Impulse);
-            velocityChangeBySkill = Vector2.zero;
-        }
+        Vector2 stoppingVelocity = rigidBody.velocity * -1;
+        Vector2 VelocityToAdd = stoppingVelocity + _overridingVelocity;
+        rigidBody.AddForce(VelocityToAdd * rigidBody.mass, ForceMode2D.Impulse);
+        _overridingVelocity = Vector2.zero;
+        _hasOverridingVelocityToProcess = false;
     }
 
-    public void AddDamageVelocity(Vector2 damageVelocity)
+    public void AddAddtionalVelocity(Vector2 additionalVelocity)
     {
-        velocityChangeByDamage += damageVelocity;
-        remainDamageVelocityRecoverTime = damageVelocityRecoverTime;
+        _additionalVelocity += additionalVelocity;
+        remainAdditionalVelocityRecoverTime = _defaultRecoverTime;
     }
 
-    public void AddDamageVelocity(Vector2 damageVelocity, float damageVelocityRecoverTime)
+    public void AddAddtionalVelocity(Vector2 additionalVelocity, float recoverTime)
     {
-        velocityChangeByDamage += damageVelocity;
-        remainDamageVelocityRecoverTime = damageVelocityRecoverTime;
+        _additionalVelocity += additionalVelocity;
+        remainAdditionalVelocityRecoverTime = recoverTime;
     }
 
-    public void AddSkillVelocity(Vector2 skillVelocity, float skillVelocityRecoverTime)
+    public void SetOverridingVelocity(Vector2 overridingVelocity)
     {
-        remainSkillVelocityRecoverTime = skillVelocityRecoverTime;
-        velocityChangeBySkill = skillVelocity;
+        _hasOverridingVelocityToProcess = true;
+        _overridingVelocity = overridingVelocity;
+        remainOverridingVelocityRecoverTime = _defaultRecoverTime;
     }
+
+    public void SetOverridingVelocity(Vector2 overridingVelocity, float recoverTime)
+    {
+        _hasOverridingVelocityToProcess = true;
+        _overridingVelocity = overridingVelocity;
+        remainOverridingVelocityRecoverTime = recoverTime;
+    }
+
     public void SetDead()
     {
         OnDead();
