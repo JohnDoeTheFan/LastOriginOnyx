@@ -374,10 +374,10 @@ MonoBehaviour:
   dustParticleSystem: {fileID: 5824086015507959240}
   dustMakingVelocity: 3
   bulletHitAudio: {fileID: 6952479380163805287}
-  stageStartVoice: {fileID: 8300000, guid: 7576b5c65335fef43934b9ba107c8668, type: 3}
-  retireVoice: {fileID: 8300000, guid: e717bde15d6fa0f46ae7df3103373a76, type: 3}
-  retreatVoice: {fileID: 8300000, guid: 942d075b2b9b4e641b04ee23599ce35a, type: 3}
-  stageClearVoice: {fileID: 8300000, guid: 0d482f4c99ac11a489f91a4a09b04a13, type: 3}
+  stageStartVoice: {fileID: 8300000, guid: 6f786e4b50b2e0140a3e0d28cbd3dc31, type: 3}
+  retireVoice: {fileID: 8300000, guid: 2353c25c274c5324bbbd27392a663ed0, type: 3}
+  retreatVoice: {fileID: 8300000, guid: 55f4eb310888a2949ac18be293ae9901, type: 3}
+  stageClearVoice: {fileID: 8300000, guid: 2839bf7322fe54f4f9e5aed7f4687b7d, type: 3}
   level: 0
   levelOfDifficulty: 0
   healthMultipliers: {fileID: 11400000, guid: 350ed219e736b1a49955c09116327240, type: 2}
