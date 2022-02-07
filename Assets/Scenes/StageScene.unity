@@ -2164,7 +2164,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -8940239162049289531, guid: 399d9db9d815e724bb8336681b2cd717, type: 3}
+  m_Sprite: {fileID: 6391251434595328388, guid: 399d9db9d815e724bb8336681b2cd717, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -3582,7 +3582,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 103
+  m_SortingOrder: 104
   m_TargetDisplay: 0
 --- !u!1 &491763427
 GameObject:
@@ -9517,7 +9517,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 104
+  m_SortingOrder: 103
   m_TargetDisplay: 0
 --- !u!224 &1476319226
 RectTransform:
@@ -9576,6 +9576,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1476319226}
     m_Modifications:
+    - target: {fileID: 702664479352502477, guid: d6c1a7b62976a1041b83bdabe0310744, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 240
+      objectReference: {fileID: 0}
     - target: {fileID: 2808078837656577781, guid: d6c1a7b62976a1041b83bdabe0310744, type: 3}
       propertyPath: m_SizeDelta.x
       value: 50
@@ -9622,7 +9626,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2808078838143823379, guid: d6c1a7b62976a1041b83bdabe0310744, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2808078838143823379, guid: d6c1a7b62976a1041b83bdabe0310744, type: 3}
       propertyPath: m_AnchorMin.x
@@ -9634,11 +9638,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2808078838143823379, guid: d6c1a7b62976a1041b83bdabe0310744, type: 3}
       propertyPath: m_SizeDelta.x
-      value: -80
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2808078838143823379, guid: d6c1a7b62976a1041b83bdabe0310744, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 300
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2808078838143823379, guid: d6c1a7b62976a1041b83bdabe0310744, type: 3}
       propertyPath: m_LocalPosition.x
@@ -9674,7 +9678,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2808078838143823379, guid: d6c1a7b62976a1041b83bdabe0310744, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 315
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2808078838143823379, guid: d6c1a7b62976a1041b83bdabe0310744, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -9692,13 +9696,9 @@ PrefabInstance:
       propertyPath: defaultFadeDuration
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 7641323506826466099, guid: d6c1a7b62976a1041b83bdabe0310744, type: 3}
+    - target: {fileID: 5832468071921181199, guid: d6c1a7b62976a1041b83bdabe0310744, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 240
-      objectReference: {fileID: 0}
-    - target: {fileID: 8294298409711356994, guid: d6c1a7b62976a1041b83bdabe0310744, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 240
+      value: 310
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d6c1a7b62976a1041b83bdabe0310744, type: 3}
@@ -10640,7 +10640,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameStartPosition: {fileID: 213440514}
   playerControlEnable: 1
-  startingDialogue: {fileID: 0}
+  startingDialogue: {fileID: 11400000, guid: d7fd6d9d12a6a6f4bb5edf969a073e57, type: 2}
   mainCamera: {fileID: 1654023881}
   debugGui: {fileID: 0}
   fadeGui: {fileID: 1926117881}

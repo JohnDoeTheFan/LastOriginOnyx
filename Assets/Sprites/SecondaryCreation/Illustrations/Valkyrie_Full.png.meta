@@ -4,10 +4,16 @@ TextureImporter:
   internalIDToNameTable:
   - first:
       213: -3864263617369355820
-    second: Valkyrie_Full_0
+    second: Valkyrie_Lobby_Full
   - first:
       213: -3415362087402567004
-    second: Valkyrie_Full_1
+    second: Valkyrie_Dialogue
+  - first:
+      213: -5012922847627532625
+    second: Valkyrie_Lobby_Portrait
+  - first:
+      213: 3109179319042508
+    second: Valkyrie_InGame_Portrait
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -109,7 +115,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Valkyrie_Full_0
+      name: Valkyrie_Lobby_Full
       rect:
         serializedVersion: 2
         x: 0
@@ -130,15 +136,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Valkyrie_Full_1
+      name: Valkyrie_Dialogue
       rect:
         serializedVersion: 2
-        x: 509
-        y: 1358
-        width: 630
-        height: 630
+        x: 462
+        y: 842
+        width: 700
+        height: 1120
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -146,6 +152,27 @@ TextureImporter:
       bones: []
       spriteID: 4aa8801e6423a90d0800000000000000
       internalID: -3415362087402567004
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Valkyrie_Lobby_Portrait
+      rect:
+        serializedVersion: 2
+        x: 645
+        y: 1629
+        width: 330
+        height: 330
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fa6a8bcca358e6ab0800000000000000
+      internalID: -5012922847627532625
       vertices: []
       indices: 
       edges: []

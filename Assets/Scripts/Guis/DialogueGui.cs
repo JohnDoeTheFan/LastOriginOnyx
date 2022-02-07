@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class DialogueGui : MonoBehaviour
 {
+    public event Action ClickedSkipButton;
+
     [SerializeField] private Text speakerNameText;
     [SerializeField] private Text lineContentText;
     [SerializeField] private AudioClip updateSound;
@@ -40,6 +42,18 @@ public class DialogueGui : MonoBehaviour
 
     bool shouldSkipCurrentLine = false;
 
+    public void Clear()
+    {
+        leftPortrait.sprite = null;
+        centerPortrait.sprite = null;
+        rightPortrait.sprite = null;
+
+        Color transparent = new Color(1, 1, 1, 0);
+        leftPortrait.color = transparent;
+        centerPortrait.color = transparent;
+        rightPortrait.color = transparent;
+    }
+
     public bool StartLine(ILine line, Action onEnd)
     {
         if (IsAvailable)
@@ -66,14 +80,7 @@ public class DialogueGui : MonoBehaviour
 
     public void HideGui()
     {
-        leftPortrait.sprite = null;
-        centerPortrait.sprite = null;
-        rightPortrait.sprite = null;
-
-        Color transparent = new Color(1, 1, 1, 0);
-        leftPortrait.color = transparent;
-        centerPortrait.color = transparent;
-        rightPortrait.color = transparent;
+        Clear();
 
         gameObject.SetActive(false);
     }
@@ -128,26 +135,30 @@ public class DialogueGui : MonoBehaviour
         targetImage.sprite = line.Portrait;
         if (targetImage.sprite != null)
             yield return Fade(targetImage, 0, 1, fadeDuration, TargetFrameTime, () => shouldSkipCurrentLine);
-        
-        static void SetAlpha(Image image, float newAlpha)
-        {
-            Color newColor = image.color;
-            newColor.a = newAlpha;
-            image.color = newColor;
-        }
-
-        static IEnumerator Fade(Image image, float from, float to, float duration, float frameTime, Func<bool> shouldSkipImmediately)
-        {
-            float alpha = from;
-            float fadeValue = (to - from) / duration * frameTime;
-            while(!shouldSkipImmediately() && alpha != to)
-            {
-                yield return new WaitUntilOrForSeconds(shouldSkipImmediately, frameTime);
-                alpha = Mathf.Clamp(alpha + fadeValue, Mathf.Min(to, from), Mathf.Max(to, from));
-                SetAlpha(image, alpha);
-            }
-            SetAlpha(image, to);
-        }
     }
 
+    private static IEnumerator Fade(Image image, float from, float to, float duration, float frameTime, Func<bool> shouldSkipImmediately)
+    {
+        float alpha = from;
+        float fadeValue = (to - from) / duration * frameTime;
+        while (!shouldSkipImmediately() && alpha != to)
+        {
+            yield return new WaitUntilOrForSeconds(shouldSkipImmediately, frameTime);
+            alpha = Mathf.Clamp(alpha + fadeValue, Mathf.Min(to, from), Mathf.Max(to, from));
+            SetAlpha(image, alpha);
+        }
+        SetAlpha(image, to);
+    }
+
+    private static void SetAlpha(Image image, float newAlpha)
+    {
+        Color newColor = image.color;
+        newColor.a = newAlpha;
+        image.color = newColor;
+    }
+
+    public void NotifyClickedSkipButton()
+    {
+        ClickedSkipButton?.Invoke();
+    }
 }

@@ -4,16 +4,16 @@ TextureImporter:
   internalIDToNameTable:
   - first:
       213: -8757636010140454011
-    second: Perrault_Full_0
+    second: Perrault_Lobby_Full
   - first:
       213: -1371049151711553386
-    second: Perrault_Full_1
+    second: Perrault_Lobby_Portrait
   - first:
       213: -732572089373132368
-    second: Perrault_Full_2
+    second: Perrault_InGamePortrait
   - first:
       213: -943692595650219519
-    second: Perrault_Full_3
+    second: Perrault_Dialogue
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -115,7 +115,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Perrault_Full_0
+      name: Perrault_Lobby_Full
       rect:
         serializedVersion: 2
         x: 0
@@ -136,13 +136,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Perrault_Full_1
+      name: Perrault_Lobby_Portrait
       rect:
         serializedVersion: 2
-        x: 707
-        y: 1371
-        width: 630
-        height: 630
+        x: 654
+        y: 1378
+        width: 670
+        height: 670
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -157,34 +157,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Perrault_Full_2
+      name: Perrault_Dialogue
       rect:
         serializedVersion: 2
-        x: 721
-        y: 1428
-        width: 600
-        height: 589
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 0b97c88e09165d5f0800000000000000
-      internalID: -732572089373132368
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Perrault_Full_3
-      rect:
-        serializedVersion: 2
-        x: 444
-        y: 341
-        width: 1305
-        height: 1707
+        x: 396
+        y: 0
+        width: 1280
+        height: 2048
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}

@@ -15,9 +15,23 @@ public class DialogueBehaviour : MonoBehaviour
     private int setIndex;
 
     private bool isPreserved = false;
-    public bool IsAvailable => !isPreserved;
+    private Action _onFinished;
+    private Coroutine _dialogueCoroutine;
 
+    public bool IsAvailable => !isPreserved;
     private bool HasNextDialogue => dialogue != null;
+
+    private void OnEnable()
+    {
+        if(dialogueGui != null)
+            dialogueGui.ClickedSkipButton += OnClickedSkipButton;
+    }
+
+    private void OnDisable()
+    {
+        if (dialogueGui != null)
+            dialogueGui.ClickedSkipButton -= OnClickedSkipButton;
+    }
 
     private void Update()
     {
@@ -25,6 +39,27 @@ public class DialogueBehaviour : MonoBehaviour
         {
             dialogueGui.SkipLine();
         }
+    }
+
+    public void OnClickedSkipButton()
+    {
+        StopDialogue();
+    }
+
+    public void StopDialogue()
+    {
+        if(_dialogueCoroutine != null)
+            StopCoroutine(_dialogueCoroutine);
+
+        FinishDialogue();
+    }
+
+    private void FinishDialogue()
+    {
+        isPreserved = false;
+        dialogueGui.HideGui();
+        _onFinished.Invoke();
+        _onFinished = null;
     }
 
     public bool StartDialogue(DialogueSet.Dialogue dialogue, Action onEnd)
@@ -71,7 +106,7 @@ public class DialogueBehaviour : MonoBehaviour
 
             dialogueIndex = 1;
             setIndex = 1;
-            StartCoroutine(DialogueRoutine(onEnd));
+            _dialogueCoroutine = StartCoroutine(DialogueRoutine(onEnd));
 
             return true;
         }
@@ -79,35 +114,13 @@ public class DialogueBehaviour : MonoBehaviour
             return false;
     }
 
-    private class Line : DialogueGui.ILine
-    {
-        readonly DialogueSet.Dialogue dialogue;
-        public Line(DialogueSet.Dialogue dialogue)
-        {
-            this.dialogue = dialogue;
-        }
-
-        string DialogueGui.ILine.SpeakerName => dialogue.name;
-
-        string DialogueGui.ILine.Content => dialogue.text;
-
-        float DialogueGui.ILine.UpdateDuration => dialogue.updateDuration;
-
-        Sprite DialogueGui.ILine.Portrait => dialogue.Portrait;
-
-        DialogueGui.PortraitPosition DialogueGui.ILine.PortraitPosition => dialogue.PortraitPosition switch
-        {
-            DialogueSet.PortraitPosition.Left => DialogueGui.PortraitPosition.Left,
-            DialogueSet.PortraitPosition.Center => DialogueGui.PortraitPosition.Center,
-            DialogueSet.PortraitPosition.Right => DialogueGui.PortraitPosition.Right,
-            _ => throw new NotImplementedException(),
-        };
-    }
-
     private IEnumerator DialogueRoutine(Action onEnd)
     {
         isPreserved = true;
-        while(HasNextDialogue)
+        _onFinished = onEnd;
+
+        dialogueGui.Clear();
+        while (HasNextDialogue)
         {
             bool isLineFinished = false;
             dialogueGui.StartLine(new Line(GetDialogue()), () => isLineFinished = true);
@@ -116,9 +129,7 @@ public class DialogueBehaviour : MonoBehaviour
             yield return new WaitUntil(() => Input.GetKeyDown("z"));
         }
 
-        isPreserved = false;
-        dialogueGui.HideGui();
-        onEnd();
+        FinishDialogue();
     }
 
     private DialogueSet.Dialogue GetDialogue()
@@ -166,5 +177,28 @@ public class DialogueBehaviour : MonoBehaviour
         }
     }
 
+    private class Line : DialogueGui.ILine
+    {
+        readonly DialogueSet.Dialogue dialogue;
+        public Line(DialogueSet.Dialogue dialogue)
+        {
+            this.dialogue = dialogue;
+        }
 
+        string DialogueGui.ILine.SpeakerName => dialogue.name;
+
+        string DialogueGui.ILine.Content => dialogue.text;
+
+        float DialogueGui.ILine.UpdateDuration => dialogue.updateDuration;
+
+        Sprite DialogueGui.ILine.Portrait => dialogue.Portrait;
+
+        DialogueGui.PortraitPosition DialogueGui.ILine.PortraitPosition => dialogue.PortraitPosition switch
+        {
+            DialogueSet.PortraitPosition.Left => DialogueGui.PortraitPosition.Left,
+            DialogueSet.PortraitPosition.Center => DialogueGui.PortraitPosition.Center,
+            DialogueSet.PortraitPosition.Right => DialogueGui.PortraitPosition.Right,
+            _ => throw new NotImplementedException(),
+        };
+    }
 }
