@@ -3516,7 +3516,7 @@ RectTransform:
   m_Children:
   - {fileID: 1713432957}
   m_Father: {fileID: 0}
-  m_RootOrder: 16
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -9532,7 +9532,7 @@ RectTransform:
   m_Children:
   - {fileID: 1506387634}
   m_Father: {fileID: 0}
-  m_RootOrder: 17
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -10676,7 +10676,7 @@ MonoBehaviour:
   followerWithCamera: {fileID: 1654023884}
   startRoom: {fileID: 13973662}
   endRoomPrefab: {fileID: 738292721402749424, guid: 5e1a2423fd186f94b93e4d5a4540fe49, type: 3}
-  testRoomPrefab: {fileID: 0}
+  testRoomPrefab: {fileID: 654169757907289586, guid: be27dd0e31b65a64a928f012db76ebda, type: 3}
   bgm: {fileID: 8300000, guid: 4b49b3294ea687e49bb536d75028982d, type: 3}
   voiceAudioSource: {fileID: 1787502278}
 --- !u!1 &1654023879

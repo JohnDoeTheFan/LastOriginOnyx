@@ -10,7 +10,7 @@ public class DialogueGui : MonoBehaviour
 
     [SerializeField] private Text speakerNameText;
     [SerializeField] private Text lineContentText;
-    [SerializeField] private AudioClip updateSound;
+    [SerializeField] private AudioSource updateAudioSource;
     [SerializeField] private Image leftPortrait;
     [SerializeField] private Image centerPortrait;
     [SerializeField] private Image rightPortrait;
@@ -95,6 +95,7 @@ public class DialogueGui : MonoBehaviour
             if(ch != ' ')
             {
                 // Play sound
+                updateAudioSource.Play();
                 yield return new WaitUntilOrForSeconds(() => shouldSkipCurrentLine, updateDuration);
                 if (shouldSkipCurrentLine)
                 {

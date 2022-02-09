@@ -85,6 +85,7 @@ public class OnyxGameMode : RunAndGunGameMode
         InitBackground(startRoom);
 
         mainGuiCanvas.gameObject.SetActive(false);
+        systemControl = false;
         playerControlEnable = false;
         OnyxGameInstance.instance.BgmAudioSource.clip = bgm;
         OnyxGameInstance.instance.BgmAudioSource.Play();
@@ -108,13 +109,13 @@ public class OnyxGameMode : RunAndGunGameMode
         {
             Destroy(missionStartSequence.gameObject);
 
-            if (startingDialogue != null)
-                GetComponent<DialogueBehaviour>().StartDialogueDeck(startingDialogue, AfterStartDialogue);
+            if (OnyxGameInstance.instance.StageInfoForStageScene.OpeningDialogue != null)
+                GetComponent<DialogueBehaviour>().StartDialogueDeck(startingDialogue, AfterOpeningDialogue);
             else
-                AfterStartDialogue();
+                AfterOpeningDialogue();
         }
 
-        void AfterStartDialogue()
+        void AfterOpeningDialogue()
         {
             mainGuiCanvas.gameObject.SetActive(true);
             commandPanel.Unlock(playerAbility);
@@ -316,21 +317,29 @@ public class OnyxGameMode : RunAndGunGameMode
 
     private void OnStageCleared(MyUnit playerUnit)
     {
-        playerUnit.Ceremony();
-        voiceAudioSource.clip = playerUnit.StageClearVoice;
-        voiceAudioSource.Play();
-
-        missionCompleteGui.gameObject.SetActive(true);
         mainGuiCanvas.gameObject.SetActive(false);
         commandPanel.Lock();
         playerControlEnable = false;
         systemControl = false;
 
-        float safefyTime = 2f;
-        if (testRoomPrefab == null && OnyxGameInstance.instance.StageInfoForStageScene != null)
-            SaveStageFirstCleared(safefyTime);
+        if (OnyxGameInstance.instance.StageInfoForStageScene.EndingDialogue != null)
+            GetComponent<DialogueBehaviour>().StartDialogueDeck(startingDialogue, AfterEndingDialogue);
         else
-            SaveOnyxValue(ReadyForSceneTransition, safefyTime);
+            AfterEndingDialogue();
+
+        void AfterEndingDialogue()
+        {
+            playerUnit.Ceremony();
+            voiceAudioSource.clip = playerUnit.StageClearVoice;
+            voiceAudioSource.Play();
+            missionCompleteGui.gameObject.SetActive(true);
+
+            float safefyTime = 2f;
+            if (testRoomPrefab == null && OnyxGameInstance.instance.StageInfoForStageScene != null)
+                SaveStageFirstCleared(safefyTime);
+            else
+                SaveOnyxValue(ReadyForSceneTransition, safefyTime);
+        }
     }
 
     void SaveStageFirstCleared(float safetyTime)
@@ -550,7 +559,6 @@ public class OnyxGameMode : RunAndGunGameMode
             user.transform.position = exitingPortal.DestinationPortal.transform.position;
             exitingPortal.DestinationPortal.Enter();
         }
-        
     }
 
     public void OnLeftButtonDown()

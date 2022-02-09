@@ -12,26 +12,19 @@ public class StageInformation : ScriptableObject
     static public Action<StageInformation, Action<bool>> isStageClearedCommunication;
     static public Action<StageInformation, Action> setStageClearedCommunication;
 
-    [SerializeField]
-    private int chapterNumber;
-    [SerializeField]
-    private int stageNumber;
-    [SerializeField]
-    private StageTypeEnum stageType;
-    [SerializeField]
-    private StageInformation previousStage;
-    [SerializeField]
-    private NextStagesStruct nextStages;
-    [SerializeField]
-    bool isCleared;
-    [SerializeField]
-    private StageScenesToBeBuild stageScene;
-    [SerializeField]
-    private string title;
-    [SerializeField]
-    private string description;
-    [SerializeField]
-    private int neededPower;
+    [SerializeField] private int chapterNumber;
+    [SerializeField] private int stageNumber;
+    [SerializeField] private StageTypeEnum stageType;
+    [SerializeField] private StageInformation previousStage;
+    [SerializeField] private NextStagesStruct nextStages;
+    [SerializeField] bool isCleared;
+    [SerializeField] private StageScenesToBeBuild stageScene;
+    [SerializeField] private string title;
+    [SerializeField] private string description;
+    [SerializeField] private int neededPower;
+    [SerializeField] private DialogueDeck openingDialogue;
+    [SerializeField] private DialogueDeck endingDialogue;
+
     // Clear reward
     // Four star reward
     // List of rewards
@@ -49,6 +42,8 @@ public class StageInformation : ScriptableObject
     public string Description => description;
     public int NeededPower => neededPower;
     public ReadOnlyCollection<BattleRoom> BattleRoomPrefabs => battleRoomPrefabs.AsReadOnly();
+    public DialogueDeck OpeningDialogue => openingDialogue;
+    public DialogueDeck EndingDialogue => endingDialogue;
 
     public enum StageTypeEnum
     {
