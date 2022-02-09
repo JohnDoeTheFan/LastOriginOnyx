@@ -35,7 +35,12 @@ public class DialogueBehaviour : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyDown("z"))
+        if (Input.GetKeyDown("escape"))
+        {
+            StopDialogue();
+        }
+
+        if (Input.GetKeyDown("z"))
         {
             dialogueGui.SkipLine();
         }
