@@ -57,8 +57,8 @@ public class MovingPlatform : MonoBehaviourBase
         if (passedTime <= accelerationTime)
         {
             Vector2 acceleration = constantVelocity / accelerationTime;
-            Vector2 averageVelocity = acceleration * passedTime / 2;
-            return averageVelocity;
+            Vector2 accelatedVelocity = acceleration * passedTime;
+            return accelatedVelocity;
         }
         else if (passedTime <= accelerationTime + constantVelocityTime)
         {
@@ -69,9 +69,8 @@ public class MovingPlatform : MonoBehaviourBase
             Vector2 deceleration = -constantVelocity / accelerationTime;
             float deceleratedTime = passedTime - (accelerationTime + constantVelocityTime);
             Vector2 deceleratedVelocity = constantVelocity + (deceleration * deceleratedTime);
-            Vector2 averageVelocity = (constantVelocity + deceleratedVelocity) / 2;
 
-            return averageVelocity;
+            return deceleratedVelocity;
         }
         else
         {
