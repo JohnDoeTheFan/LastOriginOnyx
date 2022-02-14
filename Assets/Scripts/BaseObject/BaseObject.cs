@@ -74,6 +74,56 @@ public interface IHitReactor
         MeleeAttackStrike
     }
 
+    struct HitInfo
+    {
+        public readonly HitType type;
+        public readonly float damage;
+        public readonly Vector3 direction;
+        public readonly bool isPenetration;
+        public readonly Vector3 knockBackVelocity;
+        public readonly float stiffenTime;
+
+        public HitInfo(HitType type, float damage, Vector3 direction, bool isPenetration)
+        {
+            this.type = type;
+            this.damage = damage;
+            this.direction = direction;
+            this.isPenetration = isPenetration;
+            knockBackVelocity = Vector3.zero;
+            stiffenTime = 0f;
+        }
+
+        public HitInfo(HitType type, float damage, Vector3 direction, bool isPenetration, Vector3 knockBackVelocity)
+        {
+            this.type = type;
+            this.damage = damage;
+            this.direction = direction;
+            this.isPenetration = isPenetration;
+            this.knockBackVelocity = knockBackVelocity;
+            stiffenTime = 0f;
+        }
+
+        public HitInfo(HitType type, float damage, Vector3 direction, bool isPenetration, Vector3 knockBackVelocity, float stiffenTime)
+        {
+            this.type = type;
+            this.damage = damage;
+            this.direction = direction;
+            this.isPenetration = isPenetration;
+            this.knockBackVelocity = knockBackVelocity;
+            this.stiffenTime = stiffenTime;
+        }
+    }
+
+    struct HitReaction
+    {
+        public readonly bool isBlocked;
+
+        public HitReaction(bool isBlocked)
+        {
+            this.isBlocked = isBlocked;
+        }
+    }
+
     struct HitResult
     {
         public HitResult(float acceptedDamage, bool isKilledByHit)
@@ -86,7 +136,7 @@ public interface IHitReactor
         public bool isKilledByHit;
     }
 
-    HitResult Hit(HitType type, float damage, Vector3 knockBackVelocity = new Vector3(), float stiffenTime = 0f);
+    HitResult Hit(HitInfo hitInfo);
 
     Vector3 GetWorldPosition { get; }
 
@@ -120,6 +170,11 @@ public class MonoBehaviourBase : MonoBehaviour
     protected IEnumerator WaitUntilRoutine(Func<bool> predicate)
     {
         yield return new WaitUntil(predicate);
+    }
+
+    protected IEnumerator WaitUntilOrForSecondsRoutine(Func<bool> predicate, float seconds)
+    {
+        yield return new WaitUntilOrForSeconds(predicate, seconds);
     }
 }
 

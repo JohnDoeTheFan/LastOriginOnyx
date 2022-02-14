@@ -26,6 +26,8 @@ public class MeleeAttacker : AbilityBase, MeleeAttack.ISubscriber
     private bool isOccupiedByThis;
     private bool isResetting;
 
+    private bool shouldStopComboByDamage;
+
     private List<ComboInformation> currentCombos;
 
     protected override void Start()
@@ -93,6 +95,8 @@ public class MeleeAttacker : AbilityBase, MeleeAttack.ISubscriber
             else
                 currentCombos = airCombos;
 
+            shouldStopComboByDamage = false;
+
             StartNextCombo();
         }
         else
@@ -135,15 +139,14 @@ public class MeleeAttacker : AbilityBase, MeleeAttack.ISubscriber
                 comboResetTimer = StartCoroutine(ResetComboCount(currentCombo.duration));
 
             foreach (DataOnTime<Move> moveOnTime in currentCombo.moveOnTimes)
-                StartCoroutine(Job(() => WaitForSecondsRoutine(moveOnTime.time), () => AddMove(moveOnTime.data)));
+                StartCoroutine(Job(() => WaitUntilOrForSecondsRoutine(()=>shouldStopComboByDamage, moveOnTime.time), () => { if (!shouldStopComboByDamage) AddMove(moveOnTime.data); }));
                 
-
             foreach (DataOnTime<MeleeAttack> attackOnTime in currentCombo.attackOnTime)
             {
                 if (currentCombo.canUseInAir && currentCombo.keepUntilGrounded)
-                    StartCoroutine(Job(() => WaitForSecondsRoutine(attackOnTime.time), () => attackOnTime.data.Activate(() => abilityHolder.IsGrounded)));
+                    StartCoroutine(Job(() => WaitUntilOrForSecondsRoutine(() => shouldStopComboByDamage, attackOnTime.time), () => { if (!shouldStopComboByDamage) attackOnTime.data.Activate(() => abilityHolder.IsGrounded); }));
                 else
-                    StartCoroutine(Job(() => WaitForSecondsRoutine(attackOnTime.time), () => attackOnTime.data.Activate()));
+                    StartCoroutine(Job(() => WaitUntilOrForSecondsRoutine(() => shouldStopComboByDamage, attackOnTime.time), () => { if (!shouldStopComboByDamage) attackOnTime.data.Activate(); }));
             }
 
             abilityHolder.ModelAnimator.SetInteger(comboCountStringToHash, comboCount);
@@ -157,8 +160,8 @@ public class MeleeAttacker : AbilityBase, MeleeAttack.ISubscriber
 
     private IEnumerator ResetComboCount(float time, Func<bool> condition)
     {
-        yield return new WaitForSeconds(time);
-        yield return new WaitUntil(condition);
+        yield return new WaitUntilOrForSeconds(()=>shouldStopComboByDamage, time);
+        yield return new WaitUntil(()=>condition() || shouldStopComboByDamage);
         isResetting = true;
         StartCoroutine(Job(() => WaitForSecondsRoutine(comboCoolTime), () => isResetting = false));
         comboCount = -1;
@@ -179,6 +182,11 @@ public class MeleeAttacker : AbilityBase, MeleeAttack.ISubscriber
             abilityHolder.SetVelocity(velocityWithFacingDirection, move.recoverTime);
         else
             abilityHolder.AddVelocity(velocityWithFacingDirection, move.recoverTime);
+    }
+
+    public override void OnHit(IHitReactor.HitInfo hitInfo)
+    {
+        shouldStopComboByDamage = true;
     }
 
     void MeleeAttack.ISubscriber.OnHit(MeleeAttack attack, IHitReactor hitReactor, IHitReactor.HitResult hitResult)

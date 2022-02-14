@@ -41,10 +41,11 @@ namespace Onyx.Ability
         {
             this.abilityHolder = abilityHolder;
         }
-
         public virtual void OnChangeDirection(Quaternion rotation) { }
         public virtual void OnKillEnemy(Transform enemyTransform) { }
-
+        public virtual void OnHit(IHitReactor.HitInfo hitInfo) { }
+        public virtual void OnDead() { }
+        public virtual IHitReactor.HitReaction ReactBeforeHit(IHitReactor.HitInfo hitInfo) { return new IHitReactor.HitReaction(false); }
         public abstract void InstantiateAbilitySpecificGui(RectTransform abilitySpecificGuiArea);
 
     }
@@ -61,7 +62,10 @@ namespace Onyx.Ability
         void SetAbilityHolder(IAbilityHolder abilityHolder);
         void OnChangeDirection(Quaternion rotation);
         void OnKillEnemy(Transform enemyTransform);
+        void OnHit(IHitReactor.HitInfo hitInfo);
+        void OnDead();
         void InstantiateAbilitySpecificGui(RectTransform abilitySpecificGuiArea);
+        IHitReactor.HitReaction ReactBeforeHit(IHitReactor.HitInfo hitInfo);
 
         public struct LevelDescription
         {

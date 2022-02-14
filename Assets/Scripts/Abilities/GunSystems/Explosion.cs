@@ -49,7 +49,7 @@ public class Explosion : TangibleComponent
             Vector2 normalizedDiff = (collision.transform.position - transform.position).normalized;
             Vector2 knockBack = normalizedDiff * knockBackPower;
 
-            hitResult = reactor.Hit(IHitReactor.HitType.Bullet, damage, knockBack);
+            hitResult = reactor.Hit(new IHitReactor.HitInfo(IHitReactor.HitType.Bullet, damage, normalizedDiff, false, knockBack));
             SubscribeManager.ForEach(item => item.OnHitExplosion(this, reactor, hitResult));
         }
         else

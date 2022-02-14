@@ -40,7 +40,7 @@ public class GrenadeBullet : Bullet, Explosion.ISubscriber
             if (isFirstTouch)
             {
                 isFirstTouch = false;
-                IHitReactor.HitResult hitResult = reactor.Hit(IHitReactor.HitType.Bullet, multipliedHitDamage);
+                IHitReactor.HitResult hitResult = reactor.Hit(new IHitReactor.HitInfo(IHitReactor.HitType.Bullet, multipliedHitDamage, velocityBeforePhysicsUpdate.normalized, false));
                 Explode();
 
                 SubscribeManager.ForEach(item => item.OnHit(this, reactor, hitResult));
@@ -78,7 +78,7 @@ public class GrenadeBullet : Bullet, Explosion.ISubscriber
             if (isFirstTouch)
             {
                 isFirstTouch = false;
-                IHitReactor.HitResult hitResult = reactor.Hit(IHitReactor.HitType.Bullet, multipliedHitDamage);
+                IHitReactor.HitResult hitResult = reactor.Hit(new IHitReactor.HitInfo(IHitReactor.HitType.Bullet, multipliedHitDamage, velocityBeforePhysicsUpdate.normalized, false));
                 Explode();
 
                 SubscribeManager.ForEach(item => item.OnHit(this, reactor, hitResult));

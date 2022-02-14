@@ -284,7 +284,9 @@ MonoBehaviour:
   activationTime: 0.38
   colliderActivationTime: 0.1
   knockBackVelocity: {x: 10, y: -5}
+  attackDirection: {x: 0, y: -1}
   stiffenTime: 0.4
+  isPenetration: 0
 --- !u!61 &6293687347323801123
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -435,6 +437,7 @@ MonoBehaviour:
   levelOfDifficulty: 0
   healthMultipliers: {fileID: 11400000, guid: 350ed219e736b1a49955c09116327240, type: 2}
   scoreMultiplier: 0
+  defaultStiffenTime: 0.5
   hitRecoverTime: 1
 --- !u!114 &5657436394549491419
 MonoBehaviour:
@@ -449,7 +452,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotatingParts: {fileID: 1274866191843599722}
-  _addtionalVelocityRecoverTime: 0.2
+  _defaultRecoverTime: 0.2
   groundChecker: {fileID: 3519570781410266153}
   maxVelocity: 6
   velocityReachTime: 0.001
@@ -713,7 +716,9 @@ MonoBehaviour:
   activationTime: 0.38
   colliderActivationTime: 0.1
   knockBackVelocity: {x: 5, y: 0}
+  attackDirection: {x: 1, y: 0}
   stiffenTime: 0.4
+  isPenetration: 0
 --- !u!61 &2662277457617043040
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -955,7 +960,9 @@ MonoBehaviour:
   activationTime: 0.38
   colliderActivationTime: 0.1
   knockBackVelocity: {x: 7, y: 0}
+  attackDirection: {x: 1, y: 0}
   stiffenTime: 0.4
+  isPenetration: 0
 --- !u!61 &8184180925141541179
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -6376,7 +6383,9 @@ MonoBehaviour:
   activationTime: 0.38
   colliderActivationTime: 0.1
   knockBackVelocity: {x: 3, y: 7}
+  attackDirection: {x: 1, y: 0}
   stiffenTime: 0.4
+  isPenetration: 0
 --- !u!61 &4836557128071816350
 BoxCollider2D:
   m_ObjectHideFlags: 0

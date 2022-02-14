@@ -1,16 +1,19 @@
 fileFormatVersion: 2
-guid: 706f92805d0ef3845b16787f0d11ff0d
+guid: 4095d15a814cd5d4a97541567f1de4bd
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -6347615032676241706
-    second: Block_pixel-fxs_zonked_openGameArg_0
+      213: -374743942425420422
+    second: Valkyrie_Icons_0
   - first:
-      213: -5529507429045106905
-    second: Block_pixel-fxs_zonked_openGameArg_1
+      213: -6661651367623037806
+    second: Valkyrie_Icons_1
   - first:
-      213: -5597348723017370740
-    second: Block_pixel-fxs_zonked_openGameArg_2
+      213: 1451995185108432238
+    second: Valkyrie_Icons_2
+  - first:
+      213: -5211126068039927470
+    second: Valkyrie_Icons_3
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -41,7 +44,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -55,7 +58,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 32
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -112,13 +115,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Block_pixel-fxs_zonked_openGameArg_0
+      name: Valkyrie_Icons_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
-        width: 32
-        height: 32
+        y: 186
+        width: 326
+        height: 326
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -126,20 +129,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6de276642cdb8e7a0800000000000000
-      internalID: -6347615032676241706
+      spriteID: a7dd00eae54accaf0800000000000000
+      internalID: -374743942425420422
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Block_pixel-fxs_zonked_openGameArg_1
+      name: Valkyrie_Icons_1
       rect:
         serializedVersion: 2
-        x: 32
-        y: 0
-        width: 32
-        height: 32
+        x: 327
+        y: 186
+        width: 326
+        height: 326
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -147,20 +150,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 72702e43a4e3343b0800000000000000
-      internalID: -5529507429045106905
+      spriteID: 29c6557406f0d83a0800000000000000
+      internalID: -6661651367623037806
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Block_pixel-fxs_zonked_openGameArg_2
+      name: Valkyrie_Icons_2
       rect:
         serializedVersion: 2
-        x: 64
-        y: 0
-        width: 32
-        height: 32
+        x: 654
+        y: 186
+        width: 326
+        height: 326
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -168,8 +171,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c8330901ef83252b0800000000000000
-      internalID: -5597348723017370740
+      spriteID: e6537f78de5862410800000000000000
+      internalID: 1451995185108432238
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Valkyrie_Icons_3
+      rect:
+        serializedVersion: 2
+        x: 981
+        y: 186
+        width: 326
+        height: 326
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 259b3ba637c5ea7b0800000000000000
+      internalID: -5211126068039927470
       vertices: []
       indices: 
       edges: []

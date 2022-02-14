@@ -57,6 +57,7 @@ namespace Onyx
         [SerializeField] private int scoreMultiplier;
 
         [Header("Etc")]
+        [SerializeField] private float defaultStiffenTime = 0.5f;
         [SerializeField] private float hitRecoverTime;
 
         private Rigidbody2D rigidBody;
@@ -149,6 +150,8 @@ namespace Onyx
             modelAnimator.SetTrigger("Die");
             gameObject.layer = (int)LayerSetting.DeadBody;
             movement.SetDead();
+            foreach (var ability in abilities)
+                ability.OnDead();
             SubscribeManager.ForEach(item => item.OnDeath(this));
         }
 
@@ -389,13 +392,26 @@ namespace Onyx
             CallAbilitySkill(0, 0, false);
         }
 
-
-        IHitReactor.HitResult IHitReactor.Hit(IHitReactor.HitType type, float damage, Vector3 knockBackVelocity, float stiffenTime)
+        IHitReactor.HitResult IHitReactor.Hit(IHitReactor.HitInfo hitInfo)
         {
             if (remainHitRecoverTime != 0)
                 return new IHitReactor.HitResult(0, false);
+            IHitReactor.HitReaction hitReaction = CollectAbilitiesHitReaction(hitInfo);
 
-            AudioSource hitAudio = type switch
+            IHitReactor.HitInfo reactedHitInfo = hitInfo;
+            if (hitReaction.isBlocked)
+            {
+                float damage = 0;
+                float stiffenTime = 0f;
+                reactedHitInfo = new IHitReactor.HitInfo(hitInfo.type, damage, hitInfo.direction, hitInfo.isPenetration, hitInfo.knockBackVelocity, stiffenTime);
+            }
+            else
+            {
+                float stiffenTime = (hitInfo.stiffenTime > 0f)? hitInfo.stiffenTime: defaultStiffenTime;
+                reactedHitInfo = new IHitReactor.HitInfo(hitInfo.type, hitInfo.damage, hitInfo.direction, hitInfo.isPenetration, hitInfo.knockBackVelocity, stiffenTime);
+            }
+
+            AudioSource hitAudio = reactedHitInfo.type switch
             {
                 IHitReactor.HitType.Bullet => bulletHitAudio,
                 IHitReactor.HitType.Trap => bulletHitAudio,
@@ -403,18 +419,34 @@ namespace Onyx
             };
             hitAudio.Play();
 
-            float acceptedDamage = TakeDamage(damage);
+            foreach (var ability in abilities)
+                ability.OnHit(reactedHitInfo);
 
-            if(knockBackVelocity.sqrMagnitude > 0)
-                movement.SetOverridingVelocity(new Vector2(knockBackVelocity.x, knockBackVelocity.y));
+            float acceptedDamage = TakeDamage(reactedHitInfo.damage);
 
-            if(stiffenTime > 0)
-                remainStiffenTime = stiffenTime;
+            if (reactedHitInfo.knockBackVelocity.sqrMagnitude > 0)
+                movement.SetOverridingVelocity(new Vector2(reactedHitInfo.knockBackVelocity.x, reactedHitInfo.knockBackVelocity.y));
+
+            if (reactedHitInfo.stiffenTime > 0)
+                remainStiffenTime = reactedHitInfo.stiffenTime;
 
             if (acceptedDamage != 0 && hitRecoverTime > 0)
                 remainHitRecoverTime += hitRecoverTime;
 
-            return new IHitReactor.HitResult(damage, acceptedDamage != 0 && isDead);
+            return new IHitReactor.HitResult(acceptedDamage, acceptedDamage != 0 && isDead);
+
+            IHitReactor.HitReaction CollectAbilitiesHitReaction(IHitReactor.HitInfo hitInfo)
+            {
+                IHitReactor.HitReaction hitReaction = new IHitReactor.HitReaction(false);
+                foreach (var ability in abilities)
+                {
+                    IHitReactor.HitReaction currentHitReaction = ability.ReactBeforeHit(hitInfo);
+                    if (currentHitReaction.isBlocked)
+                        hitReaction = new IHitReactor.HitReaction(true);
+                }
+
+                return hitReaction;
+            }
         }
 
         void IAbilityHolder.NotifyKillEnemy(GameObject enemy)

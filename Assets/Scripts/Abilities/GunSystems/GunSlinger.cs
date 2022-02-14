@@ -343,6 +343,11 @@ public abstract class GunSlinger : AbilityBase, Gun2D.ISubscriber, BulletBundle.
         }
     }
 
+    public override void OnHit(IHitReactor.HitInfo hitInfo)
+    {
+        StopFire();
+    }
+
     void Gun2D.ISubscriber.BeforeDestroy(Gun2D gun)
     {
     }

@@ -9,7 +9,9 @@ public class MeleeAttack : MonoBehaviourBase
     [SerializeField] float activationTime;
     [SerializeField] float colliderActivationTime;
     [SerializeField] private Vector2 knockBackVelocity;
+    [SerializeField] private Vector2 attackDirection;
     [SerializeField] float stiffenTime;
+    [SerializeField] bool isPenetration = false;
 
     public SubscribeManagerTemplate<ISubscriber> subscriberManager { private set; get; } = new SubscribeManagerTemplate<ISubscriber>();
 
@@ -55,7 +57,11 @@ public class MeleeAttack : MonoBehaviourBase
             if (transform.rotation.y != 0)
                 rotatedKnockBack.x *= -1;
 
-            IHitReactor.HitResult hitResult = hitReactor.Hit(IHitReactor.HitType.MeleeAttackStrike, damage, rotatedKnockBack, stiffenTime);
+            Vector2 rotatedAttackDirection = attackDirection;
+            if (transform.rotation.y != 0)
+                rotatedAttackDirection.x *= -1;
+
+            IHitReactor.HitResult hitResult = hitReactor.Hit(new IHitReactor.HitInfo(IHitReactor.HitType.MeleeAttackStrike, damage, rotatedAttackDirection.normalized, isPenetration, rotatedKnockBack, stiffenTime));
             subscriberManager.ForEach((item) => item.OnHit(this, hitReactor, hitResult));
         }
     }

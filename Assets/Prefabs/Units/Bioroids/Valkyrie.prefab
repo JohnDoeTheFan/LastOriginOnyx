@@ -382,6 +382,7 @@ MonoBehaviour:
   levelOfDifficulty: 0
   healthMultipliers: {fileID: 11400000, guid: 350ed219e736b1a49955c09116327240, type: 2}
   scoreMultiplier: 0
+  defaultStiffenTime: 0.5
   hitRecoverTime: 1
 --- !u!114 &5657436394549491419
 MonoBehaviour:
@@ -442,10 +443,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _image: {fileID: 0}
-  abilityName: "\uBB18\uAD8C"
+  abilityName: "\uC800\uACA9\uC218"
   abilityImage: {fileID: -8498156522765250649, guid: 71b9477606ccb314fbc512d208caadf5, type: 3}
-  skill1Name: "\uD380\uCE58"
-  skill1Sprite: {fileID: -8498156522765250649, guid: 71b9477606ccb314fbc512d208caadf5, type: 3}
+  skill1Name: "\uB098\uC548 \uC0AC\uACA9"
+  skill1Sprite: {fileID: -5211126068039927470, guid: 4095d15a814cd5d4a97541567f1de4bd, type: 3}
   groundCombos:
   - duration: 1
     damageMultiplier: 2.5
@@ -502,12 +503,12 @@ MonoBehaviour:
   _image: {fileID: 0}
   abilityName: "\uBCF4\uBCD1"
   abilityImage: {fileID: 0}
-  jumpSkillImage: {fileID: -3297484279783317414, guid: 71b9477606ccb314fbc512d208caadf5, type: 3}
+  jumpSkillImage: {fileID: 1451995185108432238, guid: 4095d15a814cd5d4a97541567f1de4bd, type: 3}
   jumpVelocity: 9.5
   extraJumpNumber: 0
   jumpAudioSource: {fileID: 1679008781191016420}
   landAudioSource: {fileID: 3673322506993818297}
-  dashSkillImage: {fileID: 460176532135831674, guid: 71b9477606ccb314fbc512d208caadf5, type: 3}
+  dashSkillImage: {fileID: -374743942425420422, guid: 4095d15a814cd5d4a97541567f1de4bd, type: 3}
   dashVelocity: {x: -12, y: 0}
   dashRecoverTime: 0.32
   afterImagePrefab: {fileID: 1257447924707107150, guid: ba763d84f542202439fef2df578fdb63, type: 3}
@@ -635,7 +636,9 @@ MonoBehaviour:
   activationTime: 0.38
   colliderActivationTime: 0.1
   knockBackVelocity: {x: 5, y: 0}
+  attackDirection: {x: 1, y: 0}
   stiffenTime: 0.4
+  isPenetration: 1
 --- !u!61 &6628156517835092982
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -783,7 +786,9 @@ MonoBehaviour:
   activationTime: 0.38
   colliderActivationTime: 0.1
   knockBackVelocity: {x: 5, y: 0}
+  attackDirection: {x: 1, y: 0}
   stiffenTime: 0.4
+  isPenetration: 1
 --- !u!61 &2662277457617043040
 BoxCollider2D:
   m_ObjectHideFlags: 0
