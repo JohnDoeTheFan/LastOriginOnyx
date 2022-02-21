@@ -71,8 +71,16 @@ namespace Onyx
         private Vector2 leftStick = new Vector2(0, 0);
         private float remainStiffenTime = 0;
         private float remainHitRecoverTime = 0;
-        private bool isControlPrevented => preventControl || (remainStiffenTime > 0f);
 
+        static private readonly int id_Grounded = Animator.StringToHash("Grounded");
+        static private readonly int id_IsRunning = Animator.StringToHash("IsRunning");
+        static private readonly int id_IsStiffen = Animator.StringToHash("IsStiffen");
+        static private readonly int id_Die = Animator.StringToHash("Die");
+        static private readonly int id_Revive = Animator.StringToHash("Revive");
+        static private readonly int id_Ceremory = Animator.StringToHash("Ceremony");
+        static private readonly int id_Hit = Animator.StringToHash("Hit");
+
+        private bool isControlPrevented => preventControl || (remainStiffenTime > 0f);
         public float HealthPoint => healthPoint;
         public bool IsDead => isDead;
         public AudioClip StageStartVoice => stageStartVoice;
@@ -96,13 +104,19 @@ namespace Onyx
         GameObject IHitReactor.GameObject => gameObject;
 
 
-        void Start()
+        private void Awake()
         {
             rigidBody = GetComponent<Rigidbody2D>();
             movement = GetComponent<MovementBase>();
             inputHandler = GetComponent<InputHandler>();
-            inputHandler.AddInputReceiverRegisterAwaiter(this);
+
             abilities.AddRange(GetComponents<IAbility>());
+        }
+
+        private void Start()
+        {
+            inputHandler.AddInputReceiverRegisterAwaiter(this);
+
             foreach (IAbility ability in abilities)
                 ability.SetAbilityHolder(this);
 
@@ -122,8 +136,8 @@ namespace Onyx
             movement.UpdateMovement(leftStick);
 
             if(groundChecker != null)
-                modelAnimator.SetBool("Grounded", groundChecker.IsGrounded);
-            modelAnimator.SetBool("IsRunning", leftStick != Vector2.zero);
+                modelAnimator.SetBool(id_Grounded, groundChecker.IsGrounded);
+            modelAnimator.SetBool(id_IsRunning, leftStick != Vector2.zero);
 
             float characterVelocity = rigidBody.velocity.x;
             if (groundChecker != null)
@@ -139,6 +153,9 @@ namespace Onyx
             }
 
             remainStiffenTime = Mathf.Max(0, remainStiffenTime - Time.deltaTime);
+            if(remainStiffenTime == 0)
+                modelAnimator.SetBool(id_IsStiffen, false);
+
             remainHitRecoverTime = Mathf.Max(0, remainHitRecoverTime - Time.deltaTime);
         }
 
@@ -147,7 +164,7 @@ namespace Onyx
             isDead = true;
             inputHandler.AddInputReceiverUnregisterAwaiter(this);
             leftStick = Vector2.zero;
-            modelAnimator.SetTrigger("Die");
+            modelAnimator.SetTrigger(id_Die);
             gameObject.layer = (int)LayerSetting.DeadBody;
             movement.SetDead();
             foreach (var ability in abilities)
@@ -160,12 +177,12 @@ namespace Onyx
             isDead = false;
             inputHandler.AddInputReceiverRegisterAwaiter(this);
             TakeHeal(1);
-            modelAnimator.SetTrigger("Revive");
+            modelAnimator.SetTrigger(id_Revive);
         }
 
         public void Ceremony()
         {
-            modelAnimator.SetTrigger("Ceremony");
+            modelAnimator.SetTrigger(id_Ceremory);
         }
 
         public void TeleportAt(Vector3 position)
@@ -174,7 +191,7 @@ namespace Onyx
             transform.position = position;
         }
 
-        public float TakeDamage(float damage)
+        public float HandleDamage(float damage)
         {
             if (isDead)
             {
@@ -191,7 +208,7 @@ namespace Onyx
                 if (healthPoint == 0)
                     Die();
 
-                modelAnimator.SetTrigger("Hit");
+                modelAnimator.SetTrigger(id_Hit);
 
                 return healthPoint - healthPointBackup;
             }
@@ -396,8 +413,35 @@ namespace Onyx
         {
             if (remainHitRecoverTime != 0)
                 return new IHitReactor.HitResult(0, false);
-            IHitReactor.HitReaction hitReaction = CollectAbilitiesHitReaction(hitInfo);
 
+            IHitReactor.HitReaction hitReaction = CollectAbilitiesHitReaction(hitInfo);
+            IHitReactor.HitInfo reactedHitInfo = MakeReactedHit(hitInfo, hitReaction);
+
+            PlayHitAudio(reactedHitInfo);
+
+            foreach (var ability in abilities)
+                ability.OnHit(reactedHitInfo);
+
+            float acceptedDamage = HandleDamage(reactedHitInfo.damage);
+
+            if (reactedHitInfo.knockBackVelocity.sqrMagnitude > 0)
+                movement.SetOverridingVelocity(new Vector2(reactedHitInfo.knockBackVelocity.x, reactedHitInfo.knockBackVelocity.y));
+
+            if (reactedHitInfo.stiffenTime > 0)
+            {
+                remainStiffenTime = reactedHitInfo.stiffenTime;
+                modelAnimator.SetBool(id_IsStiffen, true);
+            }
+                
+
+            if (acceptedDamage != 0 && hitRecoverTime > 0)
+                remainHitRecoverTime += hitRecoverTime;
+
+            return new IHitReactor.HitResult(acceptedDamage, acceptedDamage != 0 && isDead);
+        }
+
+        private IHitReactor.HitInfo MakeReactedHit(IHitReactor.HitInfo hitInfo, IHitReactor.HitReaction hitReaction)
+        {
             IHitReactor.HitInfo reactedHitInfo = hitInfo;
             if (hitReaction.isBlocked)
             {
@@ -407,10 +451,15 @@ namespace Onyx
             }
             else
             {
-                float stiffenTime = (hitInfo.stiffenTime > 0f)? hitInfo.stiffenTime: defaultStiffenTime;
+                float stiffenTime = (hitInfo.stiffenTime > 0f) ? hitInfo.stiffenTime : defaultStiffenTime;
                 reactedHitInfo = new IHitReactor.HitInfo(hitInfo.type, hitInfo.damage, hitInfo.direction, hitInfo.isPenetration, hitInfo.knockBackVelocity, stiffenTime);
             }
 
+            return reactedHitInfo;
+        }
+
+        private void PlayHitAudio(IHitReactor.HitInfo reactedHitInfo)
+        {
             AudioSource hitAudio = reactedHitInfo.type switch
             {
                 IHitReactor.HitType.Bullet => bulletHitAudio,
@@ -418,35 +467,19 @@ namespace Onyx
                 _ => bulletHitAudio
             };
             hitAudio.Play();
+        }
 
+        private IHitReactor.HitReaction CollectAbilitiesHitReaction(IHitReactor.HitInfo hitInfo)
+        {
+            IHitReactor.HitReaction hitReaction = new IHitReactor.HitReaction(false);
             foreach (var ability in abilities)
-                ability.OnHit(reactedHitInfo);
-
-            float acceptedDamage = TakeDamage(reactedHitInfo.damage);
-
-            if (reactedHitInfo.knockBackVelocity.sqrMagnitude > 0)
-                movement.SetOverridingVelocity(new Vector2(reactedHitInfo.knockBackVelocity.x, reactedHitInfo.knockBackVelocity.y));
-
-            if (reactedHitInfo.stiffenTime > 0)
-                remainStiffenTime = reactedHitInfo.stiffenTime;
-
-            if (acceptedDamage != 0 && hitRecoverTime > 0)
-                remainHitRecoverTime += hitRecoverTime;
-
-            return new IHitReactor.HitResult(acceptedDamage, acceptedDamage != 0 && isDead);
-
-            IHitReactor.HitReaction CollectAbilitiesHitReaction(IHitReactor.HitInfo hitInfo)
             {
-                IHitReactor.HitReaction hitReaction = new IHitReactor.HitReaction(false);
-                foreach (var ability in abilities)
-                {
-                    IHitReactor.HitReaction currentHitReaction = ability.ReactBeforeHit(hitInfo);
-                    if (currentHitReaction.isBlocked)
-                        hitReaction = new IHitReactor.HitReaction(true);
-                }
-
-                return hitReaction;
+                IHitReactor.HitReaction currentHitReaction = ability.ReactBeforeHit(hitInfo);
+                if (currentHitReaction.isBlocked)
+                    hitReaction = new IHitReactor.HitReaction(true);
             }
+
+            return hitReaction;
         }
 
         void IAbilityHolder.NotifyKillEnemy(GameObject enemy)
@@ -459,6 +492,7 @@ namespace Onyx
         {
             movement.SetOverridingVelocity(velocity, recoverTime);
         }
+
         void IAbilityHolder.AddVelocity(Vector2 velocity, float recoverTime)
         {
             movement.AddAddtionalVelocity(velocity, recoverTime);

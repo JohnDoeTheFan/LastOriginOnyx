@@ -16,18 +16,11 @@ namespace Onyx.Input
         [SerializeField]
         private Type type;
 
-        private HashSet<IInputReceiver> inputReceivers;
-        private HashSet<IInputReceiver> inputReceiverRegisterAwaiters;
-        private HashSet<IInputReceiver> inputReceiverUnregisterAwaiters;
+        private HashSet<IInputReceiver> inputReceivers = new HashSet<IInputReceiver>();
+        private HashSet<IInputReceiver> inputReceiverRegisterAwaiters = new HashSet<IInputReceiver>();
+        private HashSet<IInputReceiver> inputReceiverUnregisterAwaiters = new HashSet<IInputReceiver>();
 
         private bool lastPermission = false;
-
-        private void Awake()
-        {
-            inputReceivers = new HashSet<IInputReceiver>();
-            inputReceiverRegisterAwaiters = new HashSet<IInputReceiver>();
-            inputReceiverUnregisterAwaiters = new HashSet<IInputReceiver>();
-        }
 
         // Update is called once per frame
         void Update()
