@@ -63,7 +63,7 @@ public class DialogueBehaviour : MonoBehaviour
     {
         isPreserved = false;
         dialogueGui.HideGui();
-        _onFinished.Invoke();
+        _onFinished?.Invoke();
         _onFinished = null;
     }
 

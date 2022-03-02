@@ -161,14 +161,22 @@ namespace Onyx
 
         public void Die()
         {
+            remainStiffenTime = 0f;
             isDead = true;
+
             inputHandler.AddInputReceiverUnregisterAwaiter(this);
             leftStick = Vector2.zero;
-            modelAnimator.SetTrigger(id_Die);
+
             gameObject.layer = (int)LayerSetting.DeadBody;
+
             movement.SetDead();
+
+            modelAnimator.SetBool(id_IsStiffen, false);
+            modelAnimator.SetTrigger(id_Die);
+
             foreach (var ability in abilities)
                 ability.OnDead();
+
             SubscribeManager.ForEach(item => item.OnDeath(this));
         }
 
@@ -424,18 +432,20 @@ namespace Onyx
 
             float acceptedDamage = HandleDamage(reactedHitInfo.damage);
 
-            if (reactedHitInfo.knockBackVelocity.sqrMagnitude > 0)
-                movement.SetOverridingVelocity(new Vector2(reactedHitInfo.knockBackVelocity.x, reactedHitInfo.knockBackVelocity.y));
-
-            if (reactedHitInfo.stiffenTime > 0)
+            if(! IsDead)
             {
-                remainStiffenTime = reactedHitInfo.stiffenTime;
-                modelAnimator.SetBool(id_IsStiffen, true);
-            }
-                
+                if (reactedHitInfo.knockBackVelocity.sqrMagnitude > 0)
+                    movement.SetOverridingVelocity(new Vector2(reactedHitInfo.knockBackVelocity.x, reactedHitInfo.knockBackVelocity.y));
 
-            if (acceptedDamage != 0 && hitRecoverTime > 0)
-                remainHitRecoverTime += hitRecoverTime;
+                if (reactedHitInfo.stiffenTime > 0)
+                {
+                    remainStiffenTime = reactedHitInfo.stiffenTime;
+                    modelAnimator.SetBool(id_IsStiffen, true);
+                }
+
+                if (acceptedDamage != 0 && hitRecoverTime > 0)
+                    remainHitRecoverTime += hitRecoverTime;
+            }
 
             return new IHitReactor.HitResult(acceptedDamage, acceptedDamage != 0 && isDead);
         }

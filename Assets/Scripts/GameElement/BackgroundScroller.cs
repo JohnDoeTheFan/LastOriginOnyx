@@ -11,8 +11,8 @@ public class BackgroundScroller : MonoBehaviour
     private Bounds cameraMovementBounds;
     private Bounds tileMapBounds;
 
-    // Minimum background scroll maximum;
-    // Maximum background scroll minimum;
+    // The minimum background scrolls maximum;
+    // The maximum background scrolls minimum;
     private Vector2 minimumBackgroundSize;
     private Vector2 maximumBackgroundSize;
     private Vector2 maximumScrollSize;
