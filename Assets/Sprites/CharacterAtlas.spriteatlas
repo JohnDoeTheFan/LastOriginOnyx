@@ -56,6 +56,7 @@ SpriteAtlas:
   - {fileID: -312533947100423752, guid: fb757153be655d14f9b5a851043f4ae3, type: 3}
   - {fileID: 486289094838188762, guid: fb757153be655d14f9b5a851043f4ae3, type: 3}
   - {fileID: 21300000, guid: d0e54ee3f3685a2479a157926b63552b, type: 3}
+  - {fileID: 21300000, guid: 4fa32b960421b3b42bf64de6cfe17572, type: 3}
   - {fileID: -5120493240221723518, guid: 80a681175a441ab48b6e0d1c46b48bcb, type: 3}
   - {fileID: -7157603682184231589, guid: 80a681175a441ab48b6e0d1c46b48bcb, type: 3}
   - {fileID: 6505701030588435553, guid: 80a681175a441ab48b6e0d1c46b48bcb, type: 3}
@@ -105,6 +106,7 @@ SpriteAtlas:
   - {fileID: 2292892937300192758, guid: 4d978cba0aab9c547bad4637076455c0, type: 3}
   - {fileID: -7322953709190676064, guid: 4d978cba0aab9c547bad4637076455c0, type: 3}
   - {fileID: 8815494911204686932, guid: 4d978cba0aab9c547bad4637076455c0, type: 3}
+  - {fileID: 21300000, guid: e028061be7eb57044955d1b46b92d3f3, type: 3}
   - {fileID: -5537925928487333585, guid: 9f357a7bca4018d4faa326d55bdcc733, type: 3}
   - {fileID: -3370394175174043404, guid: 9f357a7bca4018d4faa326d55bdcc733, type: 3}
   - {fileID: -4922034377017004706, guid: 9f357a7bca4018d4faa326d55bdcc733, type: 3}
@@ -123,6 +125,7 @@ SpriteAtlas:
   - {fileID: -3001334373885789507, guid: db68dbcbc12079d4c8e57f60c827ac6b, type: 3}
   - {fileID: -3489262094299744749, guid: db68dbcbc12079d4c8e57f60c827ac6b, type: 3}
   - {fileID: 21300000, guid: dd173ceb62982e64fb61aae0e51ac291, type: 3}
+  - {fileID: 21300000, guid: 360cf5cdaa9aa9341a761a1eb9f0562b, type: 3}
   - {fileID: -4586306369756883327, guid: 07048bede24bee84ca2165ccf9c9208a, type: 3}
   - {fileID: 5070788992546351477, guid: 468469deee1f6694ca1cddcc00f10e34, type: 3}
   - {fileID: 1721708538114724032, guid: 468469deee1f6694ca1cddcc00f10e34, type: 3}
@@ -134,6 +137,7 @@ SpriteAtlas:
   - ScouterTest_1
   - ScouterTest_0
   - BrownieGun
+  - Perrault_Face_Stiffen
   - Face
   - RearLowerArm
   - RearUpperArm
@@ -183,6 +187,7 @@ SpriteAtlas:
   - MainBody
   - FrontHand
   - FrontUpperLeg
+  - Brownie_Face_Stiffen
   - RearFoot
   - RearShoulder
   - Gun
@@ -201,6 +206,7 @@ SpriteAtlas:
   - Body
   - RearArm
   - ValkyrieGun
+  - Valkyrie_Face_Stiffen
   - NightChickShielderParts_0
   - ChickSniperParts_2
   - ChickSniperParts_1
