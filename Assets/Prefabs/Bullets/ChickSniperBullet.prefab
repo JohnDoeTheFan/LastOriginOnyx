@@ -268,5 +268,6 @@ MonoBehaviour:
   shouldKilledByTime: 1
   distanceLimit: 200
   timeLimit: 5
-  knockBackForce: 0
+  knockBackForce: 10
+  stiffenTime: 0.5
   shootSourceId: 0

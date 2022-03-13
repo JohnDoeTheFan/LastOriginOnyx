@@ -15,58 +15,113 @@ MonoBehaviour:
   dialogues:
   - Portrait: {fileID: -8027439109682676250, guid: 399d9db9d815e724bb8336681b2cd717, type: 3}
     PortraitPosition: 0
-    name: "\uBE0C\uB77C\uC6B0\uB2C8"
-    text: "\uCDA9\uC131, \uC0AC\uB839\uAD00\uB2D8! \uC548\uB155\uD558\uC2EC\uAE4C!"
+    name: "T-2 \uBE0C\uB77C\uC6B0\uB2C8"
+    text: "\uCDA9\uC131! \uC0AC\uB839\uAD00\uB2D8, \uC548\uB155\uD558\uC2EC\uAE4C!
+      \uC800\uB294 T-2 \uBE0C\uB77C\uC6B0\uB2C8 1991\uBC88\uC784\uB2E4!"
     updateDuration: 0
   - Portrait: {fileID: -8027439109682676250, guid: 399d9db9d815e724bb8336681b2cd717, type: 3}
     PortraitPosition: 0
-    name: "\uBE0C\uB77C\uC6B0\uB2C8"
-    text: "\uC800\uB294 \uC774\uBC88\uC774 \uCCAB \uC784\uBB34\uC9C0 \uB9D0\uC784\uB2E4!"
-    updateDuration: 0
-  - Portrait: {fileID: -8027439109682676250, guid: 399d9db9d815e724bb8336681b2cd717, type: 3}
-    PortraitPosition: 0
-    name: "\uBE0C\uB77C\uC6B0\uB2C8"
-    text: "\uC0AC\uB839\uAD00\uB2D8, \uC798 \uBD80\uD0C1\uB4DC\uB9BC\uB2E4!"
-    updateDuration: 0
-  - Portrait: {fileID: -943692595650219519, guid: 27d7b25874c485b4dbd33b8c614c7dd6, type: 3}
-    PortraitPosition: 2
-    name: "\uD398\uB85C"
-    text: "\uC8FC\uC778\uB2D8, \uC548\uB155\uD558\uC138\uC694."
-    updateDuration: 0
-  - Portrait: {fileID: -943692595650219519, guid: 27d7b25874c485b4dbd33b8c614c7dd6, type: 3}
-    PortraitPosition: 2
-    name: "\uD398\uB85C"
-    text: "\uACBD\uD638\uB294 \uB9E1\uACA8\uC8FC\uC138\uC694."
-    updateDuration: 0
-  - Portrait: {fileID: -3415362087402567004, guid: 20701172ae8a1d643a4cbd319800ce49, type: 3}
-    PortraitPosition: 1
-    name: "\uBC1C\uD0A4\uB9AC"
-    text: "\uAC01\uD558... \uC5B4\uC9F8\uC11C \uC800\uB9CC..."
-    updateDuration: 0
-  - Portrait: {fileID: -3415362087402567004, guid: 20701172ae8a1d643a4cbd319800ce49, type: 3}
-    PortraitPosition: 1
-    name: "\uBC1C\uD0A4\uB9AC"
-    text: "\uC65C \uC800\uB9CC \uC774\uB7F0 \uBC00\uAC00\uB8E8 \uB369\uC5B4\uB9AC\uAC19\uC740
-      \uBAA8\uC2B5\uC785\uB2C8\uAE4C..."
-    updateDuration: 0
-  - Portrait: {fileID: -8027439109682676250, guid: 399d9db9d815e724bb8336681b2cd717, type: 3}
-    PortraitPosition: 0
-    name: "\uBE0C\uB77C\uC6B0\uB2C8"
-    text: "\uD558\uD558\uD558\uD558\uD558! \uBC1C\uD0A4\uB9AC\uB2D8, \uD798\uB0B4\uC2ED\uC1FC!
-      \uD6C4\uD6D7! \uADF8\uB798\uB3C4 \uC81C\uC77C \uC7AC\uBC0C\uC73C\uC2DC\uC9C0
+    name: "T-2 \uBE0C\uB77C\uC6B0\uB2C8"
+    text: "\uC800\uB294 \uC774\uBC88\uC774 \uCCAB \uC784\uBB34\uB77C \uC124\uB808\uC9C0
+      \uB9D0\uC784\uB2E4! \uC774\uBC88 \uC784\uBB34\uC5D0 \uC131\uACF5\uD558\uBA74
+      \uCC38\uCE58\uB97C \uBC1B\uC744 \uC218 \uC788\uB300\uC11C \uC9C0\uC6D0\uD588\uC9C0
       \uB9D0\uC784\uB2E4!"
     updateDuration: 0
+  - Portrait: {fileID: -8027439109682676250, guid: 399d9db9d815e724bb8336681b2cd717, type: 3}
+    PortraitPosition: 0
+    name: "T-2 \uBE0C\uB77C\uC6B0\uB2C8"
+    text: "\uC800\uB294 \uC911\uAC70\uB9AC \uAD50\uC804\uC5D0 \uD2B9\uD654\uB418\uC5B4
+      \uC788\uC2B4\uB2E4! \uB3CC\uACA9 \uC18C\uCD1D\uC73C\uB85C \uCCA0\uCDA9\uB188\uB4E4\uC5D0\uAC8C
+      \uCD1D\uC54C\uC744 \uD37C\uBD80\uC5B4\uC904 \uC218 \uC788\uC2B4\uB2E4! \uADF8\uB807\uC9C0\uB9CC
+      \uC794\uD0C4\uC5D0\uB294 \uC8FC\uC758\uD574\uC8FC\uC2DC\uAE38 \uBD80\uD0C1\uB4DC\uB9BC\uB2E4!"
+    updateDuration: 0
+  - Portrait: {fileID: -8027439109682676250, guid: 399d9db9d815e724bb8336681b2cd717, type: 3}
+    PortraitPosition: 0
+    name: "T-2 \uBE0C\uB77C\uC6B0\uB2C8"
+    text: "\uC544! \uADF8\uB9AC\uACE0 \uD604\uC9C0\uC5D0\uC11C \uC218\uB958\uD0C4\uC744
+      \uC870\uB2EC\uD574 \uC4F8 \uC218 \uC788\uC2B4\uB2E4! \uC704\uAE09\uD560 \uB54C\uB294
+      \uC774\uAC8C \uC81C\uC77C\uC774\uC9C0 \uB9D0\uC784\uB2E4!"
+    updateDuration: 0
+  - Portrait: {fileID: -8027439109682676250, guid: 399d9db9d815e724bb8336681b2cd717, type: 3}
+    PortraitPosition: 0
+    name: "T-2 \uBE0C\uB77C\uC6B0\uB2C8"
+    text: "\uC774\uC815\uB3C4\uBA74 \uC815\uC608\uC2E0\uBCD1 \uC544\uB2D8\uAE4C?
+      \uD5E4\uD5F7! \uC0AC\uB839\uAD00\uB2D8, \uC798 \uBD80\uD0C1\uB4DC\uB9BC\uB2E4!"
+    updateDuration: 0
   - Portrait: {fileID: -943692595650219519, guid: 27d7b25874c485b4dbd33b8c614c7dd6, type: 3}
     PortraitPosition: 2
-    name: "\uD398\uB85C"
-    text: "\uBE0C\uB77C\uC6B0\uB2C8, \uADF8\uB7F0 \uB9D0\uC740 \uC804\uD600 \uC704\uB85C\uAC00
-      \uB418\uC9C0 \uC54A\uC544\uC694. \uBC1C\uD0A4\uB9AC, \uACE7 \uC0C8\uB85C\uC6B4
-      \uC77C\uB7EC\uC2A4\uD2B8\uB97C \uBC1B\uAC8C \uB420\uD14C\uB2C8 \uC870\uAE08\uB9CC
-      \uD798\uB0B4\uBD10\uC694."
+    name: "CS \uD398\uB85C"
+    text: "\uC8FC\uC778\uB2D8, \uC548\uB155\uD558\uC138\uC694. \uB2F9\uC2E0\uC758
+      \uAC00\uC7A5 \uAC00\uAE4C\uC6B4 \uB3D9\uB8CC, \uCEF4\uD328\uB2C8\uC5B8 \uC2DC\uB9AC\uC988\uC758
+      CS \uD398\uB85C\uC785\uB2C8\uB2E4."
+    updateDuration: 0
+  - Portrait: {fileID: -943692595650219519, guid: 27d7b25874c485b4dbd33b8c614c7dd6, type: 3}
+    PortraitPosition: 2
+    name: "CS \uD398\uB85C"
+    text: "\uC9C0\uC800\uBD84\uD55C \uCCA0\uCDA9\uB4E4\uC774 \uC8FC\uC778\uB2D8\uC758
+      \uC18C\uB9E4 \uB05D\uC790\uB77D\uC5D0\uB3C4 \uBBF8\uCE60 \uC218 \uC5C6\uB3C4\uB85D,
+      \uC800 \uD398\uB85C\uAC00 \uBE48\uD2C8\uC5C6\uC774 \uACBD\uD638\uD558\uACA0\uC5B4\uC694."
+    updateDuration: 0
+  - Portrait: {fileID: -943692595650219519, guid: 27d7b25874c485b4dbd33b8c614c7dd6, type: 3}
+    PortraitPosition: 2
+    name: "CS \uD398\uB85C"
+    text: "\uC800\uB294 \uADFC\uC811\uC804\uC5D0 \uD2B9\uD654\uB418\uC5B4 \uC788\uB2F5\uB2C8\uB2E4.
+      \uB2E8\uBD84\uC790 \uD074\uB85C\uB97C \uC774\uC6A9\uD55C \uC5F0\uC18D \uACF5\uACA9\uC774
+      \uAC00\uB2A5\uD558\uC8E0. \uAC10\uD788 \uC8FC\uC778\uB2D8 \uC55E\uC744 \uAC00\uB85C\uB9C9\uB294
+      \uAC74\uBC29\uC9C4 \uAC83\uB4E4\uC744 \uAC08\uAC08\uD788 \uCC22\uC5B4 \uB193\uC744
+      \uC218 \uC788\uB2F5\uB2C8\uB2E4."
+    updateDuration: 0
+  - Portrait: {fileID: -943692595650219519, guid: 27d7b25874c485b4dbd33b8c614c7dd6, type: 3}
+    PortraitPosition: 2
+    name: "CS \uD398\uB85C"
+    text: "\uC81C\uAC8C\uB294 \uACE0\uC591\uC774\uC758 \uC720\uC804\uC790\uAC00 \uC774\uC2DD\uB418\uC5B4
+      \uC788\uC5B4\uC11C, \uC720\uC5F0\uD558\uACE0 \uC7AC\uBE60\uB978 \uAE30\uB3D9\uC774
+      \uAC00\uB2A5\uD558\uB2F5\uB2C8\uB2E4. \uBAB8\uC758 \uBC18\uB3D9\uC744 \uC774\uC6A9\uD574
+      \uACF5\uC911\uC5D0\uC11C \uB2E4\uC2DC \uD55C\uBC88 \uB6F0\uC5B4\uC62C\uB77C,
+      \uC5B4\uB9AC\uC11D\uC740 \uC801\uB4E4\uC744 \uAE30\uB9CC\uD560 \uC218 \uC788\uB2F5\uB2C8\uB2E4."
+    updateDuration: 0
+  - Portrait: {fileID: -943692595650219519, guid: 27d7b25874c485b4dbd33b8c614c7dd6, type: 3}
+    PortraitPosition: 2
+    name: "CS \uD398\uB85C"
+    text: "\uC8FC\uC778\uB2D8, \uC5B4\uB5A4 \uC77C\uC774 \uC788\uC5B4\uB3C4 \uC800
+      \uD398\uB85C\uAC00 \uC9C0\uCF1C\uB4DC\uB9AC\uACA0\uC5B4\uC694. \uC8FC\uC778\uB2D8\uC774\uC2DC\uC57C\uB9D0\uB85C
+      \uC81C\uAC8C \uADF8 \uBB34\uC5C7\uBCF4\uB2E4 \uC18C\uC911\uD55C \uC874\uC7AC\uC774\uC2DC\uB2C8\uAE4C\uC694."
     updateDuration: 0
   - Portrait: {fileID: -3415362087402567004, guid: 20701172ae8a1d643a4cbd319800ce49, type: 3}
     PortraitPosition: 1
-    name: "\uBC1C\uD0A4\uB9AC"
-    text: "\uACE0\uB9C8\uC6CC\uC694, \uD398\uB85C. \uAC01\uD558, \uC815\uB9D0\uC785\uB2C8\uAE4C?
-      \uBC18\uB4DC\uC2DC \uC8FC\uC2E4 \uAC70\uB77C\uACE0 \uBBFF\uACA0\uC2B5\uB2C8\uB2E4."
+    name: "T-8W \uBC1C\uD0A4\uB9AC"
+    text: "\uD544\uC2B9! \uC0AC\uB839\uAD00 \uAC01\uD558, T-8W \uBC1C\uD0A4\uB9AC
+      \uC784\uBB34 \uAC1C\uC2DC\uB97C \uC2E0\uACE0\uB4DC\uB9BD\uB2C8\uB2E4."
+    updateDuration: 0
+  - Portrait: {fileID: -3415362087402567004, guid: 20701172ae8a1d643a4cbd319800ce49, type: 3}
+    PortraitPosition: 1
+    name: "T-8W \uBC1C\uD0A4\uB9AC"
+    text: "\uC774\uBC88 \uC784\uBB34\uC5D0\uC11C \uC800\uB294 \uD6C4\uBC29 \uC9C0\uC6D0
+      \uC0AC\uACA9\uC744 \uBA85\uBC1B\uC558\uC2B5\uB2C8\uB2E4. \uAC01\uD558 \uC8FC\uBCC0\uC758
+      \uC704\uD5D8 \uC694\uC778\uC744 \uC0AC\uC804\uC5D0 \uCC28\uB2E8\uD558\uB294
+      \uAC83\uC774 \uC81C \uC5ED\uD560\uC785\uB2C8\uB2E4."
+    updateDuration: 0
+  - Portrait: {fileID: -3415362087402567004, guid: 20701172ae8a1d643a4cbd319800ce49, type: 3}
+    PortraitPosition: 1
+    name: "T-8W \uBC1C\uD0A4\uB9AC"
+    text: "\uC800\uB294 \uC6D0\uAC70\uB9AC \uC804\uD22C\uC5D0 \uD2B9\uD654\uB418\uC5B4\uC788\uC2B5\uB2C8\uB2E4.
+      \uC81C \uD0C4\uD658\uC740 \uB192\uC740 \uC704\uB825\uACFC \uAD00\uD1B5\uB825\uC744
+      \uAC00\uC84C\uC9C0\uB9CC, \uC5F0\uC0AC\uAC00 \uBD88\uAC00\uB2A5\uD558\uB2C8
+      \uC774\uB97C \uAF2D \uC720\uC758\uD574\uC8FC\uC2DC\uAE38 \uBD80\uD0C1\uB4DC\uB9BD\uB2C8\uB2E4."
+    updateDuration: 0
+  - Portrait: {fileID: -3415362087402567004, guid: 20701172ae8a1d643a4cbd319800ce49, type: 3}
+    PortraitPosition: 1
+    name: "T-8W \uBC1C\uD0A4\uB9AC"
+    text: "\uB610\uD55C, \uB300\uCE58 \uC0C1\uD669\uC5D0\uC11C \uC21C\uC2DD\uAC04\uC5D0
+      \uAC70\uB9AC\uB97C \uBC8C\uB824 \uC81C\uAC8C \uC720\uB9AC\uD55C \uAD6D\uBA74\uC744
+      \uB9CC\uB4E4\uC5B4\uB0BC \uC218 \uC788\uC2B5\uB2C8\uB2E4. \uD56D\uC0C1 \uCD5C\uC801
+      \uC804\uD22C \uAC70\uB9AC\uB97C \uC720\uC9C0\uD558\uB294 \uAC83\uC774 \uC81C
+      \uC804\uD22C\uC758 \uAE30\uBCF8\uC785\uB2C8\uB2E4."
+    updateDuration: 0
+  - Portrait: {fileID: -3415362087402567004, guid: 20701172ae8a1d643a4cbd319800ce49, type: 3}
+    PortraitPosition: 1
+    name: "T-8W \uBC1C\uD0A4\uB9AC"
+    text: "\uAC01\uD558, \uBD80\uB514 \uC5B4\uB5A4 \uC0C1\uD669\uC5D0\uC11C\uB3C4
+      \uB2F9\uB2F9\uD788 \uACC4\uC154\uC8FC\uC138\uC694. \uC81C\uAC00 \uAC01\uD558\uC758
+      \uB4A4\uC5D0 \uC788\uACA0\uC2B5\uB2C8\uB2E4."
     updateDuration: 0

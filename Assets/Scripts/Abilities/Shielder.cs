@@ -10,6 +10,7 @@ public class Shielder : AbilityBase
     [SerializeField] UnityEngine.Events.UnityEvent onBlocked;
 
     private Coroutine shieldEnableCoroutine = null;
+    bool isAbilityDisabled = false;
 
     protected override void Start()
     {
@@ -28,15 +29,23 @@ public class Shielder : AbilityBase
 
     public override void OnHit(IHitReactor.HitInfo hitInfo)
     {
-        if (shieldEnableCoroutine != null)
-            StopCoroutine(shieldEnableCoroutine);
-        shield.EnableFunctionality(false);
+        if(! isAbilityDisabled)
+        {
+            if (shieldEnableCoroutine != null)
+                StopCoroutine(shieldEnableCoroutine);
+            shield.EnableFunctionality(false);
 
-        shieldEnableCoroutine = StartCoroutine(Job(() => WaitForSecondsRoutine(hitInfo.stiffenTime), () => shield.EnableFunctionality(true)));
+            shieldEnableCoroutine = StartCoroutine(Job(() => WaitForSecondsRoutine(hitInfo.stiffenTime),
+                () => {
+                    shield.EnableFunctionality(true);
+                }));
+        }
     }
 
     public override void OnDead()
     {
+        isAbilityDisabled = true;
+
         if (shieldEnableCoroutine != null)
             StopCoroutine(shieldEnableCoroutine);
         shield.EnableFunctionality(false);

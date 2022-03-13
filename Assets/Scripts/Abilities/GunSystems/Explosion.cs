@@ -5,14 +5,11 @@ using UnityEngine;
 
 public class Explosion : TangibleComponent
 {
-    [SerializeField]
-    private bool shouldLerpDamage = true;
-    [SerializeField]
-    private float maxDamage = 0.5f;
-    [SerializeField]
-    private float minDamage = 0f;
-    [SerializeField]
-    private float knockBackPower = 10f;
+    [SerializeField] private bool shouldLerpDamage = true;
+    [SerializeField] private float maxDamage = 0.5f;
+    [SerializeField] private float minDamage = 0f;
+    [SerializeField] private float knockBackPower = 10f;
+    [SerializeField] private float stiffenTime = 0.5f;
 
     private CircleCollider2D circleCollider;
     protected List<GameObject> collisionException = new List<GameObject>();
@@ -49,7 +46,7 @@ public class Explosion : TangibleComponent
             Vector2 normalizedDiff = (collision.transform.position - transform.position).normalized;
             Vector2 knockBack = normalizedDiff * knockBackPower;
 
-            hitResult = reactor.Hit(new IHitReactor.HitInfo(IHitReactor.HitType.Bullet, damage, normalizedDiff, false, knockBack));
+            hitResult = reactor.Hit(new IHitReactor.HitInfo(IHitReactor.HitType.Bullet, damage, normalizedDiff, false, knockBack, stiffenTime));
             SubscribeManager.ForEach(item => item.OnHitExplosion(this, reactor, hitResult));
         }
         else

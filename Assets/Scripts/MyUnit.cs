@@ -425,12 +425,17 @@ namespace Onyx
             IHitReactor.HitReaction hitReaction = CollectAbilitiesHitReaction(hitInfo);
             IHitReactor.HitInfo reactedHitInfo = MakeReactedHit(hitInfo, hitReaction);
 
-            PlayHitAudio(reactedHitInfo);
-
             foreach (var ability in abilities)
                 ability.OnHit(reactedHitInfo);
 
-            float acceptedDamage = HandleDamage(reactedHitInfo.damage);
+            PlayHitAudio(reactedHitInfo);
+
+            float acceptedDamage = 0;
+            if (reactedHitInfo.damage != 0)
+            {
+                acceptedDamage = HandleDamage(reactedHitInfo.damage);
+            }
+                
 
             if(! IsDead)
             {
@@ -461,8 +466,7 @@ namespace Onyx
             }
             else
             {
-                float stiffenTime = (hitInfo.stiffenTime > 0f) ? hitInfo.stiffenTime : defaultStiffenTime;
-                reactedHitInfo = new IHitReactor.HitInfo(hitInfo.type, hitInfo.damage, hitInfo.direction, hitInfo.isPenetration, hitInfo.knockBackVelocity, stiffenTime);
+                reactedHitInfo = new IHitReactor.HitInfo(hitInfo.type, hitInfo.damage, hitInfo.direction, hitInfo.isPenetration, hitInfo.knockBackVelocity, hitInfo.stiffenTime);
             }
 
             return reactedHitInfo;

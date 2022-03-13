@@ -147,13 +147,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _image: {fileID: -7575921623564680698, guid: f0905feb9ff06e34db88479e6e8b7a6e, type: 3}
   type: 0
-  hitDamage: 0.1
-  hitDamageMultiplier: 0.5
+  hitDamage: 0
+  hitDamageMultiplier: 0
   shouldKilledByDistance: 1
   shouldKilledByTime: 1
   distanceLimit: 100
   timeLimit: 5
   knockBackForce: 0
+  stiffenTime: 0.5
   shootSourceId: 0
   ExplosionDelayAfterTouch: 1
   explosion: {fileID: 7326513173588650547, guid: 76cf23ea5f10c654da4e4fbd6b6a2390, type: 3}

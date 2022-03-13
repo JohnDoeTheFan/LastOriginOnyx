@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetTransform: {fileID: 9008509044947700061}
-  moveTime: 1
+  moveTime: 2
   accelerationTimePercentage: 0.25
-  waitTime: 0
+  waitTime: 1
   firstDelay: 0
 --- !u!1 &5088439972316476416
 GameObject:

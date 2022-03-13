@@ -21,6 +21,8 @@ public class DialogueBehaviour : MonoBehaviour
     public bool IsAvailable => !isPreserved;
     private bool HasNextDialogue => dialogue != null;
 
+    private bool isInput = false;
+
     private void OnEnable()
     {
         if(dialogueGui != null)
@@ -33,6 +35,12 @@ public class DialogueBehaviour : MonoBehaviour
             dialogueGui.ClickedSkipButton -= OnClickedSkipButton;
     }
 
+    public void SetInput()
+    {
+        isInput = true;
+        dialogueGui.SkipLine();
+    }
+
     private void Update()
     {
         if (Input.GetKeyDown("escape"))
@@ -42,7 +50,7 @@ public class DialogueBehaviour : MonoBehaviour
 
         if (Input.GetKeyDown("z"))
         {
-            dialogueGui.SkipLine();
+            SetInput();
         }
     }
 
@@ -130,8 +138,12 @@ public class DialogueBehaviour : MonoBehaviour
             bool isLineFinished = false;
             dialogueGui.StartLine(new Line(GetDialogue()), () => isLineFinished = true);
             yield return new WaitUntil(() => isLineFinished);
+            isInput = false;
+
             yield return null;
-            yield return new WaitUntil(() => Input.GetKeyDown("z"));
+
+            yield return new WaitUntil(() => isInput);
+            isInput = false;
         }
 
         FinishDialogue();

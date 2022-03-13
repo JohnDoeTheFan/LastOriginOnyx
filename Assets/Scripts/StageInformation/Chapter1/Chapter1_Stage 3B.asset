@@ -26,8 +26,10 @@ MonoBehaviour:
   description: "\uD3EC\uCE08\uC740 \uD769\uC5B4\uC9C4 \uBC14\uC774\uC624\uB85C\uC774\uB4DC\uB4E4\uC744
     \uCC3E\uAE30 \uC704\uD55C \uC804\uD22C\uB97C \uBD80\uD0C1\uD55C\uB2E4."
   neededPower: 750
+  openingDialogue: {fileID: 0}
+  endingDialogue: {fileID: 0}
   battleRoomPrefabs:
-  - {fileID: 1124728532761162951, guid: a83d8259c0d1afd47a67004c3a97679a, type: 3}
+  - {fileID: 654169757907289586, guid: 3334994c1392bf64f8297aa7c67f7cb1, type: 3}
   - {fileID: 1124728532761162951, guid: a83d8259c0d1afd47a67004c3a97679a, type: 3}
   - {fileID: 1124728532761162951, guid: a83d8259c0d1afd47a67004c3a97679a, type: 3}
   - {fileID: 1124728532761162951, guid: a83d8259c0d1afd47a67004c3a97679a, type: 3}

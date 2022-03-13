@@ -17,6 +17,7 @@ public class Thrower : AbilityBase, ThrowBulletBundle.IThrowBulletBundleReactor
     [SerializeField] private GameObject killReward;
     [SerializeField] private AbilitySpecificGui<Thrower> abilitySpecificGui;
     [SerializeField] private MultiplierPerLevel damageMultipliers;
+    [SerializeField] private AudioSource throwingAudio;
 
     public Bullet Bullet => bullet;
     public int BulletCount => bulletCount;
@@ -67,6 +68,10 @@ public class Thrower : AbilityBase, ThrowBulletBundle.IThrowBulletBundleReactor
             newBullet.Propel(throwForce);
 
             bulletCount--;
+
+            if(throwingAudio != null)
+                throwingAudio.Play();
+
             SubscribeManager.ForEach(item => item.OnBulletCountChanged(this));
         }
     }

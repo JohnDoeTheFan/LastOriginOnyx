@@ -154,6 +154,7 @@ MonoBehaviour:
   distanceLimit: 100
   timeLimit: 5
   knockBackForce: 0
+  stiffenTime: 0
   shootSourceId: 0
   ExplosionDelayAfterTouch: 1
   explosion: {fileID: 7326513173588650547, guid: a94183d56c052a1489a0ae7b5db27bcd, type: 3}

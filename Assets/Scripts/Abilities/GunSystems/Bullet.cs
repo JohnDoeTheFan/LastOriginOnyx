@@ -23,6 +23,8 @@ public partial class Bullet : TangibleComponent, IHitReactor
     private float timeLimit = 5f;
     [SerializeField]
     private float knockBackForce = 0f;
+    [SerializeField]
+    private float stiffenTime = 0.5f;
 
     [HideInInspector]
     public int shootSourceId;
@@ -76,7 +78,7 @@ public partial class Bullet : TangibleComponent, IHitReactor
         }
         else
         {
-            IHitReactor.HitResult hitResult = reactor.Hit(new IHitReactor.HitInfo(IHitReactor.HitType.Bullet, multipliedHitDamage, velocityBeforePhysicsUpdate.normalized, false));
+            IHitReactor.HitResult hitResult = reactor.Hit(new IHitReactor.HitInfo(IHitReactor.HitType.Bullet, multipliedHitDamage, velocityBeforePhysicsUpdate.normalized, false, Vector3.zero, stiffenTime));
             SubscribeManager.ForEach(item => item.OnHit(this, reactor, hitResult));
             Ricochet(collision);
         }
@@ -104,7 +106,7 @@ public partial class Bullet : TangibleComponent, IHitReactor
             else if (velocityBeforePhysicsUpdate.x < 0)
                 knockBack.x -= knockBackForce;
 
-            IHitReactor.HitResult hitResult = reactor.Hit(new IHitReactor.HitInfo(IHitReactor.HitType.Bullet, multipliedHitDamage, velocityBeforePhysicsUpdate.normalized, false, knockBack));
+            IHitReactor.HitResult hitResult = reactor.Hit(new IHitReactor.HitInfo(IHitReactor.HitType.Bullet, multipliedHitDamage, velocityBeforePhysicsUpdate.normalized, false, knockBack, stiffenTime));
             SubscribeManager.ForEach(item => item.OnHit(this, reactor, hitResult));
             Ricochet(collision);
         }

@@ -28,7 +28,7 @@ MonoBehaviour:
     \uB3CC\uD30C\uD574 \uD0C8\uCD9C\uD558\uB824 \uD55C\uB2E4."
   neededPower: 150
   openingDialogue: {fileID: 11400000, guid: d7fd6d9d12a6a6f4bb5edf969a073e57, type: 2}
-  endingDialogue: {fileID: 11400000, guid: d7fd6d9d12a6a6f4bb5edf969a073e57, type: 2}
+  endingDialogue: {fileID: 0}
   battleRoomPrefabs:
   - {fileID: 654169757907289586, guid: 43a2c19c3a4b2534fb9b0421289d4d58, type: 3}
   - {fileID: 654169757907289586, guid: be27dd0e31b65a64a928f012db76ebda, type: 3}
