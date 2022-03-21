@@ -19,17 +19,18 @@ public class BioroidInformationDisplayer : MonoBehaviour
 
         ReadOnlyCollection<BioroidInformation.AbilityDescription> abilities = bioroid.Abilities;
 
-        for(int i = 0; i < abilityDisplays.Count; i++)
+        for (int i = 0; i < abilityDisplays.Count; i++)
         {
-            if(abilities.Count > i)
+            if (abilities.Count > i)
             {
                 abilityDisplays[i].abilityName.text = abilities[i].abilityName;
                 abilityDisplays[i].abilityDescription.text = abilities[i].description;
 
-                for(int j = 0; j < abilityDisplays[i].skillDisplays.Count; j++)
+                for (int j = 0; j < abilityDisplays[i].skillDisplays.Count; j++)
                 {
-                    if(abilities[i].skills.Count > j)
+                    if (abilities[i].skills.Count > j)
                     {
+                        abilityDisplays[i].skillDisplays[j].icon.gameObject.SetActive(true);
                         abilityDisplays[i].skillDisplays[j].icon.sprite = abilities[i].skills[j].image;
                         abilityDisplays[i].skillDisplays[j].skillName.text = abilities[i].skills[j].skillName;
                         abilityDisplays[i].skillDisplays[j].skillDescription.text = abilities[i].skills[j].description;
@@ -40,6 +41,17 @@ public class BioroidInformationDisplayer : MonoBehaviour
                         abilityDisplays[i].skillDisplays[j].skillName.text = "";
                         abilityDisplays[i].skillDisplays[j].skillDescription.text = "";
                     }
+                }
+            }
+            else
+            {
+                abilityDisplays[i].abilityName.text = "-";
+                abilityDisplays[i].abilityDescription.text = "-";
+                for (int j = 0; j < abilityDisplays[i].skillDisplays.Count; j++)
+                {
+                    abilityDisplays[i].skillDisplays[j].icon.gameObject.SetActive(false);
+                    abilityDisplays[i].skillDisplays[j].skillName.text = "";
+                    abilityDisplays[i].skillDisplays[j].skillDescription.text = "";
                 }
             }
         }

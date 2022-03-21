@@ -105,13 +105,18 @@ public class BattleMapGameMode : MonoBehaviourBase
                 OnyxGameInstance.instance.BgmAudioSource.clip = bgm;
                 OnyxGameInstance.instance.BgmAudioSource.Play();
                 fadeGui.ForceFadeIn();
-                stageSceneTransitionGui.StartDissolveIn(false, ()=> InitCombatantList());
+                stageSceneTransitionGui.StartDissolveIn(false, ()=> AfterAll());
             }
             else
                 fadeGui.StartFadeIn(AfterFadeIn);
         }
 
         void AfterFadeIn(FadeGui.FinishStatus finishStatus)
+        {
+            AfterAll();
+        }
+
+        void AfterAll()
         {
             InitSkillList();
             InitCombatantList();
