@@ -29,11 +29,14 @@ MonoBehaviour:
       \uC8FC\uC758. \uC801\uC744 \uCC98\uCE58 \uC2DC \uCD1D\uC54C\uC744 \uB4DC\uB78D\uD569\uB2C8\uB2E4."
     skills:
     - image: {fileID: 21300000, guid: 350cd70d0b0f0674b85348444e5e83a6, type: 3}
-      skillName: "\uC0AC\uACA9"
-      description: "\uBC31\uBC1C\uBC31\uC911!"
+      skillName: "\uC18C\uCD1D \uC0AC\uACA9"
+      description: "\uB3CC\uACA9 \uC18C\uCD1D\uC73C\uB85C \uC0AC\uACA9\uD569\uB2C8\uB2E4.
+        \uD640\uB4DC\uD558\uB294 \uAC83\uC73C\uB85C \uC5F0\uC0AC\uD560 \uC218 \uC788\uC2B5\uB2C8\uB2E4."
     - image: {fileID: 21300000, guid: 1f8e808953be1f74ab0cdf1062ab11fa, type: 3}
       skillName: "\uC7AC\uC7A5\uC804"
-      description: "\uC5C4\uD3D0 \uD6C4 \uC0AC\uC6A9\uD558\uC138\uC694."
+      description: "\uC18C\uCD1D\uC744 \uC7AC\uC7A5\uC804\uD569\uB2C8\uB2E4. \uC794\uD0C4\uC774
+        \uC5C6\uC73C\uBA74 '\uC18C\uCD1D \uC5F0\uC0AC'\uB97C \uC0AC\uC6A9\uD560 \uC218
+        \uC5C6\uC73C\uBBC0\uB85C \uC8FC\uAE30\uC801\uC73C\uB85C \uC7AC\uC7A5\uC804\uD574\uC8FC\uC138\uC694."
   - image: {fileID: 0}
     abilityName: "\uBCF4\uBCD1"
     description: "\uBE0C\uB77C\uC6B0\uB2C8\uC758 \uD0C1\uC6D4\uD55C \uAE30\uB3D9\uB825\uC73C\uB85C
@@ -41,11 +44,13 @@ MonoBehaviour:
     skills:
     - image: {fileID: 21300000, guid: b5d332b57f7c81a49981dc899e702a8e, type: 3}
       skillName: "\uB3C4\uC57D"
-      description: "\uACF5\uC911\uC5D0\uC11C\uB294 \uB098\uC774\uD2B8\uCE59 \uB7F0\uCCD0\uC758
-        \uACF5\uACA9\uC5D0 \uC8FC\uC758!"
+      description: "\uD55C\uC21C\uAC04 \uB3C4\uC57D\uD574\uC11C \uB192\uC740 \uACF3\uC5D0
+        \uB3C4\uB2EC\uD560 \uC218 \uC788\uC2B5\uB2C8\uB2E4."
     - image: {fileID: 21300000, guid: 1f4758625312b9846bc56456dc98f7c1, type: 3}
       skillName: "\uC2E0\uC18D \uC774\uB3D9"
-      description: "\uADF8\uAC74 \uC81C \uC794\uC0C1\uC785\uB2C8\uB2E4."
+      description: "\uC55E\uC73C\uB85C \uD55C\uC21C\uAC04\uC758 \uB300\uC2DC\uB85C
+        \uBE60\uB974\uAC8C \uC774\uB3D9\uD569\uB2C8\uB2E4. \uACF5\uC911\uC5D0\uC11C\uB3C4
+        \uC0AC\uC6A9\uD560 \uC218 \uC788\uC2B5\uB2C8\uB2E4."
   - image: {fileID: 0}
     abilityName: "\uCC99\uD0C4\uBCD1"
     description: "\uC548\uC804\uD540? \uC774\uAC70 \uB9D0\uC784\uAE4C?"

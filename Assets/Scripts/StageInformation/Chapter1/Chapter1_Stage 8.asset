@@ -19,13 +19,15 @@ MonoBehaviour:
   nextStages:
     nextNormalStage: {fileID: 0}
     nextSideStage: {fileID: 0}
-    nextExStage: {fileID: 11400000, guid: 5514e6e7f4c637f42bb8e6d574f563e1, type: 2}
-  isCleared: 0
+    nextExStage: {fileID: 0}
+  isCleared: 1
   stageScene: 3
   title: "\uC704\uD5D8\uD55C \uBBF8\uB07C"
   description: "\uBC14\uC774\uC624\uB85C\uC774\uB4DC\uB4E4\uC740 \uD568\uC815\uC5D0
     \uAC78\uB9B0 \uC801\uC744 \uCC3E\uAE30 \uC704\uD574 \uC6C0\uC9C1\uC778\uB2E4."
   neededPower: 1350
+  openingDialogue: {fileID: 11400000, guid: 52f40eb8a8b337c4cbb30f1dbc636353, type: 2}
+  endingDialogue: {fileID: 11400000, guid: 52f40eb8a8b337c4cbb30f1dbc636353, type: 2}
   battleRoomPrefabs:
   - {fileID: 654169757907289586, guid: 74c8fb90d2241474296eb7a468cb6749, type: 3}
   - {fileID: 654169757907289586, guid: ea48e399be30b3b4dad6c36e4ad86b3a, type: 3}

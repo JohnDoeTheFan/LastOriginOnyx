@@ -18,26 +18,31 @@ MonoBehaviour:
   portrait: {fileID: -5012922847627532625, guid: 20701172ae8a1d643a4cbd319800ce49, type: 3}
   bioroidName: "T-8W \uBC1C\uD0A4\uB9AC"
   description: "\uC624\uB974\uCE74\uC758 \uD558\uC580 \uC0AC\uC2E0 \uBC1C\uD0A4\uB9AC\uC785\uB2C8\uB2E4."
-  unlockCost: 5000
-  unlockLevel: 6
+  unlockCost: 2000
+  unlockLevel: 4
   greetingAudioClip: {fileID: 8300000, guid: b8e3d23fbf70eb444a1206d23a40f880, type: 3}
   abilities:
   - image: {fileID: 0}
     abilityName: "\uC800\uACA9\uC218"
-    description: "\uC6D0\uAC70\uB9AC\uC5D0\uC11C \uC801\uC744 \uB178\uB9BD\uB2C8\uB2E4."
+    description: "\uC6D0\uAC70\uB9AC\uC5D0\uC11C \uC801\uC744 \uB178\uB9BD\uB2C8\uB2E4.
+      \uB2E4\uC218\uC758 \uC801\uC744 \uAD00\uD1B5\uD558\uC5EC \uD53C\uD574\uB97C
+      \uC785\uD790 \uC218 \uC788\uC2B5\uB2C8\uB2E4."
     skills:
     - image: {fileID: -5211126068039927470, guid: 4095d15a814cd5d4a97541567f1de4bd, type: 3}
       skillName: "\uB098\uC548 \uC0AC\uACA9"
-      description: "\uBC1C\uD0A4\uB9AC\uC758 \uC758\uC548\uC740 \uC801\uC744 \uB193\uCE58\uC9C0
-        \uC54A\uC2B5\uB2C8\uB2E4."
+      description: "\uC801\uC744 \uD5A5\uD574 \uAC15\uB825\uD55C \uC0AC\uACA9\uC744
+        \uC2E4\uD589\uD569\uB2C8\uB2E4. \uAC15\uB825\uD55C \uBC18\uB3D9\uC5D0 \uC8FC\uC758\uD574\uC8FC\uC138\uC694."
   - image: {fileID: 0}
-    abilityName: "\uBCF4\uBCD1"
+    abilityName: "\uD2B9\uC218 \uBCF4\uBCD1"
     description: "\uBC1C\uD0A4\uB9AC\uB294 \uD2B9\uC218 \uD658\uACBD\uC5D0\uC11C\uB3C4
       \uC804\uD22C\uAC00 \uAC00\uB2A5\uD569\uB2C8\uB2E4."
     skills:
     - image: {fileID: 1451995185108432238, guid: 4095d15a814cd5d4a97541567f1de4bd, type: 3}
-      skillName: "\uC810\uD504"
-      description: "\uACE0\uC9C0\uB97C \uC120\uC810\uD569\uB2C8\uB2E4."
+      skillName: "\uB3C4\uC57D"
+      description: "\uD55C\uC21C\uAC04 \uB3C4\uC57D\uD574\uC11C \uB192\uC740 \uACF3\uC5D0
+        \uB3C4\uB2EC\uD560 \uC218 \uC788\uC2B5\uB2C8\uB2E4."
     - image: {fileID: -374743942425420422, guid: 4095d15a814cd5d4a97541567f1de4bd, type: 3}
-      skillName: "\uB300\uC26C"
-      description: "\uC2E0\uC18D\uD788 \uC774\uB3D9\uD569\uB2C8\uB2E4."
+      skillName: "\uAC70\uB9AC \uBC8C\uB9AC\uAE30"
+      description: "\uB4A4\uB85C \uBE60\uB974\uAC8C \uC774\uB3D9\uD558\uC5EC \uAC70\uB9AC\uB97C
+        \uBC8C\uB9BD\uB2C8\uB2E4. \uACF5\uC911\uC5D0\uC11C\uB3C4 \uC0AC\uC6A9\uD560
+        \uC218 \uC788\uC2B5\uB2C8\uB2E4."

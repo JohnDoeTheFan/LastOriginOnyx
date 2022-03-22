@@ -110,7 +110,7 @@ public class OnyxGameMode : RunAndGunGameMode
             Destroy(missionStartSequence.gameObject);
 
             if (OnyxGameInstance.instance.StageInfoForStageScene.OpeningDialogue != null)
-                GetComponent<DialogueBehaviour>().StartDialogueDeck(startingDialogue, AfterOpeningDialogue);
+                GetComponent<DialogueBehaviour>().StartDialogueDeck(OnyxGameInstance.instance.StageInfoForStageScene.OpeningDialogue, AfterOpeningDialogue);
             else
                 AfterOpeningDialogue();
         }
@@ -323,7 +323,7 @@ public class OnyxGameMode : RunAndGunGameMode
         systemControl = false;
 
         if (OnyxGameInstance.instance.StageInfoForStageScene.EndingDialogue != null)
-            GetComponent<DialogueBehaviour>().StartDialogueDeck(startingDialogue, AfterEndingDialogue);
+            GetComponent<DialogueBehaviour>().StartDialogueDeck(OnyxGameInstance.instance.StageInfoForStageScene.EndingDialogue, AfterEndingDialogue);
         else
             AfterEndingDialogue();
 

@@ -10648,7 +10648,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameStartPosition: {fileID: 213440514}
   playerControlEnable: 1
-  startingDialogue: {fileID: 11400000, guid: d7fd6d9d12a6a6f4bb5edf969a073e57, type: 2}
+  startingDialogue: {fileID: 0}
   mainCamera: {fileID: 1654023881}
   debugGui: {fileID: 0}
   fadeGui: {fileID: 1926117881}
@@ -10684,7 +10684,7 @@ MonoBehaviour:
   followerWithCamera: {fileID: 1654023884}
   startRoom: {fileID: 13973662}
   endRoomPrefab: {fileID: 738292721402749424, guid: 5e1a2423fd186f94b93e4d5a4540fe49, type: 3}
-  testRoomPrefab: {fileID: 654169757907289586, guid: 1ff90be2d329de64caa703c3448e1895, type: 3}
+  testRoomPrefab: {fileID: 0}
   bgm: {fileID: 8300000, guid: 4b49b3294ea687e49bb536d75028982d, type: 3}
   voiceAudioSource: {fileID: 1787502278}
 --- !u!1 &1654023879
