@@ -21,7 +21,7 @@ public class BattleMapGameMode : MonoBehaviourBase
     [SerializeField] private Text stageNum;
     [SerializeField] private Text stageTitle;
     [SerializeField] private Text stageDescription;
-    [SerializeField] private Text stageNeededPower;
+    [SerializeField] private Text stageNeededLevel;
     [Header("Chapter And Stage Parsing")]
     [SerializeField] private ThreeStateToggleGroup<ChapterInformation> chapterGroup;
     [SerializeField] private ThreeStateToggleGroup<StageInformation> stageGroup;
@@ -209,7 +209,7 @@ public class BattleMapGameMode : MonoBehaviourBase
         stageNum.text = String.Format("{0}-{1}", stageInfo.ChapterNumber, stageInfo.StageNumber);
         stageTitle.text = stageInfo.Title;
         stageDescription.text = stageInfo.Description;
-        stageNeededPower.text = stageInfo.NeededPower.ToString();
+        stageNeededLevel.text = stageInfo.NeededLevel.ToString();
     }
 
     private void OnChangeChapterSelection(ChapterInformation chapterInfo)

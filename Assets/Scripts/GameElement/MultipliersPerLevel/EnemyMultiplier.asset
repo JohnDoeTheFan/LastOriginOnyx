@@ -13,23 +13,23 @@ MonoBehaviour:
   m_Name: EnemyMultiplier
   m_EditorClassIdentifier: 
   levelAndMultipliers:
-  - level: 150
+  - level: 1
+    multiplier: 0.8
+  - level: 2
     multiplier: 1
-  - level: 300
+  - level: 3
+    multiplier: 1.2
+  - level: 4
     multiplier: 1.4
-  - level: 750
+  - level: 5
+    multiplier: 1.6
+  - level: 6
     multiplier: 1.8
-  - level: 1350
+  - level: 7
+    multiplier: 2
+  - level: 8
     multiplier: 2.2
-  - level: 1650
-    multiplier: 2.7
-  - level: 3000
-    multiplier: 3.2
-  - level: 4500
-    multiplier: 3.7
-  - level: 4950
-    multiplier: 4.3
-  - level: 6250
-    multiplier: 4.9
-  - level: 6500
-    multiplier: 5.5
+  - level: 9
+    multiplier: 2.4
+  - level: 10
+    multiplier: 2.6

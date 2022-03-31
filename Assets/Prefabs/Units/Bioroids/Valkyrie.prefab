@@ -449,7 +449,7 @@ MonoBehaviour:
   skill1Sprite: {fileID: -5211126068039927470, guid: 4095d15a814cd5d4a97541567f1de4bd, type: 3}
   groundCombos:
   - duration: 1
-    damageMultiplier: 2.5
+    damageMultiplier: 4
     nextComboInputStart: 0.3
     nextComboInputDuration: 0.2
     canUseInAir: 0
@@ -465,7 +465,7 @@ MonoBehaviour:
       data: {fileID: 1818310115581396242}
   airCombos:
   - duration: 1
-    damageMultiplier: 2.5
+    damageMultiplier: 4
     nextComboInputStart: 0.3
     nextComboInputDuration: 0
     canUseInAir: 1

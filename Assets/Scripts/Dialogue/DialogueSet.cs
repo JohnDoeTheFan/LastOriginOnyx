@@ -19,7 +19,7 @@ public class DialogueSet : ScriptableObject
         public Sprite Portrait;
         public PortraitPosition PortraitPosition;
         public string name;
-        public string text;
+        [TextArea]public string text;
         public float updateDuration;
     }
 

@@ -44,6 +44,8 @@ public class DialogueGui : MonoBehaviour
 
     public void Clear()
     {
+        isPreserved = false;
+
         leftPortrait.sprite = null;
         centerPortrait.sprite = null;
         rightPortrait.sprite = null;

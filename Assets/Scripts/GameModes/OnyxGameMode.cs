@@ -278,7 +278,7 @@ public class OnyxGameMode : RunAndGunGameMode
             {
                 myUnit.SubscribeManager.Subscribe(new UnitSubscriber(OnDeathEnemyUnit, OnUnitDamageOrHeal));
                 if(OnyxGameInstance.instance.StageInfoForStageScene != null)
-                    myUnit.SetLevelOfDifficulty(OnyxGameInstance.instance.StageInfoForStageScene.NeededPower);
+                    myUnit.SetLevelOfDifficulty(OnyxGameInstance.instance.StageInfoForStageScene.NeededLevel);
             }
                 
         };
@@ -494,11 +494,11 @@ public class OnyxGameMode : RunAndGunGameMode
 
         float mainCameraHeight = mainCamera.orthographicSize * 2;
         float commandPanelHeight = mainCameraHeight * heightPercentageOfCommandPanel;
-        followerWithCamera.SetMargin(new Vector2(0, -1 * commandPanelHeight / 2));
+        Vector2 cameraMargin = new Vector2(0, -1 * commandPanelHeight / 2);
 
         Bounds tileMapBounds = battleRoom.CalcTileMapBounds();
 
-        followerWithCamera.limit = CalcCameraFollowerLimit(tileMapBounds, newOrthographicSize, mainCamera.aspect, followerWithCamera.Margin, battleRoom.GridCellSize);
+        followerWithCamera.limit = CalcCameraFollowerLimit(tileMapBounds, newOrthographicSize, mainCamera.aspect, cameraMargin, battleRoom.GridCellSize);
         followerWithCamera.SetShouldLimit(true);
     }
 

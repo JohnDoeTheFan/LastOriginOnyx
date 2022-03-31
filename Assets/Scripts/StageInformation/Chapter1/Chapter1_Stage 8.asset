@@ -25,8 +25,8 @@ MonoBehaviour:
   title: "\uC704\uD5D8\uD55C \uBBF8\uB07C"
   description: "\uBC14\uC774\uC624\uB85C\uC774\uB4DC\uB4E4\uC740 \uD568\uC815\uC5D0
     \uAC78\uB9B0 \uC801\uC744 \uCC3E\uAE30 \uC704\uD574 \uC6C0\uC9C1\uC778\uB2E4."
-  neededPower: 1350
-  openingDialogue: {fileID: 11400000, guid: 52f40eb8a8b337c4cbb30f1dbc636353, type: 2}
+  neededLevel: 8
+  openingDialogue: {fileID: 0}
   endingDialogue: {fileID: 11400000, guid: 52f40eb8a8b337c4cbb30f1dbc636353, type: 2}
   battleRoomPrefabs:
   - {fileID: 654169757907289586, guid: 74c8fb90d2241474296eb7a468cb6749, type: 3}

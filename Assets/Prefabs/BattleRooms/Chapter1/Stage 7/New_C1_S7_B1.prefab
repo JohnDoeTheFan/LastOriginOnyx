@@ -64928,9 +64928,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4976261629248711605, guid: cd6c3c90e630951469a04432dda7befe, type: 3}
+      propertyPath: m_Size.x
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4976261629248711609, guid: cd6c3c90e630951469a04432dda7befe, type: 3}
       propertyPath: m_Name
       value: OneWayPlatform (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4976261629248711610, guid: cd6c3c90e630951469a04432dda7befe, type: 3}
+      propertyPath: m_SpriteTilingProperty.newSize.x
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cd6c3c90e630951469a04432dda7befe, type: 3}

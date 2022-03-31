@@ -21,7 +21,7 @@ public class StageInformation : ScriptableObject
     [SerializeField] private StageScenesToBeBuild stageScene;
     [SerializeField] private string title;
     [SerializeField] private string description;
-    [SerializeField] private int neededPower;
+    [SerializeField] private int neededLevel;
     [SerializeField] private DialogueDeck openingDialogue;
     [SerializeField] private DialogueDeck endingDialogue;
 
@@ -40,7 +40,7 @@ public class StageInformation : ScriptableObject
     public StageScenesToBeBuild StageScene => stageScene;
     public string Title => title;
     public string Description => description;
-    public int NeededPower => neededPower;
+    public int NeededLevel => neededLevel;
     public ReadOnlyCollection<BattleRoom> BattleRoomPrefabs => battleRoomPrefabs.AsReadOnly();
     public DialogueDeck OpeningDialogue => openingDialogue;
     public DialogueDeck EndingDialogue => endingDialogue;

@@ -11,7 +11,7 @@ public class BioroidInformation : ScriptableObject
     [SerializeField] private Sprite image;
     [SerializeField] private Sprite portrait;
     [SerializeField] private string bioroidName;
-    [SerializeField] private string description;
+    [SerializeField] [TextArea] private string description;
     [SerializeField] private int unlockCost;
     [SerializeField] private int unlockLevel;
     [SerializeField] private AudioClip greetingAudioClip;
@@ -34,7 +34,7 @@ public class BioroidInformation : ScriptableObject
     {
         public Sprite image;
         public string abilityName;
-        public string description;
+        [TextArea] public string description;
 
         public List<SkillDescription> skills;
 
@@ -43,7 +43,7 @@ public class BioroidInformation : ScriptableObject
         {
             public Sprite image;
             public string skillName;
-            public string description;
+            [TextArea] public string description;
         }
     }
 }
